@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nefes">
+<meta name="theme-color" content="#0C1A1E">
+<title>Nefes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0C1A1E;--surface:#132A31;--line:#1F3F48;--air:#6FD6C0;--ember:#E9A23B;--bone:#E7F0EE;--muted:#7C979E;
+--mono:"Space Mono",ui-monospace,monospace;--sans:"Space Grotesk",system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--ink);color:var(--bone);font-family:var(--sans)}
+body{padding:calc(env(safe-area-inset-top) + 26px) 20px calc(env(safe-area-inset-bottom) + 48px);max-width:520px;margin:0 auto;-webkit-font-smoothing:antialiased;animation:fadeIn 0.5s ease-out}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--air);outline-offset:3px;border-radius:4px}
+.hidden{display:none!important}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(111,214,192,0.15); transform: scale(1); }
+  50% { box-shadow: 0 0 24px rgba(111,214,192,0.35); transform: scale(1.015); }
+}
+@keyframes lungBreathe {
+  0%, 100% { transform: scale(0.95); filter: drop-shadow(0 0 2px rgba(111,214,192,0.2)); }
+  50% { transform: scale(1.05); filter: drop-shadow(0 0 10px rgba(111,214,192,0.5)); }
+}
+
+/* setup */
+.setup{position:fixed;inset:0;background:var(--ink);z-index:80;overflow-y:auto;
+  padding:calc(env(safe-area-inset-top) + 54px) 24px calc(env(safe-area-inset-bottom) + 40px);display:none}
+.setup.open{display:block;animation:fadeIn 0.3s ease-out}
+.setup .wrap{max-width:420px;margin:0 auto}
+.step{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.18em;margin-bottom:18px}
+.q{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.qs{font-size:14px;color:var(--muted);margin-top:12px;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:30px}
+.opt{padding:16px 18px;border:1px solid var(--line);border-radius:14px;text-align:left;font-size:15px;transition:all .2s ease}
+.opt:active,.opt.sel{border-color:var(--air);background:rgba(111,214,192,.09);transform:translateX(3px)}
+.bigin{width:100%;font-family:var(--mono);font-size:34px;font-weight:700;color:var(--air);background:none;
+  border:none;border-bottom:1.5px solid var(--line);padding:14px 0;text-align:center;margin-top:26px;transition:border-color .2s}
+.bigin:focus{outline:none;border-bottom-color:var(--air)}
+.unit{text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px}
+.nav{display:flex;gap:10px;margin-top:34px}
+.nav button{flex:1;padding:16px;border-radius:100px;font-size:15px;font-weight:700;transition:transform .15s}
+.nav button:active{transform:scale(.97)}
+.pri{background:var(--air);color:#06171A}
+.sec{border:1px solid var(--line);color:var(--muted);font-weight:500!important;flex:0 0 90px!important}
+.dtin{width:100%;font-family:var(--mono);font-size:15px;color:var(--bone);background:var(--surface);
+  border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:16px}
+
+/* hero */
+.hero{text-align:center;padding:6px 0 22px}
+.since{margin-bottom:22px}
+.since b{display:block;font-family:var(--mono);font-size:12.5px;margin-top:6px;font-weight:400}
+.count{font-family:var(--mono);font-weight:700;font-size:clamp(64px,21vw,100px);line-height:.86;letter-spacing:-.04em;color:var(--air);font-variant-numeric:tabular-nums;transition:transform .3s}
+.count small{font-size:.26em;letter-spacing:.12em;color:var(--muted);display:block;margin-top:12px;font-weight:400}
+.clock{font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:13px;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+
+.now-card{background:var(--surface);border-radius:16px;padding:18px;margin-bottom:16px;border-left:3px solid var(--air);transition:transform .2s ease, box-shadow .2s ease}
+.now-card:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.now-card .lbl{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.14em;text-transform:uppercase}
+.now-card .msg{font-size:14.5px;line-height:1.5;margin-top:9px}
+.now-card .nxt{font-size:12.5px;color:var(--muted);margin-top:14px;display:flex;justify-content:space-between;gap:10px}
+.now-card .nxt span:last-child{font-family:var(--mono);flex:none;font-variant-numeric:tabular-nums}
+.thin{height:3px;background:var(--line);border-radius:3px;margin-top:9px;overflow:hidden}
+.thin i{display:block;height:100%;background:var(--air);transition:width .4s ease}
+.crave{display:block;width:100%;padding:19px;margin:0 0 24px;background:var(--air);color:#06171A;border-radius:100px;font-size:17px;font-weight:700;animation:pulseGlow 3s infinite ease-in-out;transition:transform .15s}
+.crave:active{transform:scale(.96)}
+
+/* lung card */
+.lung-card{background:var(--surface);border-radius:16px;padding:18px;margin-bottom:24px;display:flex;align-items:center;gap:18px;border:1px solid rgba(111,214,192,.18);position:relative;overflow:hidden;transition:transform .2s ease}
+.lung-card:hover{transform:translateY(-2px)}
+.lung-visual{width:76px;height:76px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(12,26,30,.5);border-radius:50%;border:1px solid var(--line)}
+.lung-svg{width:54px;height:54px;animation:lungBreathe 4s ease-in-out infinite}
+.lung-info{flex:1;min-width:0}
+.lung-info .lbl{font-family:var(--mono);font-size:10.5px;color:var(--air);letter-spacing:.14em;text-transform:uppercase}
+.lung-info .val{font-family:var(--mono);font-size:22px;font-weight:700;margin-top:2px;color:var(--bone)}
+.lung-info .desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+
+section{margin-bottom:32px}
+.head{display:flex;align-items:baseline;gap:10px;padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.head .eyebrow{flex:1}
+.head button{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.06em}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.stat{background:var(--surface);border-radius:14px;padding:16px 15px;transition:transform .2s ease, background-color .2s ease}
+.stat:hover{transform:translateY(-2px)}
+.stat .v{font-family:var(--mono);font-size:25px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .k{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.35}
+.stat.hi{background:rgba(111,214,192,.11)} .stat.hi .v{color:var(--air)}
+.stat.full{grid-column:1 / -1;background:rgba(19,42,49,.8);border:1px stroke var(--line)}
+
+.goal{background:var(--surface);border-radius:14px;padding:16px;margin-top:11px}
+.goal .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px}
+.goal .top span{font-family:var(--mono);font-size:12px;color:var(--air);flex:none}
+.goal .note{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45}
+
+.rings{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}
+.ring{text-align:center}
+.ring svg{width:100%;max-width:74px;display:block;margin:0 auto;transition:transform .3s ease}
+.ring:hover svg{transform:scale(1.05)}
+.ring .rl{font-size:10.5px;color:var(--muted);margin-top:7px;line-height:1.3}
+.ring text{font-family:var(--mono);font-size:15px;fill:var(--bone);font-weight:700}
+
+.chart{background:var(--surface);border-radius:14px;padding:16px 14px 12px;margin-bottom:12px;transition:transform .2s ease}
+.chart:hover{transform:translateY(-2px)}
+.chart .ct{font-size:13px;margin-bottom:2px;font-weight:500}
+.chart .cs{font-size:11.5px;color:var(--muted);margin-bottom:14px;line-height:1.4}
+.chart svg{width:100%;display:block;overflow:visible}
+.chart .ax{font-family:var(--mono);font-size:9px;fill:var(--muted)}
+.legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);margin-bottom:12px}
+.legend i{display:inline-block;width:16px;height:2px;vertical-align:middle;margin-right:6px;border-radius:2px}
+
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+.tbl th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 0;border-bottom:1px solid var(--line);font-weight:400}
+.tbl th:first-child{text-align:left}
+.tbl td{padding:10px 0;border-bottom:1px solid var(--line);text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.tbl td:first-child{text-align:left;font-family:var(--sans);color:var(--muted)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .gain{color:var(--air)}
+.tbl .fell{color:var(--ember)}
+
+.grid91{display:grid;grid-template-columns:repeat(13,1fr);gap:4px;margin-top:4px}
+.cell{aspect-ratio:1;border-radius:2.5px;background:var(--line);opacity:.45;transition:transform .15s}
+.cell:hover{transform:scale(1.2);opacity:1}
+.cell.on{background:var(--air);opacity:1}
+.cell.reset{background:var(--ember);opacity:1}
+
+.bgroup{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
+.bgroup:first-child{margin-top:0}
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.badge{background:var(--surface);border-radius:12px;padding:11px 5px;text-align:center;opacity:.3;transition:all .2s ease}
+.badge.got{opacity:1;background:rgba(111,214,192,.11)}
+.badge.got:hover{transform:translateY(-2px);background:rgba(111,214,192,.18)}
+.badge .bn{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--muted)}
+.badge.got .bn{color:var(--air)}
+.badge .bl{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.25}
+.badge.got .bl{color:var(--bone)}
+
+.chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:14px;margin:0 -20px 4px;padding-left:20px;padding-right:20px;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;padding:8px 14px;border:1px solid var(--line);border-radius:100px;font-size:12.5px;color:var(--muted);white-space:nowrap;transition:all .2s ease}
+.chip.on{border-color:var(--air);color:var(--air);background:rgba(111,214,192,.09)}
+
+.ms{list-style:none}
+.ms li{display:flex;gap:13px;padding:11px 0;align-items:flex-start}
+.dot{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px;border:1.5px solid var(--line)}
+.done .dot{background:var(--air);border-color:var(--air)}
+.nx .dot{border-color:var(--air);box-shadow:0 0 0 4px rgba(111,214,192,.14)}
+.ms .t{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:50px;flex:none;margin-top:3px}
+.ms .d{font-size:13.5px;line-height:1.45;color:#4E6C74}
+.done .d,.nx .d{color:var(--bone)}
+.ms .sys{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px;opacity:.75}
+.more{font-family:var(--mono);font-size:11px;color:var(--air);padding:14px 0;letter-spacing:.06em}
+
+.panel{background:var(--surface);border-radius:14px;padding:6px 16px;display:none;margin-bottom:14px;animation:fadeIn 0.2s ease-out}
+.panel.open{display:block}
+.row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:none}
+.row label{font-size:13.5px;flex:1;color:var(--muted)}
+.row input{font-family:var(--mono);font-size:14px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:152px;text-align:right}
+.row input[type=number]{width:92px}
+.row input[type=text]{width:132px;text-align:right}
+.danger{color:var(--ember);font-size:13px;padding:15px 0;width:100%;text-align:left}
+.notif{background:var(--surface);border-radius:14px;padding:16px;font-size:13px;line-height:1.55;color:var(--muted)}
+.notif b{color:var(--bone);font-weight:500}
+.notif button{margin-top:14px;width:100%;padding:14px;border:1px solid var(--air);color:var(--air);border-radius:100px;font-size:14px;font-weight:700}
+.notif ol{margin:10px 0 0 16px}.notif li{margin:5px 0}
+
+.log{list-style:none}
+.log li{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}
+.log li:last-child{border-bottom:none}
+.log .when{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:86px;flex:none}
+.log .what{font-size:13.5px;flex:1}
+.won{color:var(--air)} .fell{color:var(--ember)}
+.empty{font-size:13.5px;color:var(--muted);line-height:1.5}
+.src{font-size:11px;color:#3F5D65;line-height:1.55;margin-top:24px}
+
+.auto{background:var(--surface);border-radius:14px;padding:15px;margin-top:12px;border:1px solid rgba(111,214,192,.12)}
+.auto .top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.auto .top .ct{flex:1;margin:0}
+.auto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.auto-mini{background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;min-width:0}
+.auto-mini b{display:block;font-family:var(--mono);font-size:15px;color:var(--air);font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auto-mini span{display:block;font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.35}
+.auto-note{font-size:11.5px;color:var(--muted);line-height:1.45;margin-top:12px}
+.auto-actions{display:flex;gap:8px;margin-top:12px}
+.auto-actions button{flex:1;border-radius:100px;border:1px solid var(--line);padding:12px 10px;font-size:12.5px;font-weight:700}
+.auto-actions .run{background:var(--air);border-color:var(--air);color:#06171A}
+.row input.wide{width:205px;text-align:left}
+.row input.key{font-size:11px}
+@media (max-width:380px){.auto-grid{grid-template-columns:1fr}.row input.wide{width:150px}}
+
+.hours{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:4px}
+.hr{aspect-ratio:1;border-radius:3px;background:var(--line);opacity:.35;position:relative}
+.hlab{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:6px;font-family:var(--mono);font-size:8px;color:var(--muted);text-align:center}
+.trg{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.trgrow{display:flex;align-items:center;gap:10px;font-size:12.5px}
+.trgrow .tn{flex:0 0 96px;color:var(--muted)}
+.trgbar{flex:1;height:16px;background:var(--line);border-radius:4px;overflow:hidden}
+.trgbar i{display:block;height:100%;background:var(--air);border-radius:4px;transition:width .3s ease}
+.trgrow .tc{font-family:var(--mono);font-size:11px;flex:none;color:var(--air);min-width:18px;text-align:right}
+.reasons{background:var(--surface);border-radius:14px;padding:16px;margin-top:12px}
+.reasons li{font-size:13.5px;line-height:1.5;margin:9px 0 0 17px}
+.veilReasons{margin-top:20px;max-width:320px;text-align:left}
+.veilReasons div{font-size:14px;line-height:1.5;color:var(--bone);padding:9px 0 9px 14px;border-left:2px solid var(--air);margin-bottom:8px}
+.tagwrap{width:100%;max-width:340px;margin-top:22px}
+.tagwrap .tt{font-size:13px;color:var(--muted);margin-bottom:11px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.tag{padding:9px 14px;border:1px solid var(--line);border-radius:100px;font-size:13px;color:var(--muted)}
+.tag.on{border-color:var(--air);color:var(--air);background:rgba(111,214,192,.1)}
+.dots5{display:flex;gap:9px;justify-content:center;margin-top:6px}
+.dots5 button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font-family:var(--mono);font-size:14px;color:var(--muted)}
+.dots5 button.on{border-color:var(--air);background:var(--air);color:#06171A;font-weight:700}
+.xfer{background:var(--surface);border-radius:14px;padding:16px;margin-bottom:12px}
+.xfer .xrow{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;gap:10px}
+.xfer .xv{font-family:var(--mono);color:var(--air);flex:none}
+.xfer .xn{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45}
+.xfer button{margin-top:13px;width:100%;padding:13px;border:1px solid var(--air);color:var(--air);border-radius:100px;font-size:13.5px;font-weight:700}
+.bk{display:flex;gap:9px;margin:14px 0}
+.bk button{flex:1;padding:13px;border:1px solid var(--line);border-radius:100px;font-size:13px;font-weight:700}
+.bk .exp{border-color:var(--air);color:var(--air)}
+
+.veil{position:fixed;inset:0;background:var(--ink);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;overflow-y:auto}
+.veil.open{display:flex;animation:fadeIn 0.25s ease-out}
+.ring2{width:190px;height:190px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:32px}
+.orb{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(111,214,192,.42),rgba(111,214,192,.06));transform:scale(.45);transition:transform 4s cubic-bezier(.4,0,.4,1)}
+.phase{font-size:19px;font-weight:500;min-height:26px}
+.sub{font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5;max-width:300px}
+.left{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:24px;font-variant-numeric:tabular-nums}
+.acts{display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px;margin-top:32px}
+.acts button{padding:16px;border-radius:100px;font-size:15px;font-weight:700}
+.ok{background:var(--air);color:#06171A}
+.no{border:1px solid var(--line);color:var(--muted);font-weight:500!important}
+@media (prefers-reduced-motion:reduce){.orb{transition:none!important;transform:scale(.75)!important}}
+</style>
+</head>
+<body>
+
+<div class="setup" id="setup"><div class="wrap" id="setupBody"></div></div>
+
+<div id="app" class="hidden">
+<div class="hero">
+  <div class="since"><span class="eyebrow">Son sigara</span><b id="quitLabel">—</b></div>
+  <div class="count" id="days">0<small>GÜN</small></div>
+  <div class="clock" id="clock">00:00:00</div>
+</div>
+
+<div class="now-card">
+  <div class="lbl" id="nowLbl">Şu an</div>
+  <div class="msg" id="nowMsg">—</div>
+  <div class="nxt"><span id="nextTxt">—</span><span id="nextLeft"></span></div>
+  <div class="thin"><i id="nextBar" style="width:0%"></i></div>
+</div>
+
+<button class="crave" id="craveBtn">Canım çekiyor</button>
+
+<!-- Lung Visual Card -->
+<div class="lung-card">
+  <div class="lung-visual">
+    <svg viewBox="0 0 100 100" class="lung-svg">
+      <defs>
+        <linearGradient id="lungGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop id="lungStop" offset="0%" stop-color="#6FD6C0" />
+          <stop id="lungStopDark" offset="0%" stop-color="#1F3F48" />
+        </linearGradient>
+      </defs>
+      <!-- Soluk borusu -->
+      <path d="M46 12 L54 12 L54 32 L46 32 Z" fill="#7C979E" />
+      <path d="M46 30 L28 42 M54 30 L72 42" stroke="#7C979E" stroke-width="3" stroke-linecap="round"/>
+      <!-- Sol Akciğer -->
+      <path d="M22 40 C12 48 10 68 20 82 C28 92 42 85 42 72 C42 58 40 43 32 38 Z" fill="url(#lungGrad)" />
+      <!-- Sağ Akciğer -->
+      <path d="M78 40 C88 48 90 68 80 82 C72 92 58 85 58 72 C58 58 60 43 68 38 Z" fill="url(#lungGrad)" />
+    </svg>
+  </div>
+  <div class="lung-info">
+    <div class="lbl">Akciğer İyileşmesi</div>
+    <div class="val" id="lungPct">%0</div>
+    <div class="desc" id="lungDesc">Siller (temizleyici tüycükler) yenileniyor.</div>
+  </div>
+</div>
+
+<section>
+  <div class="head"><span class="eyebrow">Para & Getiri</span></div>
+  <div class="stats">
+    <div class="stat"><div class="v" id="mNom">₺0</div><div class="k">yastık altı — hiç değerlendirmesen</div></div>
+    <div class="stat hi"><div class="v" id="mInt">₺0</div><div class="k">günlük bileşik faizle</div></div>
+    <div class="stat"><div class="v" id="mGain">₺0</div><div class="k">sadece faiz kazancı</div></div>
+    <div class="stat"><div class="v" id="mReal">₺0</div><div class="k">enflasyon düşülmüş reel değer</div></div>
+    <div class="stat full">
+      <div class="v" id="mRealRate">%0</div>
+      <div class="k">net yıllık reel faiz oranı (Fisher formülü: mevduat faizi vs enflasyon)</div>
+    </div>
+  </div>
+  <div class="chart" style="margin-top:12px">
+    <div class="ct">Faizli vs faizsiz</div>
+    <div class="cs" id="mCap">—</div>
+    <div class="legend"><span><i style="background:#6FD6C0"></i>bileşik faizle</span><span><i style="background:#7C979E"></i>yastık altı</span></div>
+    <svg id="mChart" viewBox="0 0 320 118"></svg>
+  </div>
+  <div class="chart">
+    <div class="ct">İçmemeye devam edersen</div>
+    <div class="cs">Bugünkü günlük tasarrufun aynı kaldığı ve düzenli yatırıldığı varsayımıyla.</div>
+    <table class="tbl" id="proj"></table>
+  </div>
+  <div class="xfer" id="xferBox"></div>
+  <div class="goal" id="goalBox"></div>
+  <div class="auto" id="autoBox"></div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Birikenler</span></div>
+  <div class="stats">
+    <div class="stat"><div class="v" id="sticks">0</div><div class="k">sigara içilmedi</div></div>
+    <div class="stat"><div class="v" id="life">0sa</div><div class="k">ömür geri kazandın</div></div>
+    <div class="stat"><div class="v" id="won">0</div><div class="k">krizi atlattın</div></div>
+    <div class="stat"><div class="v" id="best">0g</div><div class="k">en uzun serin</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">İyileşme</span></div>
+  <div class="rings" id="rings"></div>
+  <div class="chart">
+    <div class="ct">Atlattığın krizler</div>
+    <div class="cs">Haftalara göre. Amaç çubukların küçülmesi — krizler zamanla seyrekleşir.</div>
+    <svg id="craveChart" viewBox="0 0 320 100"></svg>
+  </div>
+  <div class="chart">
+    <div class="ct">Ortalama kriz şiddeti</div>
+    <div class="cs">Sayı değil şiddet önce düşer. Haftalık ortalama, 1–5 arası.</div>
+    <svg id="intChart" viewBox="0 0 320 100"></svg>
+  </div>
+  <div class="chart">
+    <div class="ct">Son 13 hafta</div>
+    <div class="cs">Her kare bir gün.</div>
+    <div class="grid91" id="grid91"></div>
+  </div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Desenlerin</span></div>
+  <div class="chart">
+    <div class="ct">Tetikleyicilerin</div>
+    <div class="cs" id="trgCap">Krizleri etiketledikçe burada hangi durumların seni zorladığı çıkacak.</div>
+    <div class="trg" id="trgList"></div>
+  </div>
+  <div class="chart">
+    <div class="ct">Günün saatleri</div>
+    <div class="cs" id="hrCap">Krizlerin hangi saatlerde geldiği. Koyu kareler senin riskli saatlerin.</div>
+    <div class="hours" id="hours"></div>
+    <div class="hlab"><span>0</span><span>2</span><span>4</span><span>6</span><span>8</span><span>10</span><span>12</span><span>14</span><span>16</span><span>18</span><span>20</span><span>22</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Neden bıraktın</span><button id="edReasons">Düzenle</button></div>
+  <div class="reasons" id="reasonsBox"></div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Rozetler</span><span class="eyebrow" id="badgeCount"></span></div>
+  <div id="badges"></div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Vücudunda olanlar</span></div>
+  <div class="chips" id="chips"></div>
+  <ul class="ms" id="milestones"></ul>
+  <button class="more" id="moreBtn">Tümünü göster ↓</button>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Hatırlatıcı</span></div>
+  <div class="notif" id="notifBox"></div>
+</section>
+
+<section>
+  <div class="head"><span class="eyebrow">Kayıt</span><button id="setBtn">Ayarlar</button></div>
+  <div class="panel" id="panel">
+    <div class="row"><label for="qd">Bıraktığın an</label><input type="datetime-local" id="qd"></div>
+    <div class="row"><label for="pd">Günde kaç sigara</label><input type="number" id="pd" min="1" max="80"></div>
+    <div class="row"><label for="pp">Paket fiyatı (₺)</label><input type="number" id="pp" min="1" max="5000"></div>
+    <div class="row"><label for="ir">Yıllık faiz (%)</label><input type="number" id="ir" min="0" max="200" step="0.5"></div>
+    <div class="row"><label for="ni">Faize girmeyen tutar (₺)</label><input type="number" id="ni" min="0" max="99999999"></div>
+    <div class="row"><label for="inf">Yıllık enflasyon (%)</label><input type="number" id="inf" min="0" max="200" step="0.5"></div>
+    <div class="row"><label for="gn">Hedefin</label><input type="text" id="gn" placeholder="ne alacaksın"></div>
+    <div class="row"><label for="ga">Hedef tutarı (₺)</label><input type="number" id="ga" min="0" max="99999999"></div>
+    <div class="bgroup">Otomatik veri</div>
+    <div class="row"><label for="du">Veri servisi URL'i</label><input class="wide" type="text" id="du" placeholder="https://....workers.dev"></div>
+    <div class="bgroup">Yedekleme</div>
+    <div class="bk">
+      <button class="exp" id="expBtn">Yedeği indir</button>
+      <button id="impBtn">Yedeği yükle</button>
+    </div>
+    <input type="file" id="impFile" accept="application/json,.json" style="display:none">
+    <button class="danger" id="wipe">Tüm kaydı sil</button>
+  </div>
+  <ul class="log" id="log"></ul>
+</section>
+
+<p class="src">Zaman çizelgesi: NHS, CDC ve American Cancer Society yayınları; nikotinik reseptör iyileşmesi için PET/SPECT görüntüleme çalışmaları. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına ortalama 17 dk (erkek). Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
+</div>
+
+<div class="veil" id="veil">
+  <div id="breathe">
+    <div class="ring2"><div class="orb" id="orb"></div></div>
+    <div class="phase" id="phase">Hazır ol</div>
+    <div class="sub" id="sub">Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.</div>
+    <div class="veilReasons" id="veilReasons"></div>
+    <div class="left" id="left"></div>
+  </div>
+  <div class="acts" id="acts" style="display:none">
+    <button class="ok" id="passed">Geçti</button>
+    <button class="no" id="smoked">İçtim</button>
+  </div>
+  <div id="tagStep" style="display:none">
+    <div class="tagwrap">
+      <div class="tt">Bu kriz neyle geldi?</div>
+      <div class="tags" id="tagList"></div>
+    </div>
+    <div class="tagwrap">
+      <div class="tt">Ne kadar şiddetliydi?</div>
+      <div class="dots5" id="intList"></div>
+    </div>
+    <div class="acts"><button class="ok" id="tagSave">Kaydet</button></div>
+  </div>
+</div>
+
+<script>
+const DB={
+ async get(){try{if(window.storage){const r=await window.storage.get('nefes');return r?JSON.parse(r.value):null}
+  const v=localStorage.getItem('nefes');return v?JSON.parse(v):null}catch(e){return null}},
+ async set(o){try{if(window.storage)await window.storage.set('nefes',JSON.stringify(o));
+  else localStorage.setItem('nefes',JSON.stringify(o))}catch(e){console.error(e)}}
+};
+const D=86400,H=3600,Y=365*D;
+const AUTO_DEFAULTS={
+  workerUrl:'',
+  lastCheck:0,
+  lastMsg:'Henüz kontrol edilmedi.'
+};
+let S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,rate:40,infl:33,noInterest:0,
+       priceHist:[],rateHist:[],inflHist:[],
+       best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
+const TRIGGERS=['Stres','Kahve','Yemek sonrası','Can sıkıntısı','Alkol','Araba','Sosyal ortam','Yorgunluk','Sebepsiz'];
+let expanded=false,filter='all',autoBusy=false;
+
+const SYS={beyin:'Beyin',akciger:'Akciğer',kalp:'Kalp & damar',duyu:'Tat & koku',cilt:'Cilt & görünüm',enerji:'Enerji & uyku',risk:'Uzun vadeli risk'};
+
+const MS=[
+[20*60,'20 dk','kalp','Nabzın ve tansiyonun normale döndü. Nikotinin daralttığı damarlar gevşedi.'],
+[30*60,'30 dk','beyin','Kandaki nikotin düşmeye başladı. İlk hafif huzursuzluk buradan gelir — tehlike değil, sadece beynin fark etmesi.'],
+[2*H,'2 saat','beyin','Nikotinin yarısı atıldı (yarı ömrü ~2 saat). İlk gerçek kriz genelde bu aralıkta gelir ve 3–5 dakikada geçer.'],
+[2*H+1,'2 saat','kalp','El ve ayak parmakların ısınmaya başladı — periferik dolaşımın açıldı.'],
+[8*H,'8 saat','kalp','Kandaki karbonmonoksit yarıya indi. Kırmızı kan hücrelerin yeniden oksijen taşıyor.'],
+[10*H,'10 saat','beyin','Reseptörlerin nikotin beklemeye başladı: huzursuzluk, dalgınlık, canın bir şey çekmesi. Hepsi normal ve geçici.'],
+[12*H,'12 saat','kalp','Karbonmonoksit tamamen normale döndü. Nefes darlığı ve yorgunluk azalmaya başladı.'],
+[24*H,'1 gün','akciger','Akciğerlerin gece boyunca mukus temizledi. Sabah öksürüğü kötüye işaret değil — temizliğin sesi.'],
+[24*H+1,'1 gün','kalp','Kalp krizi riskin düşmeye başladı.'],
+[36*H,'1,5 gün','beyin','Krizler tepe noktasına tırmanıyor. Bu senin zayıfladığın değil, beyninin nikotinsiz çalışmayı yeniden öğrendiği anlamına geliyor. En zor 24 saat şimdi başlıyor ve bittiğinde en kötüsü arkanda kalacak.'],
+[36*H+1,'1,5 gün','duyu','Tat ve koku sinir uçların onarılmaya başladı.'],
+[48*H,'2 gün','duyu','Tat ve koku belirgin şekilde keskinleşti. Yemekler bir anda farklı gelmeye başlar.'],
+[48*H+1,'2 gün','akciger','Akciğerdeki tüycükler (siller) yeniden çalışmaya başladı; toz ve mukusu yukarı süpürüyorlar.'],
+[72*H,'3 gün','beyin','Nikotin vücudundan tamamen çıktı. Bundan sonrası kimyasal bağımlılık değil, alışkanlık. En sert gün geride.'],
+[72*H+1,'3 gün','akciger','Bronşların gevşedi, nefes kapasiten arttı.'],
+[4*D,'4 gün','beyin','Yoksunluğun fiziksel tepesi geçti. Sinirlilik ve iştah artışı bundan sonra azalarak devam eder.'],
+[5*D,'5 gün','enerji','Uyku düzenin toparlanmaya başlıyor. İlk günlerdeki bozulma normaldi.'],
+[7*D,'1 hafta','beyin','En riskli hafta bitti. Bu noktaya gelenlerin bırakma şansı kat kat yüksek.'],
+[7*D+1,'1 hafta','duyu','Ağız kokusu geçti, dilindeki tabaka inceldi.'],
+[7*D+2,'1 hafta','cilt','Cildine giden kan akışı arttı; gri ton açılmaya başladı.'],
+[10*D,'10 gün','beyin','Krizler kısaldı — artık dakikalarla değil saniyelerle ölçülüyorlar.'],
+[14*D,'2 hafta','kalp','Dolaşımın düzeldi. Yürümek ve merdiven çıkmak gözle görülür şekilde kolaylaştı.'],
+[14*D+1,'2 hafta','cilt','Yara iyileşmen ve diş eti sağlığın hızlandı. Ameliyat olacak biri için kritik eşik burasıdır.'],
+[21*D,'3 hafta','akciger','Akciğer fonksiyonun ölçülebilir şekilde arttı. Merdivende farkı hissedersin.'],
+[21*D+1,'3 hafta','beyin','Beyin sisi kalkıyor: odaklanma ve kısa süreli hafıza toparlanıyor.'],
+[30*D,'1 ay','akciger','Öksürük ve nefes darlığı belirgin azaldı.'],
+[30*D+1,'1 ay','duyu','Koku alman neredeyse tam. Artık sigara kokusunu başkalarının üstünde fark edersin.'],
+[30*D+2,'1 ay','cilt','Cilt tonun ve nem dengen düzeldi; kollajen yıkımı yavaşladı.'],
+[42*D,'6 hafta','beyin','Beynindeki nikotinik reseptörlerin sayısı sigara içmeyen birinin seviyesine döndü. Görüntüleme çalışmaları bu eşiği 4–6 hafta olarak veriyor. Sabah sisi ve sebepsiz düşük ruh hali bu dönemde kalkar.'],
+[60*D,'2 ay','enerji','Bağışıklığın toparladı; hastalıklardan daha çabuk kurtuluyorsun.'],
+[90*D,'3 ay','beyin','Dopamin sentezin normale döndü. Sıradan şeylerin yeniden keyif vermeye başlaması tam olarak bu.'],
+[90*D+1,'3 ay','cilt','Parmak ve diş sararması açılmaya başladı.'],
+[90*D+2,'3 ay','enerji','Uyku kaliten ve gün içi enerjin oturdu.'],
+[180*D,'6 ay','akciger','Balgam ve kronik öksürük büyük ölçüde geçti.'],
+[180*D+1,'6 ay','beyin','Stres anındaki ilk refleksin artık sigara değil. Yeni davranış yerleşti.'],
+[270*D,'9 ay','akciger','Siller tamamen yenilendi; akciğer enfeksiyonu riskin düştü, kapasiten %10\'a varan oranda arttı.'],
+[Y,'1 yıl','risk','Koroner kalp hastalığı riskin, içmeye devam eden birinin yarısı.'],
+[2*Y,'2 yıl','risk','Kalp krizi riskin hiç içmeyenlerin seviyesine yaklaştı.'],
+[5*Y,'5 yıl','risk','Ağız, boğaz, yemek borusu ve mesane kanseri riskin yarıya indi. Felç riskin içmeyenlere yaklaştı.'],
+[10*Y,'10 yıl','risk','Akciğer kanserinden ölme riskin, içmeye devam eden birinin yarısı.'],
+[15*Y,'15 yıl','risk','Kalp hastalığı riskin hiç sigara içmemiş biriyle aynı.'],
+[20*Y,'20 yıl','risk','Toplam ölüm riskin, hiç sigara içmemiş birininkine denk.']
+];
+
+const RINGS=[[Y,'Kalp &<br>damar'],[270*D,'Akciğer'],[42*D,'Beyin'],[14*D,'Tat &<br>koku']];
+
+const BG=[
+ ['Süre',[
+  ['1sa','İlk saat',c=>c.sec>=H],['12sa','Yarım gün',c=>c.sec>=12*H],['1G','İlk gün',c=>c.sec>=D],
+  ['3G','Nikotinsiz',c=>c.sec>=3*D],['1H','İlk hafta',c=>c.sec>=7*D],['2H','İki hafta',c=>c.sec>=14*D],
+  ['1A','Bir ay',c=>c.sec>=30*D],['50','50 gün',c=>c.sec>=50*D],['100','100 gün',c=>c.sec>=100*D],
+  ['6A','Altı ay',c=>c.sec>=180*D],['1Y','Bir yıl',c=>c.sec>=Y],['2Y','İki yıl',c=>c.sec>=2*Y]]],
+ ['Krizler',[
+  ['1','İlk kriz',c=>c.wins>=1],['5','Beş kriz',c=>c.wins>=5],['10','On kriz',c=>c.wins>=10],
+  ['25','25 kriz',c=>c.wins>=25],['50','50 kriz',c=>c.wins>=50],['100','100 kriz',c=>c.wins>=100],
+  ['250','250 kriz',c=>c.wins>=250],['7/7','Bir hafta kayıt',c=>c.wins>=7&&c.sec>=7*D]]],
+ ['Para',[
+  ['1P','Bir paket',c=>c.nom>=c.pp],['1K','Bir karton',c=>c.nom>=c.pp*10],
+  ['1K₺','₺1.000',c=>c.nom>=1000],['5K₺','₺5.000',c=>c.nom>=5000],
+  ['25K','₺25.000',c=>c.nom>=25000],['100K','₺100.000',c=>c.nom>=100000],
+  ['%','İlk faiz',c=>c.gain>=c.pp],['◎','Hedefe ulaştın',c=>c.goalAmount>0&&c.nom>=c.goalAmount]]],
+ ['Vücut & irade',[
+  ['🌙','İlk gece',c=>c.sec>=8*H],['👃','Duyular geri',c=>c.sec>=14*D],
+  ['🫁','Akciğer %50',c=>c.sec>=135*D],['🧠','Reseptörler normal',c=>c.sec>=42*D],
+  ['1G⏳','1 gün ömür',c=>c.lifeMin>=1440],['1H⏳','1 hafta ömür',c=>c.lifeMin>=10080],
+  ['1A⏳','1 ay ömür',c=>c.lifeMin>=43200],['↺','Geri döndün',c=>c.resets>0&&c.sec>=D],
+  ['∞','Rekorunu kırdın',c=>c.best>0&&c.sec*1000>c.best],['✦','Tüm halkalar dolu',c=>c.sec>=Y]]]
+];
+
+const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
+const tl=ms=>new Date(ms-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
+const T=n=>Math.round(n).toLocaleString('tr-TR');
+const TL=n=>'₺'+(Math.abs(n)>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+'M':T(n));
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function dur(s){s=Math.max(0,s);const d=Math.floor(s/D),h=Math.floor(s%D/H),m=Math.floor(s%H/60);
+ if(d>365)return Math.floor(d/365)+' yıl '+Math.floor(d%365/30)+' ay';
+ if(d>0)return d+' gün '+h+' sa';if(h>0)return h+' sa '+m+' dk';return m+' dk '+Math.floor(s%60)+' sn';}
+
+function dailyRate(annual){return Math.pow(1+annual/100,1/365)-1}
+function pct(n,d=3){return (n*100).toFixed(d).replace('.',',')+'%'}
+
+function calcRealRate(rate, infl){
+ if(infl <= -100) return rate;
+ return (((1 + rate/100) / (1 + infl/100)) - 1) * 100;
+}
+
+/* bileşik faiz: her gün c kadar yatırılıyor; taban tutara faiz işletilmiyor */
+function fv(c,days,annual,noInterest=0){
+ const i=dailyRate(annual),whole=Math.floor(Math.max(0,days)),part=Math.max(0,days)-whole;
+ let bal=0;
+ for(let d=0;d<whole;d++){
+  bal+=c;
+  if(i>0)bal+=Math.max(0,bal-noInterest)*i;
+ }
+ if(part>0){
+  bal+=c*part;
+  if(i>0)bal+=Math.max(0,bal-noInterest)*i*part;
+ }
+ return bal;
+}
+function histKey(kind){return kind+'Hist'}
+function cleanHist(arr,fallback,at){
+ arr=Array.isArray(arr)?arr:[];
+ arr=arr.map(x=>({at:+x.at||at,value:+x.value||fallback,source:x.source||'kayıt'}))
+  .filter(x=>Number.isFinite(x.value)&&x.value>=0&&Number.isFinite(x.at))
+  .sort((a,b)=>a.at-b.at);
+ if(!arr.length)arr=[{at,value:fallback,source:'başlangıç'}];
+ return arr;
+}
+function histVal(arr,at,fallback){
+ arr=Array.isArray(arr)?arr:[];
+ let v=fallback;
+ for(const x of arr){if((+x.at||0)<=at)v=+x.value;else break}
+ return Number.isFinite(v)?v:fallback;
+}
+function setHist(kind,value,source='manuel',at=Date.now()){
+ const k=histKey(kind),v=Math.max(0,+value||0);
+ S[k]=cleanHist(S[k],v,S.quitAt);
+ const last=S[k][S[k].length-1];
+ if(last&&Math.abs((+last.value||0)-v)<0.0001){last.at=at;last.source=source;return}
+ S[k].push({at,value:v,source});
+ S[k]=cleanHist(S[k],v,S.quitAt);
+}
+function moneyAt(daysFromQuit){
+ const totalDays=Math.max(0,daysFromQuit),whole=Math.floor(totalDays),part=totalDays-whole;
+ const start=+S.quitAt||Date.now();
+ let nom=0,bal=0,infFactor=1;
+ const step=(dayPart,idx)=>{
+  const at=start+idx*D*1000;
+  const price=histVal(S.priceHist,at,S.packPrice);
+  const rate=histVal(S.rateHist,at,S.rate);
+  const infl=histVal(S.inflHist,at,S.infl);
+  const daily=S.perDay/20*price*dayPart;
+  const i=dailyRate(rate),pi=dailyRate(infl);
+  nom+=daily;bal+=daily;
+  if(i>0)bal+=Math.max(0,bal-S.noInterest)*i*dayPart;
+  if(pi>0)infFactor*=1+pi*dayPart;
+ };
+ for(let d=0;d<whole;d++)step(1,d);
+ if(part>0)step(part,whole);
+ return {nom,wint:bal,gain:bal-nom,real:bal/infFactor,infFactor};
+}
+
+function moneyAtFuture(futureDays){
+ const currentDays = Math.max(0, (Date.now() - S.quitAt) / (D * 1000));
+ if (futureDays <= currentDays) return moneyAt(futureDays);
+
+ const curr = moneyAt(currentDays);
+ let { nom, wint: bal, infFactor } = curr;
+
+ const extraDays = futureDays - currentDays;
+ const whole = Math.floor(extraDays);
+ const part = extraDays - whole;
+
+ const price = S.packPrice;
+ const rate = S.rate;
+ const infl = S.infl;
+ const dailyAmount = (S.perDay / 20) * price;
+ const i = dailyRate(rate);
+ const pi = dailyRate(infl);
+
+ const step = (dayPart) => {
+  const daily = dailyAmount * dayPart;
+  nom += daily;
+  bal += daily;
+  if (i > 0) bal += Math.max(0, bal - S.noInterest) * i * dayPart;
+  if (pi > 0) infFactor *= (1 + pi * dayPart);
+ };
+
+ for (let d = 0; d < whole; d++) step(1);
+ if (part > 0) step(part);
+
+ return { nom, wint: bal, gain: bal - nom, real: bal / infFactor, infFactor };
+}
+
+/* ---------- setup ---------- */
+let stp=0,tmp={};
+const STEPS=[
+ {t:'Ne zaman içtin son sigaranı?',s:'Bilmiyorsan yaklaşık seç. Sonradan Ayarlar\'dan gün ve saatine kadar düzeltebilirsin.',
+  r:()=>'<div class="opts">'+
+   ['Şu an bırakıyorum','Bugün sabah','Dün','Daha eski — tarih seçeyim'].map((o,i)=>'<button class="opt" data-w="'+i+'">'+o+'</button>').join('')+
+   '</div><input type="datetime-local" class="dtin hidden" id="sd">'},
+ {t:'Günde kaç sigara içiyordun?',s:'Para, ömür ve içilmeyen sigara hesapları bunun üzerinden çalışıyor.',
+  r:()=>'<input type="number" class="bigin" id="s2" value="20" min="1" max="80" inputmode="numeric"><div class="unit">adet / gün</div>'},
+ {t:'Bir paket kaç lira?',s:'Son aldığın fiyatı yaz.',
+  r:()=>'<input type="number" class="bigin" id="s3" value="110" min="1" max="5000" inputmode="numeric"><div class="unit">₺ / 20\'lik paket</div>'},
+ {t:'Bu parayı değerlendirsen?',s:'Biriken tutarın günlük bileşik faizle nereye gideceğini gösteriyorum. Mevduat, fon, ne düşünüyorsan onun yıllık oranını yaz — bir tahmin, taahhüt değil.',
+  r:()=>'<input type="number" class="bigin" id="s4" value="40" min="0" max="200" step="0.5" inputmode="decimal"><div class="unit">yıllık % faiz</div>'},
+ {t:'Neye biriktiriyorsun?',s:'İsteğe bağlı ama işe yarıyor: soyut bir rakam yerine somut bir şey görmek. Boş bırakabilirsin.',
+  r:()=>'<input type="text" class="dtin" id="s5a" placeholder="örn. kask, lastik takımı, tatil" style="text-align:left">'+
+        '<input type="number" class="bigin" id="s5b" placeholder="0" min="0" inputmode="numeric"><div class="unit">₺ hedef tutarı</div>'},
+ {t:'Neden bırakıyorsun?',s:'Kendi cümlelerinle yaz. Kriz anında nefes ekranında bunlar çıkacak — benim yazacağım hiçbir motivasyon cümlesi senin kendi sebebin kadar tutmaz.',
+  r:()=>'<input type="text" class="dtin" id="r1" placeholder="1. sebep" style="text-align:left">'+
+        '<input type="text" class="dtin" id="r2" placeholder="2. sebep" style="text-align:left">'+
+        '<input type="text" class="dtin" id="r3" placeholder="3. sebep" style="text-align:left">'}
+];
+function drawStep(){
+  const st=STEPS[stp];
+  $('setupBody').innerHTML='<div class="step">'+(stp+1)+' / '+STEPS.length+'</div><h1 class="q">'+st.t+'</h1><p class="qs">'+st.s+'</p>'+st.r()+
+   '<div class="nav">'+(stp>0?'<button class="sec" id="bk">Geri</button>':'')+'<button class="pri" id="nx">'+(stp===STEPS.length-1?'Başla':'Devam')+'</button></div>';
+  if(stp===0){
+    document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      document.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+      const w=+b.dataset.w,n=new Date();
+      if(w===0)tmp.quitAt=Date.now();
+      if(w===1){n.setHours(8,0,0,0);tmp.quitAt=n.getTime()}
+      if(w===2){n.setDate(n.getDate()-1);n.setHours(20,0,0,0);tmp.quitAt=n.getTime()}
+      if(w===3){$('sd').classList.remove('hidden');$('sd').value=tl(Date.now());tmp.quitAt=Date.now();$('sd').onchange=e=>{if(e.target.value)tmp.quitAt=new Date(e.target.value).getTime()}}
+      else $('sd').classList.add('hidden');
+    });
+  }
+  $('nx').onclick=()=>{
+    if(stp===0&&!tmp.quitAt)return;
+    if(stp===1)tmp.perDay=Math.max(1,+$('s2').value||20);
+    if(stp===2)tmp.packPrice=Math.max(1,+$('s3').value||110);
+    if(stp===3)tmp.rate=Math.max(0,+$('s4').value||0);
+    if(stp===4){tmp.goalName=$('s5a').value.slice(0,40);tmp.goalAmount=Math.max(0,+$('s5b').value||0)}
+    if(stp===5){tmp.reasons=[$('r1').value,$('r2').value,$('r3').value].map(v=>v.trim().slice(0,120)).filter(Boolean);finish();return}
+    stp++;drawStep();
+  };
+  if($('bk'))$('bk').onclick=()=>{stp--;drawStep()};
+}
+async function finish(){
+  Object.assign(S,tmp,{onboarded:true});
+  await DB.set(S);
+  $('setup').classList.remove('open');$('app').classList.remove('hidden');
+  render();
+}
+
+/* ---------- çizimler ---------- */
+function ring(pct,label){
+  const r=26,c=2*Math.PI*r,off=c*(1-pct/100);
+  return '<div class="ring"><svg viewBox="0 0 64 64">'+
+   '<circle cx="32" cy="32" r="'+r+'" fill="none" stroke="#1F3F48" stroke-width="4"/>'+
+   '<circle cx="32" cy="32" r="'+r+'" fill="none" stroke="#6FD6C0" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 32 32)"/>'+
+   '<text x="32" y="37" text-anchor="middle">'+Math.floor(pct)+'</text></svg><div class="rl">'+label+'</div></div>';
+}
+function moneyChart(days){
+  const W=320, Hh=94, p=4, spanD=Math.max(days*1.4, 5*365);
+  const maxY=moneyAtFuture(spanD).wint || 1;
+  const x=n=>p+(n/spanD)*(W-p*2), y=v=>Hh-(v/maxY)*(Hh-12);
+  let pts=[], nom=[];
+  
+  for(let k=0; k<=50; k++){
+    const n = spanD * k / 50;
+    const m = moneyAtFuture(n);
+    pts.push(x(n).toFixed(1) + ',' + y(m.wint).toFixed(1));
+    nom.push(x(n).toFixed(1) + ',' + y(m.nom).toFixed(1));
+  }
+  
+  const curM = moneyAt(Math.min(days, spanD));
+  const nx = x(Math.min(days, spanD)), ny = y(curM.wint);
+  
+  let s='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#6FD6C0" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>';
+  s+='<polyline points="'+nom.join(' ')+'" fill="none" stroke="#7C979E" stroke-width="1.6" stroke-dasharray="3 4"/>';
+  s+='<circle cx="'+nx+'" cy="'+ny+'" r="4" fill="#6FD6C0"/>';
+  s+='<line x1="'+nx+'" y1="'+ny+'" x2="'+nx+'" y2="'+Hh+'" stroke="#6FD6C0" stroke-width="1" opacity=".35"/>';
+  s+='<line x1="0" y1="'+Hh+'" x2="'+W+'" y2="'+Hh+'" stroke="#1F3F48"/>';
+  s+='<text class="ax" x="'+nx+'" y="'+(Hh+13)+'" text-anchor="middle" fill="#6FD6C0">bugün</text>';
+  s+='<text class="ax" x="'+W+'" y="'+(Hh+13)+'" text-anchor="end">'+Math.round(spanD/365)+' yıl</text>';
+  return s;
+}
+function craveChart(){
+  const W=320,Hh=76,n=8,now=Date.now(),bins=new Array(n).fill(0);
+  S.log.filter(l=>l.type==='won').forEach(l=>{const w=Math.floor((now-l.at)/(7*D*1000));if(w>=0&&w<n)bins[n-1-w]++});
+  const max=Math.max(1,...bins),bw=(W-14)/n;let s='';
+  for(let i=0;i<n;i++){const h=bins[i]/max*Hh,bx=7+i*bw;
+    s+='<rect x="'+(bx+3)+'" y="'+(Hh-h)+'" width="'+(bw-6)+'" height="'+Math.max(h,2)+'" rx="3" fill="'+(bins[i]?'#6FD6C0':'#1F3F48')+'"/>';
+    if(bins[i])s+='<text class="ax" x="'+(bx+bw/2)+'" y="'+(Hh-h-5)+'" text-anchor="middle">'+bins[i]+'</text>'}
+  s+='<line x1="0" y1="'+Hh+'" x2="'+W+'" y2="'+Hh+'" stroke="#1F3F48"/>';
+  s+='<text class="ax" x="7" y="'+(Hh+13)+'">8 hafta önce</text><text class="ax" x="'+W+'" y="'+(Hh+13)+'" text-anchor="end">bu hafta</text>';
+  return s;
+}
+function intChart(){
+  const W=320,Hh=76,n=8,now=Date.now(),sum=new Array(n).fill(0),cnt=new Array(n).fill(0);
+  S.log.filter(l=>l.type==='won'&&l.intensity).forEach(l=>{
+    const w=Math.floor((now-l.at)/(7*D*1000));
+    if(w>=0&&w<n){sum[n-1-w]+=l.intensity;cnt[n-1-w]++}});
+  const avg=sum.map((s,i)=>cnt[i]?s/cnt[i]:null);
+  const bw=(W-14)/n;
+  const y=v=>Hh-((v-1)/4)*(Hh-10);
+  let pts=[],s='';
+  avg.forEach((v,i)=>{if(v!==null)pts.push((7+i*bw+bw/2).toFixed(1)+','+y(v).toFixed(1))});
+  for(let g=1;g<=5;g+=2)s+='<line x1="0" y1="'+y(g)+'" x2="'+W+'" y2="'+y(g)+'" stroke="#1F3F48" stroke-width="1"/>'+
+    '<text class="ax" x="0" y="'+(y(g)-3)+'">'+g+'</text>';
+  if(pts.length>1)s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#6FD6C0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+  avg.forEach((v,i)=>{if(v!==null)s+='<circle cx="'+(7+i*bw+bw/2)+'" cy="'+y(v)+'" r="3.5" fill="#6FD6C0"/>'});
+  if(!pts.length)s+='<text class="ax" x="'+(W/2)+'" y="'+(Hh/2)+'" text-anchor="middle">henüz şiddet kaydı yok</text>';
+  s+='<text class="ax" x="7" y="'+(Hh+13)+'">8 hafta önce</text><text class="ax" x="'+W+'" y="'+(Hh+13)+'" text-anchor="end">bu hafta</text>';
+  return s;
+}
+function renderTriggers(){
+  const counts={},wins=S.log.filter(l=>l.type==='won'&&l.trigger);
+  wins.forEach(l=>{counts[l.trigger]=(counts[l.trigger]||0)+1});
+  const rows=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  if(!rows.length){
+    $('trgList').innerHTML='';
+    $('trgCap').textContent='Krizleri etiketledikçe burada hangi durumların seni zorladığı çıkacak.';
+    return;
+  }
+  const max=rows[0][1];
+  $('trgCap').textContent='En çok zorlayan: '+rows[0][0]+'. Bu durumu önceden planlarsan kriz sayın düşer.';
+  $('trgList').innerHTML=rows.map(([k,v])=>
+    '<div class="trgrow"><span class="tn">'+k+'</span><span class="trgbar"><i style="width:'+(v/max*100).toFixed(1)+'%"></i></span><span class="tc">'+v+'</span></div>').join('');
+}
+function renderHours(){
+  const bins=new Array(24).fill(0);
+  S.log.filter(l=>l.type==='won').forEach(l=>bins[new Date(l.at).getHours()]++);
+  const max=Math.max(1,...bins);
+  $('hours').innerHTML=bins.map((v,h)=>{
+    const o=v?(0.25+0.75*(v/max)):0.12;
+    return '<div class="hr" style="background:'+(v?'#6FD6C0':'#1F3F48')+';opacity:'+o.toFixed(2)+'" title="'+h+':00 — '+v+' kriz"></div>';
+  }).join('');
+  const peak=bins.indexOf(max);
+  $('hrCap').textContent=bins.some(v=>v)
+    ? 'En yoğun saat: '+pad(peak)+':00 civarı. O saatte ne yaptığını bir düşün.'
+    : 'Krizlerin hangi saatlerde geldiği. Kayıt biriktikçe desen çıkacak.';
+}
+function notify(t,b){try{if(window.Notification&&Notification.permission==='granted')new Notification(t,{body:b})}catch(e){}}
+
+function migrate(){
+ S.auto=Object.assign({},AUTO_DEFAULTS,S.auto||{});
+ S.noInterest=Math.max(0,+S.noInterest||0);
+ S.priceHist=cleanHist(S.priceHist,S.packPrice,S.quitAt);
+ S.rateHist=cleanHist(S.rateHist,S.rate,S.quitAt);
+ S.inflHist=cleanHist(S.inflHist,S.infl,S.quitAt);
+ if(!Array.isArray(S.log))S.log=[];
+ if(!Array.isArray(S.reasons))S.reasons=[];
+ if(!Array.isArray(S.transfers))S.transfers=[];
+}
+function niceDate(ms){return ms?new Date(ms).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'yok'}
+
+/* Tek kaynak: kendi Cloudflare Worker'ın. CORS orada sorun değil çünkü istek
+   tarayıcıdan değil, Worker'ın sunucusundan gidiyor — worker.js'i bak. */
+async function fetchFromWorker(){
+ const url=(S.auto.workerUrl||'').trim();
+ if(!url)return 'Worker URL\'i girilmedi; ayarlardan ekle.';
+ let data;
+ try{
+  const r=await fetch(url,{cache:'no-store'});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  data=await r.json();
+ }catch(e){return 'Worker\'a ulaşılamadı: '+(e.message||'bağlantı hatası')+'. URL doğru mu, worker deploy edildi mi kontrol et.'}
+  const out=[];
+  if(data.price&&data.price.ok){
+  S.packPrice=Math.max(1,+data.price.value||S.packPrice);setHist('price',S.packPrice,'worker');S.auto.priceAt=Date.now();
+  out.push('Fiyat '+TL(S.packPrice)+' olarak güncellendi.');
+ }else out.push('Fiyat çekilemedi'+(data.price&&data.price.error?': '+data.price.error:'.'));
+ if(data.cpi&&data.cpi.ok){
+  S.infl=Math.max(0,+data.cpi.value||S.infl);setHist('infl',S.infl,'worker');S.auto.cpiAt=Date.now();S.auto.cpiDate=data.cpi.date||'';
+  out.push('TÜFE %'+S.infl.toFixed(1)+' olarak güncellendi.');
+ }else out.push('TÜFE çekilemedi'+(data.cpi&&data.cpi.error?': '+data.cpi.error:'.'));
+ if(data.deposit&&data.deposit.ok){
+  S.rate=Math.max(0,+data.deposit.value||S.rate);setHist('rate',S.rate,'worker');S.auto.depositAt=Date.now();S.auto.depositDate=data.deposit.date||'';
+  out.push('Faiz %'+S.rate.toFixed(1)+' olarak güncellendi.');
+ }else out.push('Faiz çekilemedi'+(data.deposit&&data.deposit.error?': '+data.deposit.error:'.'));
+ return out.join(' ');
+}
+async function autoCheck(){
+ if(autoBusy)return;
+ autoBusy=true;
+ const btn=$('autoRun');if(btn){btn.disabled=true;btn.textContent='Kontrol ediliyor...'}
+ const msg=await fetchFromWorker();
+ S.auto.lastCheck=Date.now();S.auto.lastMsg=msg;
+ autoBusy=false;await DB.set(S);render();
+}
+function renderAutoBox(){
+ const dr=dailyRate(S.rate),last=S.auto.lastMsg||'Henüz kontrol edilmedi.';
+ const urlNote=S.auto.workerUrl?'Worker bağlı.':'Henüz worker URL\'i girilmedi — aşağıda elle girdiğin değerler kullanılıyor.';
+ $('autoBox').innerHTML='<div class="top"><div class="ct">Otomatik veri kontrolü</div></div>'+
+  '<div class="auto-grid">'+
+  '<div class="auto-mini"><b>'+TL(S.packPrice)+'</b><span>Paket fiyatı · '+niceDate(S.auto.priceAt)+'</span></div>'+
+  '<div class="auto-mini"><b>'+pct(dr)+'</b><span>Günlük mevduat · yıllık '+pct(S.rate/100,2)+'</span></div>'+
+  '<div class="auto-mini"><b>'+pct(S.infl/100,2)+'</b><span>Yıllık TÜFE · '+niceDate(S.auto.cpiAt)+'</span></div>'+
+  '</div><div class="auto-note">Faize girmeyen tutar: '+TL(S.noInterest)+'. '+urlNote+' Son kontrol: '+niceDate(S.auto.lastCheck)+'. '+esc(last)+'</div>'+
+  '<div class="auto-actions"><button class="run" id="autoRun" '+(autoBusy?'disabled':'')+'>'+(autoBusy?'Kontrol ediliyor...':'Verileri kontrol et')+'</button><button id="openDataSettings">Kaynak ayarları</button></div>';
+ $('autoRun').onclick=autoCheck;
+ $('openDataSettings').onclick=()=>{if(!$('panel').classList.contains('open'))$('setBtn').click();$('du').focus()};
+}
+
+/* ---------- render ---------- */
+function render(){
+  const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
+  $('days').firstChild.nodeValue=Math.floor(days);
+  $('clock').textContent=pad(Math.floor(sec%D/H))+':'+pad(Math.floor(sec%H/60))+':'+pad(Math.floor(sec%60));
+  $('quitLabel').textContent=new Date(S.quitAt).toLocaleString('tr-TR',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  // Akciğer görselini güncelle (270 günde %100 iyileşme)
+  const lungProgress = Math.min(100, Math.max(0, (days / 270) * 100));
+  $('lungPct').textContent = '%' + lungProgress.toFixed(1);
+  $('lungStop').setAttribute('offset', lungProgress + '%');
+  $('lungStopDark').setAttribute('offset', lungProgress + '%');
+  if(days < 1) $('lungDesc').textContent = 'Siller (mukus süpürücü tüycükler) uyanmaya hazırlanıyor.';
+  else if(days < 14) $('lungDesc').textContent = 'Akciğerlerin yoğun mukus ve zifir temizliği yapıyor.';
+  else if(days < 90) $('lungDesc').textContent = 'Nefes darlığı azaldı, bronşlar gevşemeye başladı.';
+  else if(days < 270) $('lungDesc').textContent = 'Siller tamamen yenileniyor. Enfeksiyon riski düşüyor.';
+  else $('lungDesc').textContent = 'Akciğer tüycükleri tamamen yenilendi! Tam kapasite solunum.';
+
+  const mNow = moneyAt(days);
+  const nom = mNow.nom, wint = mNow.wint, gain = mNow.gain, real = mNow.real;
+  const realRateVal = calcRealRate(S.rate, S.infl);
+
+  const sticks=days*S.perDay, lifeMin=sticks*17;
+  const wins=S.log.filter(l=>l.type==='won').length, resets=S.log.filter(l=>l.type==='reset').length;
+
+  $('mNom').textContent=TL(nom);$('mInt').textContent=TL(wint);
+  $('mGain').textContent=TL(gain);$('mReal').textContent=TL(real);
+  
+  $('mRealRate').textContent = (realRateVal >= 0 ? '+' : '') + realRateVal.toFixed(1) + '%';
+  $('mRealRate').style.color = realRateVal >= 0 ? 'var(--air)' : 'var(--ember)';
+
+  $('mCap').textContent='Günde ₺'+T((S.perDay/20)*S.packPrice)+' kenara koyuyorsun. Yıllık %'+S.rate+' ile günlük efektif '+pct(dailyRate(S.rate))+'. Faize girmeyen taban: '+TL(S.noInterest)+'.';
+  $('mChart').innerHTML=moneyChart(days);
+
+  $('proj').innerHTML='<tr><th>Süre</th><th>Yastık altı</th><th>Faizli</th><th>Fark</th></tr>'+
+   [1,3,5,10,20].map(yy=>{
+    const n = yy * 365;
+    const m = moneyAtFuture(n);
+    return '<tr><td>'+yy+' yıl</td><td>'+TL(m.nom)+'</td><td>'+TL(m.wint)+'</td><td class="gain">+'+TL(m.gain)+'</td></tr>';
+   }).join('');
+
+  $('sticks').textContent=T(sticks);
+  $('life').textContent=lifeMin<1440?Math.floor(lifeMin/60)+' sa':Math.floor(lifeMin/1440)+' g '+Math.floor(lifeMin%1440/60)+' sa';
+  $('won').textContent=wins;
+  $('best').textContent=Math.floor(Math.max(S.best,sec*1000)/D/1000)+' g';
+
+  let last=null,li=-1;
+  MS.forEach((m,i)=>{if(sec>=m[0]){last=m;li=i}});
+  const next=MS[li+1]||null;
+  if(last){$('nowLbl').textContent=last[1]+' · '+SYS[last[2]];$('nowMsg').textContent=last[3]}
+  else{$('nowLbl').textContent='Şu an';$('nowMsg').textContent='Sayaç işliyor. İlk ölçülebilir değişim 20 dakikada geliyor.'}
+  if(next){const from=last?last[0]:0;
+    $('nextTxt').textContent='Sıradaki: '+next[1]+' · '+SYS[next[2]];
+    $('nextLeft').textContent=dur(next[0]-sec);
+    $('nextBar').style.width=Math.min(100,(sec-from)/(next[0]-from)*100).toFixed(1)+'%';
+  }else{$('nextTxt').textContent='Listedeki her eşiği geçtin.';$('nextLeft').textContent='';$('nextBar').style.width='100%'}
+  if(li>S.notifIdx&&last){S.notifIdx=li;DB.set(S);notify(last[1]+' geçti · '+SYS[last[2]],last[3])}
+
+  const gb=$('goalBox');
+  if(S.goalAmount>0){const p=Math.min(100,nom/S.goalAmount*100),kalan=Math.max(0,(S.goalAmount-nom)/((S.perDay/20)*S.packPrice)*D);
+    gb.innerHTML='<div class="top"><b>'+(S.goalName||'Hedef')+'</b><span>'+TL(nom)+' / '+TL(S.goalAmount)+'</span></div>'+
+     '<div class="thin"><i style="width:'+p.toFixed(1)+'%"></i></div>'+
+     '<div class="note">'+(p>=100?'Ulaştın. Al gitsin.':'Bu hızla '+dur(kalan)+' sonra tamam. Faizle sayarsan daha erken.')+'</div>';
+  }else gb.innerHTML='<div class="note">Ayarlar\'dan bir hedef koy. Biriken parayı somut bir şeye bağlamak soyut bir rakamdan çok daha iyi tutuyor.</div>';
+  renderAutoBox();
+
+  // gerçekten aktarılan para
+  const moved=S.transfers.reduce((a,t)=>a+(+t.amount||0),0);
+  const xb=$('xferBox');
+  const lastX=S.transfers.length?S.transfers[0]:null;
+  const bekleyen=Math.max(0,nom-moved);
+  xb.innerHTML='<div class="xrow"><b>Gerçekten aktardığın</b><span class="xv">'+TL(moved)+'</span></div>'+
+    '<div class="thin"><i style="width:'+(nom>0?Math.min(100,moved/nom*100).toFixed(1):0)+'%"></i></div>'+
+    '<div class="xn">'+(bekleyen>1
+      ? 'Yukarıdaki faiz hesabı, parayı gerçekten kenara koyduğun varsayımına dayanıyor. Şu an '+TL(bekleyen)+' hâlâ vadesiz hesabında duruyor — aktarmazsan o eğri sadece bir grafik.'
+      : 'Biriken her kuruşu aktarmışsın. Faiz hesabı artık kurgu değil.')+
+    (lastX?' Son aktarım: '+niceDate(lastX.at)+'.':'')+'</div>'+
+    '<button id="xferBtn">'+(bekleyen>1?TL(bekleyen)+' aktardım olarak işaretle':'Elle aktarım ekle')+'</button>';
+  $('xferBtn').onclick=async()=>{
+    const def=bekleyen>1?Math.round(bekleyen):0;
+    const v=prompt('Ne kadar aktardın? (₺)',def);
+    if(v===null)return;
+    const amt=Math.max(0,parseFloat(String(v).replace(',','.'))||0);
+    if(amt<=0)return;
+    S.transfers.unshift({at:Date.now(),amount:amt});
+    await save();
+  };
+
+  const rb=$('reasonsBox');
+  rb.innerHTML=S.reasons.length
+    ? '<ul>'+S.reasons.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>'
+    : '<div class="empty">Henüz sebep yazmadın. "Düzenle"ye bas — kriz anında bunlar karşına çıkacak.</div>';
+  $('veilReasons').innerHTML=S.reasons.map(r=>'<div>'+esc(r)+'</div>').join('');
+
+  $('rings').innerHTML=RINGS.map(r=>ring(Math.min(100,sec/r[0]*100),r[1])).join('');
+  $('craveChart').innerHTML=craveChart();
+  $('intChart').innerHTML=intChart();
+  renderTriggers();renderHours();
+
+  const today=new Date();today.setHours(0,0,0,0);
+  const rs=new Set(S.log.filter(l=>l.type==='reset').map(l=>{const x=new Date(l.at);x.setHours(0,0,0,0);return x.getTime()}));
+  let cells='';const q0=new Date(S.quitAt).setHours(0,0,0,0);
+  for(let i=90;i>=0;i--){const day=today.getTime()-i*D*1000;let k='cell';
+    if(rs.has(day))k+=' reset';else if(day>=q0&&day<=today.getTime())k+=' on';cells+='<div class="'+k+'"></div>'}
+  $('grid91').innerHTML=cells;
+
+  const ctx={sec,wins,resets,nom,gain,lifeMin,best:S.best,goalAmount:S.goalAmount,pp:S.packPrice};
+  let got=0,tot=0,bh='';
+  BG.forEach(([name,arr])=>{
+    bh+='<div class="bgroup">'+name+'</div><div class="badges">';
+    arr.forEach(b=>{tot++;const ok=b[2](ctx);if(ok)got++;
+      bh+='<div class="badge'+(ok?' got':'')+'"><div class="bn">'+b[0]+'</div><div class="bl">'+b[1]+'</div></div>'});
+    bh+='</div>';
+  });
+  $('badges').innerHTML=bh;$('badgeCount').textContent=got+'/'+tot;
+
+  $('chips').innerHTML=['all'].concat(Object.keys(SYS)).map(k=>
+    '<button class="chip'+(filter===k?' on':'')+'" data-f="'+k+'">'+(k==='all'?'Tümü':SYS[k])+'</button>').join('');
+  document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{filter=b.dataset.f;render()});
+  const list=MS.filter(m=>filter==='all'||m[2]===filter);
+  const cut=expanded?list.length:Math.min(list.length,list.filter(m=>sec>=m[0]).length+4);
+  $('milestones').innerHTML=list.slice(0,cut).map(m=>{
+    const done=sec>=m[0],nxt=!done&&list.filter(x=>x[0]<m[0]).every(x=>sec>=x[0]);
+    return '<li class="'+(done?'done':nxt?'nx':'')+'"><span class="dot"></span><span class="t">'+m[1]+'</span>'+
+      '<span class="d">'+(filter==='all'?'<span class="sys">'+SYS[m[2]]+'</span>':'')+m[3]+'</span></li>'}).join('');
+  $('moreBtn').textContent=expanded?'Daralt ↑':'Tümünü göster ↓';
+  $('moreBtn').style.display=(list.length>cut||expanded)?'block':'none';
+
+  const perm=window.Notification?Notification.permission:'unsupported';
+  $('notifBox').innerHTML=
+   (perm==='granted'
+     ? '<b>Bildirimler açık.</b> Uygulama açıkken yeni bir eşiği geçtiğinde haber veriyor.'
+     : '<b>Uygulama kapalıyken bildirim gönderemiyorum.</b> Bunun için bir sunucu gerekiyor ve tek dosyalık bir uygulamada yok.')+
+   '<br><br>Çalışan yol iOS\'un kendi <b>Kısayollar</b> uygulaması:<ol>'+
+   '<li>Kısayollar → Otomasyon → Kişisel otomasyon</li><li>Günün Saati → 09:00 ve 21:00</li>'+
+   '<li>İşlem: <b>Uygulamayı Aç</b> → Nefes</li><li>"Sormadan çalıştır"ı aç</li></ol>'+
+   'Böylece günde iki kez uygulama karşına çıkar — bildirimden daha etkili, çünkü bakmak zorunda kalırsın.'+
+   (perm==='granted'?'':'<button id="nb">Yine de bildirim izni ver</button>');
+  if($('nb'))$('nb').onclick=async()=>{try{await Notification.requestPermission();render()}catch(e){}};
+
+  const lg=$('log');
+  if(!S.log.length)lg.innerHTML='<li class="empty">Henüz kayıt yok. Canın her çektiğinde butona bas — atlattığın her kriz buraya yazılacak.</li>';
+  else lg.innerHTML=S.log.slice(0,40).map(l=>{
+    const t=new Date(l.at).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+    return '<li><span class="when">'+t+'</span><span class="what '+(l.type==='won'?'won':'fell')+'">'+(l.type==='won'?'Kriz atlatıldı':'Sayaç sıfırlandı')+'</span></li>'}).join('');
+}
+
+const PH=[['Burnundan al',4,1],['Tut',7,1],['Ağzından ver',8,.45]];
+let timer,tick,endAt;
+function startCrave(){
+  $('veil').classList.add('open');$('acts').style.display='none';
+  $('tagStep').style.display='none';$('breathe').style.display='';
+  $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
+  endAt=Date.now()+240000;let i=0;
+  const step=()=>{const a=PH[i%3];$('phase').textContent=a[0];
+    $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';i++;timer=setTimeout(step,a[1]*1000)};
+  step();
+  tick=setInterval(()=>{const r=Math.max(0,endAt-Date.now());
+    $('left').textContent=pad(Math.floor(r/60000))+':'+pad(Math.floor(r%60000/1000));
+    if(r<=0){clearInterval(tick);clearTimeout(timer);$('phase').textContent='Dört dakika geçti';
+      $('sub').textContent='Krizin tepesi arkanda kaldı.';$('left').textContent='';$('acts').style.display='flex'}},250);
+  setTimeout(()=>{if($('veil').classList.contains('open'))$('acts').style.display='flex'},30000);
+}
+function stopCrave(){clearTimeout(timer);clearInterval(tick);$('veil').classList.remove('open')}
+async function save(){await DB.set(S);render()}
+
+$('craveBtn').onclick=startCrave;
+
+let pickTrigger=null,pickInt=null;
+function drawTagStep(){
+  $('tagList').innerHTML=TRIGGERS.map(t=>'<button class="tag'+(pickTrigger===t?' on':'')+'" data-t="'+t+'">'+t+'</button>').join('');
+  document.querySelectorAll('#tagList .tag').forEach(b=>b.onclick=()=>{pickTrigger=b.dataset.t;drawTagStep()});
+  $('intList').innerHTML=[1,2,3,4,5].map(i=>'<button class="'+(pickInt===i?'on':'')+'" data-i="'+i+'">'+i+'</button>').join('');
+  document.querySelectorAll('#intList button').forEach(b=>b.onclick=()=>{pickInt=+b.dataset.i;drawTagStep()});
+}
+$('passed').onclick=()=>{
+  clearTimeout(timer);clearInterval(tick);
+  pickTrigger=null;pickInt=null;
+  $('breathe').style.display='none';$('acts').style.display='none';
+  $('tagStep').style.display='block';drawTagStep();
+};
+$('tagSave').onclick=async()=>{
+  const e={at:Date.now(),type:'won'};
+  if(pickTrigger)e.trigger=pickTrigger;
+  if(pickInt)e.intensity=pickInt;
+  S.log.unshift(e);
+  $('tagStep').style.display='none';$('breathe').style.display='';
+  stopCrave();await save();
+};
+$('smoked').onclick=async()=>{S.best=Math.max(S.best,Date.now()-S.quitAt);S.log.unshift({at:Date.now(),type:'reset'});
+ S.quitAt=Date.now();S.notifIdx=-1;stopCrave();await save();
+ alert('Sayaç sıfırlandı. En uzun serin kayıtlı — onu bir kere yaptıysan tekrar yapabilirsin.')};
+$('moreBtn').onclick=()=>{expanded=!expanded;render()};
+$('setBtn').onclick=()=>{const p=$('panel');p.classList.toggle('open');
+ $('qd').value=tl(S.quitAt);$('pd').value=S.perDay;$('pp').value=S.packPrice;
+ $('ir').value=S.rate;$('ni').value=S.noInterest;$('inf').value=S.infl;$('gn').value=S.goalName;$('ga').value=S.goalAmount||'';
+ $('du').value=S.auto.workerUrl};
+$('qd').onchange=async e=>{if(e.target.value){S.quitAt=new Date(e.target.value).getTime();S.notifIdx=-1;await save()}};
+$('pd').onchange=async e=>{S.perDay=Math.max(1,+e.target.value||1);await save()};
+$('pp').onchange=async e=>{
+  const newPrice = Math.max(1,+e.target.value||1);
+  S.packPrice = newPrice;
+  setHist('price', newPrice, 'manuel');
+  await save();
+};
+$('ir').onchange=async e=>{
+  const newRate = Math.max(0,+e.target.value||0);
+  S.rate = newRate;
+  setHist('rate', newRate, 'manuel');
+  await save();
+};
+$('ni').onchange=async e=>{S.noInterest=Math.max(0,+e.target.value||0);await save()};
+$('inf').onchange=async e=>{
+  const newInfl = Math.max(0,+e.target.value||0);
+  S.infl = newInfl;
+  setHist('infl', newInfl, 'manuel');
+  await save();
+};
+$('gn').onchange=async e=>{S.goalName=e.target.value.slice(0,40);await save()};
+$('ga').onchange=async e=>{S.goalAmount=Math.max(0,+e.target.value||0);await save()};
+$('du').onchange=async e=>{S.auto.workerUrl=e.target.value.trim();await save()};
+$('edReasons').onclick=async()=>{
+  const cur=S.reasons.join('\n');
+  const v=prompt('Neden bıraktın? Her satıra bir sebep yaz.\nKriz anında nefes ekranında bunlar çıkacak.',cur);
+  if(v===null)return;
+  S.reasons=v.split('\n').map(x=>x.trim().slice(0,120)).filter(Boolean).slice(0,6);
+  await save();
+};
+
+$('expBtn').onclick=()=>{
+  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  const d=new Date(),stamp=d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  a.href=URL.createObjectURL(blob);a.download='nefes-yedek-'+stamp+'.json';
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+};
+$('impBtn').onclick=()=>$('impFile').click();
+$('impFile').onchange=e=>{
+  const f=e.target.files&&e.target.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=async()=>{
+    let d;
+    try{d=JSON.parse(rd.result)}catch(err){alert('Bu dosya okunamadı — geçerli bir Nefes yedeği değil.');return}
+    if(typeof d!=='object'||d===null||!('quitAt' in d)){alert('Bu bir Nefes yedeği gibi görünmüyor.');return}
+    const g=Math.floor((Date.now()-d.quitAt)/D/1000);
+    if(!confirm('Yedek yüklenecek ve şu anki kayıt değiştirilecek.\n\nYedekteki seri: '+g+' gün\nKayıt sayısı: '+((d.log||[]).length)+'\n\nDevam edilsin mi?'))return;
+    S=Object.assign({},S,d);migrate();
+    await DB.set(S);location.reload();
+  };
+  rd.readAsText(f);
+  e.target.value='';
+};
+
+$('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı baştan açılacak. Emin misin?')){
+ S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,rate:40,infl:33,noInterest:0,best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
+ await DB.set(S);location.reload()}};
+
+(async()=>{
+  const s=await DB.get();if(s)S=Object.assign(S,s);migrate();
+  if(!S.onboarded){$('setup').classList.add('open');drawStep()}
+  else{$('app').classList.remove('hidden');render()}
+  setInterval(()=>{if(S.onboarded)render()},1000);
+})();
+</script>
+</body>
+</html>
