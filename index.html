@@ -7,6 +7,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Nefes">
 <meta name="theme-color" content="#0C1A1E">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <title>Nefes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,40 +19,36 @@
 --mono:"Space Mono",ui-monospace,monospace;--sans:"Space Grotesk",system-ui,-apple-system,sans-serif}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--ink);color:var(--bone);font-family:var(--sans)}
-body{padding:calc(env(safe-area-inset-top) + 26px) 20px calc(env(safe-area-inset-bottom) + 48px);max-width:520px;margin:0 auto;-webkit-font-smoothing:antialiased;animation:fadeIn 0.5s ease-out}
+body{padding:calc(env(safe-area-inset-top) + 26px) 20px calc(env(safe-area-inset-bottom) + 48px);max-width:520px;margin:0 auto;-webkit-font-smoothing:antialiased}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 button{font-family:inherit;color:inherit;background:none;border:none;cursor:pointer}
 :focus-visible{outline:2px solid var(--air);outline-offset:3px;border-radius:4px}
 .hidden{display:none!important}
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 12px rgba(111,214,192,0.15); transform: scale(1); }
-  50% { box-shadow: 0 0 24px rgba(111,214,192,0.35); transform: scale(1.015); }
-}
-@keyframes lungBreathe {
-  0%, 100% { transform: scale(0.95); filter: drop-shadow(0 0 2px rgba(111,214,192,0.2)); }
-  50% { transform: scale(1.05); filter: drop-shadow(0 0 10px rgba(111,214,192,0.5)); }
-}
-
 /* setup */
 .setup{position:fixed;inset:0;background:var(--ink);z-index:80;overflow-y:auto;
   padding:calc(env(safe-area-inset-top) + 54px) 24px calc(env(safe-area-inset-bottom) + 40px);display:none}
-.setup.open{display:block;animation:fadeIn 0.3s ease-out}
+.setup.open{display:block}
 .setup .wrap{max-width:420px;margin:0 auto}
 .step{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.18em;margin-bottom:18px}
 .q{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
 .qs{font-size:14px;color:var(--muted);margin-top:12px;line-height:1.5}
 .opts{display:flex;flex-direction:column;gap:10px;margin-top:30px}
-.opt{padding:16px 18px;border:1px solid var(--line);border-radius:14px;text-align:left;font-size:15px;transition:all .2s ease}
-.opt:active,.opt.sel{border-color:var(--air);background:rgba(111,214,192,.09);transform:translateX(3px)}
+.opt{padding:16px 18px;border:1px solid var(--line);border-radius:14px;text-align:left;font-size:15px;transition:border-color .15s}
+.opt:active,.opt.sel{border-color:var(--air);background:rgba(111,214,192,.09)}
+.brandGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:26px}
+.brandBtn{padding:14px 14px;border:1px solid var(--line);border-radius:14px;text-align:left;font-size:14px;font-weight:500;
+  display:flex;flex-direction:column;gap:5px;transition:border-color .15s,background .15s}
+.brandBtn:active,.brandBtn.sel{border-color:var(--air);background:rgba(111,214,192,.09)}
+.brandBtn .bp{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:400}
+.brandBtn.sel .bp{color:var(--air)}
+.brandBtn:last-child{grid-column:1/-1;text-align:center;color:var(--muted)}
 .bigin{width:100%;font-family:var(--mono);font-size:34px;font-weight:700;color:var(--air);background:none;
-  border:none;border-bottom:1.5px solid var(--line);padding:14px 0;text-align:center;margin-top:26px;transition:border-color .2s}
+  border:none;border-bottom:1.5px solid var(--line);padding:14px 0;text-align:center;margin-top:26px}
 .bigin:focus{outline:none;border-bottom-color:var(--air)}
 .unit{text-align:center;font-size:12.5px;color:var(--muted);margin-top:10px}
 .nav{display:flex;gap:10px;margin-top:34px}
-.nav button{flex:1;padding:16px;border-radius:100px;font-size:15px;font-weight:700;transition:transform .15s}
-.nav button:active{transform:scale(.97)}
+.nav button{flex:1;padding:16px;border-radius:100px;font-size:15px;font-weight:700}
 .pri{background:var(--air);color:#06171A}
 .sec{border:1px solid var(--line);color:var(--muted);font-weight:500!important;flex:0 0 90px!important}
 .dtin{width:100%;font-family:var(--mono);font-size:15px;color:var(--bone);background:var(--surface);
@@ -59,30 +58,30 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 .hero{text-align:center;padding:6px 0 22px}
 .since{margin-bottom:22px}
 .since b{display:block;font-family:var(--mono);font-size:12.5px;margin-top:6px;font-weight:400}
-.count{font-family:var(--mono);font-weight:700;font-size:clamp(64px,21vw,100px);line-height:.86;letter-spacing:-.04em;color:var(--air);font-variant-numeric:tabular-nums;transition:transform .3s}
+.count{font-family:var(--mono);font-weight:700;font-size:clamp(64px,21vw,100px);line-height:.86;letter-spacing:-.04em;color:var(--air);font-variant-numeric:tabular-nums}
 .count small{font-size:.26em;letter-spacing:.12em;color:var(--muted);display:block;margin-top:12px;font-weight:400}
 .clock{font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:13px;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.watchBtn{margin-top:20px;padding:12px 22px;border-radius:100px;border:1px solid rgba(111,214,192,.4);
+  color:var(--air);font-size:13.5px;font-weight:700;letter-spacing:.02em;
+  background:linear-gradient(180deg,rgba(111,214,192,.1),rgba(111,214,192,.03))}
+.watchBtn:active{transform:scale(.96);background:rgba(111,214,192,.16)}
 
-.now-card{background:var(--surface);border-radius:16px;padding:18px;margin-bottom:16px;border-left:3px solid var(--air);transition:transform .2s ease, box-shadow .2s ease}
-.now-card:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.nicCard{background:var(--surface);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.nicTop{display:flex;justify-content:space-between;align-items:baseline}
+.nicTop .lbl{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.nicPct{font-family:var(--mono);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;transition:color 1.4s linear}
+.nicTube{position:relative;height:12px;border-radius:7px;background:var(--ink);border:1px solid var(--line);margin-top:12px;overflow:hidden}
+.nicFill{position:absolute;inset:0;border-radius:7px;background:linear-gradient(90deg,#E9A23B,#f0c987);width:100%;transition:width 1.3s linear,background 1.3s linear;box-shadow:0 0 8px rgba(233,162,59,.4)}
+.nicNote{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.4}
+.now-card{background:var(--surface);border-radius:16px;padding:18px;margin-bottom:16px;border-left:2px solid var(--air)}
 .now-card .lbl{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.14em;text-transform:uppercase}
 .now-card .msg{font-size:14.5px;line-height:1.5;margin-top:9px}
 .now-card .nxt{font-size:12.5px;color:var(--muted);margin-top:14px;display:flex;justify-content:space-between;gap:10px}
 .now-card .nxt span:last-child{font-family:var(--mono);flex:none;font-variant-numeric:tabular-nums}
-.thin{height:3px;background:var(--line);border-radius:3px;margin-top:9px;overflow:hidden}
-.thin i{display:block;height:100%;background:var(--air);transition:width .4s ease}
-.crave{display:block;width:100%;padding:19px;margin:0 0 24px;background:var(--air);color:#06171A;border-radius:100px;font-size:17px;font-weight:700;animation:pulseGlow 3s infinite ease-in-out;transition:transform .15s}
-.crave:active{transform:scale(.96)}
-
-/* lung card */
-.lung-card{background:var(--surface);border-radius:16px;padding:18px;margin-bottom:24px;display:flex;align-items:center;gap:18px;border:1px solid rgba(111,214,192,.18);position:relative;overflow:hidden;transition:transform .2s ease}
-.lung-card:hover{transform:translateY(-2px)}
-.lung-visual{width:76px;height:76px;flex:none;display:flex;align-items:center;justify-content:center;background:rgba(12,26,30,.5);border-radius:50%;border:1px solid var(--line)}
-.lung-svg{width:54px;height:54px;animation:lungBreathe 4s ease-in-out infinite}
-.lung-info{flex:1;min-width:0}
-.lung-info .lbl{font-family:var(--mono);font-size:10.5px;color:var(--air);letter-spacing:.14em;text-transform:uppercase}
-.lung-info .val{font-family:var(--mono);font-size:22px;font-weight:700;margin-top:2px;color:var(--bone)}
-.lung-info .desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+.thin{height:2px;background:var(--line);border-radius:2px;margin-top:9px;overflow:hidden}
+.thin i{display:block;height:100%;background:var(--air)}
+.crave{display:block;width:100%;padding:19px;margin:0 0 32px;background:var(--air);color:#06171A;border-radius:100px;font-size:17px;font-weight:700;transition:transform .15s}
+.crave:active{transform:scale(.97)}
 
 section{margin-bottom:32px}
 .head{display:flex;align-items:baseline;gap:10px;padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--line)}
@@ -90,12 +89,10 @@ section{margin-bottom:32px}
 .head button{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.06em}
 
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.stat{background:var(--surface);border-radius:14px;padding:16px 15px;transition:transform .2s ease, background-color .2s ease}
-.stat:hover{transform:translateY(-2px)}
+.stat{background:var(--surface);border-radius:14px;padding:16px 15px}
 .stat .v{font-family:var(--mono);font-size:25px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stat .k{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.35}
 .stat.hi{background:rgba(111,214,192,.11)} .stat.hi .v{color:var(--air)}
-.stat.full{grid-column:1 / -1;background:rgba(19,42,49,.8);border:1px stroke var(--line)}
 
 .goal{background:var(--surface);border-radius:14px;padding:16px;margin-top:11px}
 .goal .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px}
@@ -104,13 +101,11 @@ section{margin-bottom:32px}
 
 .rings{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}
 .ring{text-align:center}
-.ring svg{width:100%;max-width:74px;display:block;margin:0 auto;transition:transform .3s ease}
-.ring:hover svg{transform:scale(1.05)}
+.ring svg{width:100%;max-width:74px;display:block;margin:0 auto}
 .ring .rl{font-size:10.5px;color:var(--muted);margin-top:7px;line-height:1.3}
 .ring text{font-family:var(--mono);font-size:15px;fill:var(--bone);font-weight:700}
 
-.chart{background:var(--surface);border-radius:14px;padding:16px 14px 12px;margin-bottom:12px;transition:transform .2s ease}
-.chart:hover{transform:translateY(-2px)}
+.chart{background:var(--surface);border-radius:14px;padding:16px 14px 12px;margin-bottom:12px}
 .chart .ct{font-size:13px;margin-bottom:2px;font-weight:500}
 .chart .cs{font-size:11.5px;color:var(--muted);margin-bottom:14px;line-height:1.4}
 .chart svg{width:100%;display:block;overflow:visible}
@@ -125,20 +120,17 @@ section{margin-bottom:32px}
 .tbl td:first-child{text-align:left;font-family:var(--sans);color:var(--muted)}
 .tbl tr:last-child td{border-bottom:none}
 .tbl .gain{color:var(--air)}
-.tbl .fell{color:var(--ember)}
 
 .grid91{display:grid;grid-template-columns:repeat(13,1fr);gap:4px;margin-top:4px}
-.cell{aspect-ratio:1;border-radius:2.5px;background:var(--line);opacity:.45;transition:transform .15s}
-.cell:hover{transform:scale(1.2);opacity:1}
+.cell{aspect-ratio:1;border-radius:2.5px;background:var(--line);opacity:.45}
 .cell.on{background:var(--air);opacity:1}
 .cell.reset{background:var(--ember);opacity:1}
 
 .bgroup{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
 .bgroup:first-child{margin-top:0}
 .badges{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.badge{background:var(--surface);border-radius:12px;padding:11px 5px;text-align:center;opacity:.3;transition:all .2s ease}
+.badge{background:var(--surface);border-radius:12px;padding:11px 5px;text-align:center;opacity:.3}
 .badge.got{opacity:1;background:rgba(111,214,192,.11)}
-.badge.got:hover{transform:translateY(-2px);background:rgba(111,214,192,.18)}
 .badge .bn{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--muted)}
 .badge.got .bn{color:var(--air)}
 .badge .bl{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.25}
@@ -146,7 +138,7 @@ section{margin-bottom:32px}
 
 .chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:14px;margin:0 -20px 4px;padding-left:20px;padding-right:20px;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:none;padding:8px 14px;border:1px solid var(--line);border-radius:100px;font-size:12.5px;color:var(--muted);white-space:nowrap;transition:all .2s ease}
+.chip{flex:none;padding:8px 14px;border:1px solid var(--line);border-radius:100px;font-size:12.5px;color:var(--muted);white-space:nowrap}
 .chip.on{border-color:var(--air);color:var(--air);background:rgba(111,214,192,.09)}
 
 .ms{list-style:none}
@@ -160,7 +152,7 @@ section{margin-bottom:32px}
 .ms .sys{font-family:var(--mono);font-size:9.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px;opacity:.75}
 .more{font-family:var(--mono);font-size:11px;color:var(--air);padding:14px 0;letter-spacing:.06em}
 
-.panel{background:var(--surface);border-radius:14px;padding:6px 16px;display:none;margin-bottom:14px;animation:fadeIn 0.2s ease-out}
+.panel{background:var(--surface);border-radius:14px;padding:6px 16px;display:none;margin-bottom:14px}
 .panel.open{display:block}
 .row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:none}
@@ -198,6 +190,7 @@ section{margin-bottom:32px}
 .row input.key{font-size:11px}
 @media (max-width:380px){.auto-grid{grid-template-columns:1fr}.row input.wide{width:150px}}
 
+/* tetikleyici / şiddet / sebepler / aktarım / yedek */
 .hours{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:4px}
 .hr{aspect-ratio:1;border-radius:3px;background:var(--line);opacity:.35;position:relative}
 .hlab{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:6px;font-family:var(--mono);font-size:8px;color:var(--muted);text-align:center}
@@ -205,7 +198,7 @@ section{margin-bottom:32px}
 .trgrow{display:flex;align-items:center;gap:10px;font-size:12.5px}
 .trgrow .tn{flex:0 0 96px;color:var(--muted)}
 .trgbar{flex:1;height:16px;background:var(--line);border-radius:4px;overflow:hidden}
-.trgbar i{display:block;height:100%;background:var(--air);border-radius:4px;transition:width .3s ease}
+.trgbar i{display:block;height:100%;background:var(--air);border-radius:4px}
 .trgrow .tc{font-family:var(--mono);font-size:11px;flex:none;color:var(--air);min-width:18px;text-align:right}
 .reasons{background:var(--surface);border-radius:14px;padding:16px;margin-top:12px}
 .reasons li{font-size:13.5px;line-height:1.5;margin:9px 0 0 17px}
@@ -228,10 +221,36 @@ section{margin-bottom:32px}
 .bk button{flex:1;padding:13px;border:1px solid var(--line);border-radius:100px;font-size:13px;font-weight:700}
 .bk .exp{border-color:var(--air);color:var(--air)}
 
+/* alt sekmeler */
+body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(12,26,30,.93);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:8px 6px calc(env(safe-area-inset-bottom) + 8px)}
+.tabbar button{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 2px;color:var(--muted)}
+.tabbar button.on{color:var(--air)}
+.tabbar svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.tabbar .tl{font-size:10px;letter-spacing:.02em}
+[data-pg]{display:none}
+[data-pg].on{display:block}
+.row select{font-family:var(--mono);font-size:14px;color:var(--bone);background:var(--ink);
+  border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:152px;text-align:right}
+.advToggle{width:100%;text-align:left;font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;
+  color:var(--air);padding:14px 0;border-top:1px solid var(--line);margin-top:2px}
+.advBox{display:none;overflow:hidden}
+.advBox.open{display:block;animation:revealUp .4s cubic-bezier(.16,1,.3,1) both}
+
 .veil{position:fixed;inset:0;background:var(--ink);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;overflow-y:auto}
-.veil.open{display:flex;animation:fadeIn 0.25s ease-out}
-.ring2{width:190px;height:190px;border-radius:50%;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;margin-bottom:32px}
-.orb{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 50% 40%,rgba(111,214,192,.42),rgba(111,214,192,.06));transform:scale(.45);transition:transform 4s cubic-bezier(.4,0,.4,1)}
+.veil.open{display:flex}
+.ring2{width:190px;height:190px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:32px;position:relative}
+.craveRing{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 0 6px rgba(111,214,192,.35))}
+#craveArc{stroke-dasharray:552.9;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.orbWrap{position:relative;width:150px;height:150px;transform:scale(.45);transition:transform 4s cubic-bezier(.4,0,.4,1);z-index:1}
+.orbGlow{position:absolute;inset:-34px;border-radius:50%;
+  background:radial-gradient(circle at 50% 45%,rgba(111,214,192,.4),rgba(111,214,192,0) 68%);
+  filter:blur(8px)}
+.orb{position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(circle at 36% 30%,rgba(191,255,244,.95),rgba(111,214,192,.62) 36%,rgba(38,110,100,.34) 74%,rgba(20,70,64,.12) 100%);
+  box-shadow:inset -12px -16px 30px rgba(0,0,0,.4),inset 8px 10px 22px rgba(255,255,255,.1),0 0 44px rgba(111,214,192,.3)}
 .phase{font-size:19px;font-weight:500;min-height:26px}
 .sub{font-size:13.5px;color:var(--muted);margin-top:12px;line-height:1.5;max-width:300px}
 .left{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:24px;font-variant-numeric:tabular-nums}
@@ -239,7 +258,156 @@ section{margin-bottom:32px}
 .acts button{padding:16px;border-radius:100px;font-size:15px;font-weight:700}
 .ok{background:var(--air);color:#06171A}
 .no{border:1px solid var(--line);color:var(--muted);font-weight:500!important}
-@media (prefers-reduced-motion:reduce){.orb{transition:none!important;transform:scale(.75)!important}}
+@media (prefers-reduced-motion:reduce){.orbWrap{transition:none!important;transform:scale(.75)!important}}
+
+/* ---------- İyileşme Hikayen: sahne sahne oynatılan kısa hikaye animasyonu ---------- */
+.story{position:fixed;inset:0;background:#080F12;z-index:95;display:none;overflow:hidden;
+  font-family:var(--sans);-webkit-font-smoothing:antialiased}
+.story.open{display:block}
+.storyCanvas{position:absolute;inset:0;width:100%;height:100%}
+.storyBar{position:absolute;top:calc(env(safe-area-inset-top) + 14px);left:16px;right:16px;display:flex;gap:6px;z-index:6}
+.storySeg{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
+.storySeg i{display:block;height:100%;width:0%;background:var(--air);border-radius:3px}
+.storyX{position:absolute;top:calc(env(safe-area-inset-top) + 8px);right:12px;z-index:7;
+  width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--bone);font-size:15px;line-height:1}
+.storyScene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 32px;text-align:center;opacity:0;pointer-events:none;transition:opacity .32s ease;z-index:2}
+.storyScene.on{opacity:1;pointer-events:auto;transition:opacity .5s ease .26s}
+.storyEyebrow{position:absolute;top:calc(env(safe-area-inset-top) + 46px);left:0;right:0;text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;z-index:3}
+.storyCap{font-size:19px;font-weight:600;color:var(--bone);margin-top:38px;letter-spacing:-.01em}
+.storyCap b{color:var(--air);font-weight:700}
+
+/* sahne 1: sigara */
+.cigWrap{position:relative;width:230px;height:70px}
+.cigBody{position:absolute;left:34px;top:22px;width:150px;height:20px;border-radius:4px 10px 10px 4px;
+  background:linear-gradient(90deg,#C9A87C 0 22px,#F2EEE8 22px 100%)}
+.cigEmber{position:absolute;left:184px;top:17px;width:28px;height:28px;border-radius:50%;
+  background:radial-gradient(circle,#ffcf9c,#ff9143 46%,#ff6a2b 72%);box-shadow:0 0 34px rgba(255,130,55,.85);
+  animation:emberFade 4.4s ease forwards}
+@keyframes emberFade{0%{opacity:1;transform:scale(1)}72%{opacity:1;transform:scale(1)}
+  100%{opacity:.6;transform:scale(.62);box-shadow:none;background:#332723}}
+.smoke{position:absolute;left:196px;top:8px;width:16px;height:16px;border-radius:50%;
+  background:rgba(255,255,255,.14);filter:blur(7px);animation:smokeRise 3.6s ease-in infinite;opacity:0}
+.smoke.s2{animation-delay:1.15s;left:203px}
+.smoke.s3{animation-delay:2.3s;left:190px;width:12px;height:12px}
+@keyframes smokeRise{0%{opacity:0;transform:translateY(0) translateX(0) scale(.6)}
+  14%{opacity:.65}
+  100%{opacity:0;transform:translateY(-150px) translateX(26px) scale(2.6)}}
+
+/* sahne 2: akciğerler */
+.storyLungSvg{width:186px;filter:drop-shadow(0 0 26px rgba(111,214,192,.12));
+  animation:storyBreathe 3.4s ease-in-out infinite}
+@keyframes storyBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+#storyLobeL,#storyLobeR{fill:#6B625C;transition:fill 6.2s linear}
+.storyStat{font-family:var(--mono);font-size:13px;color:var(--air);margin-top:6px}
+
+/* sahne 3: nefes */
+.storyOrbWrap{transform:scale(.62);animation:storyOrbBreathe 3.6s ease-in-out infinite}
+@keyframes storyOrbBreathe{0%,100%{transform:scale(.6)}50%{transform:scale(.94)}}
+.storyNic{margin-top:34px;width:100%;max-width:250px}
+.storyNic .n1{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.storyNic .n1 span:last-child{color:var(--air);font-size:15px;font-weight:700}
+
+/* sahne 4: kapanış */
+.storyDay{font-family:var(--mono);font-weight:700;font-size:clamp(70px,25vw,116px);color:var(--air);
+  letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.storyDayLbl{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--muted);margin-top:10px}
+.storyClose{font-size:15px;color:var(--bone);margin-top:26px;max-width:280px;line-height:1.55}
+.storyDone{margin-top:36px;padding:16px 42px;border-radius:100px;background:var(--air);color:#06171A;
+  font-weight:700;font-size:15px}
+.storyDone:active{transform:scale(.96)}
+@media (prefers-reduced-motion:reduce){
+  .cigEmber,.smoke,.storyLungSvg,.storyOrbWrap{animation:none!important}
+}
+.lungWrap{max-width:172px;margin:0 auto 4px}
+.nfLungs{transform-origin:106px 115px;animation:lungBreathe 3.6s ease-in-out infinite}
+@keyframes lungBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.032)}}
+.sysStrip{display:flex;justify-content:space-between;padding:2px 6px 0;margin-bottom:22px}
+.sysIcon{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:.32;transition:opacity .4s ease}
+.sysIcon svg{width:17px;height:17px;stroke:var(--muted);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transform-origin:center}
+.sysIcon .sl{font-size:8px;font-family:var(--mono);color:var(--muted)}
+.sysIcon.on{opacity:1}
+.sysIcon.on svg{stroke:var(--air);width:21px;height:21px}
+.sysIcon.on .sl{color:var(--air);font-weight:700}
+.sysIcon.on.beyin svg{animation:sysBrain 2.4s ease-in-out infinite}
+.sysIcon.on.akciger svg{animation:sysLung 3.2s ease-in-out infinite}
+.sysIcon.on.kalp svg{fill:var(--air);animation:sysHeart 1.15s ease-in-out infinite}
+.sysIcon.on.duyu svg{animation:sysSense 1.8s ease-in-out infinite}
+.sysIcon.on.cilt svg{animation:sysSkin 2.2s ease-in-out infinite}
+.sysIcon.on.enerji svg{animation:sysEnergy 1.6s ease-in-out infinite}
+.sysIcon.on.risk svg{animation:sysRisk 3s ease-in-out infinite}
+@keyframes sysBrain{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes sysLung{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.16)}}
+@keyframes sysHeart{0%,100%{transform:scale(1)}15%{transform:scale(1.24)}30%{transform:scale(1)}45%{transform:scale(1.16)}60%{transform:scale(1)}}
+@keyframes sysSense{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+@keyframes sysSkin{0%,100%{filter:brightness(1)}50%{filter:brightness(1.55)}}
+@keyframes sysEnergy{0%,18%,100%{opacity:1}9%{opacity:.35}}
+@keyframes sysRisk{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
+@media (prefers-reduced-motion:reduce){.nfLungs,.sysIcon.on svg{animation:none!important}}
+
+/* ---------- gerçek animasyonlar: sayfa geçişleri, mikro-etkileşimler, akciğer/vücut ---------- */
+[data-pg]{will-change:transform,opacity}
+[data-pg].pgIn{animation:pgIn .46s cubic-bezier(.16,1,.3,1) both}
+[data-pg].pgOut{animation:pgOut .18s cubic-bezier(.4,0,1,1) both}
+@keyframes pgIn{0%{opacity:0;transform:translateY(14px) scale(.985)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes pgOut{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-8px)}}
+
+.reveal{opacity:0;transform:translateY(9px);animation:revealUp .55s cubic-bezier(.16,1,.3,1) both}
+.reveal.r2{animation-delay:.04s}.reveal.r3{animation-delay:.08s}.reveal.r4{animation-delay:.12s}
+@keyframes revealUp{to{opacity:1;transform:translateY(0)}}
+
+button{position:relative;overflow:hidden;transition:transform .15s cubic-bezier(.34,1.56,.64,1)}
+button:active{transform:scale(.96)}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.32);transform:scale(0);pointer-events:none;animation:ripAnim .62s cubic-bezier(.25,.7,.4,1) forwards}
+.pri .rip,.crave .rip,.ok .rip{background:rgba(6,23,26,.28)}
+@keyframes ripAnim{to{transform:scale(2.6);opacity:0}}
+
+.count.bump{animation:bump .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.09) translateY(-2px)}100%{transform:scale(1)}}
+.numFlip{display:inline-block;animation:numFlip .42s cubic-bezier(.34,1.56,.64,1)}
+@keyframes numFlip{0%{opacity:0;transform:translateY(6px) scale(.9)}100%{opacity:1;transform:translateY(0) scale(1)}}
+
+.tabbar button.on svg{animation:tabPop .38s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tabPop{0%{transform:scale(.7)}55%{transform:scale(1.22)}100%{transform:scale(1)}}
+
+/* akciğer sahnesi: canvas tabanlı glow + parçacık motoru (heroFX) buraya çizer */
+.lungWrap{position:relative}
+.heroCanvas{position:absolute;inset:-72px -46px -30px -46px;pointer-events:none;z-index:2;width:calc(100% + 92px);height:calc(100% + 102px)}
+#lobeL,#lobeR{transition:fill 1.4s linear}
+.craveCanvas{position:absolute;inset:-40% -40%;pointer-events:none;z-index:0;width:180%;height:180%}
+
+/* yolculuk / gelişim zaman çizelgesi */
+.jScroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:6px 20px 18px}
+.jScroll::-webkit-scrollbar{display:none}
+.journey{display:flex;align-items:flex-start;position:relative;min-width:max-content;padding-top:24px}
+.jLine{position:absolute;left:37px;right:37px;top:57px;height:3px;background:var(--line);border-radius:3px}
+.jFill{position:absolute;left:37px;top:57px;height:3px;border-radius:3px;width:0%;
+  background:linear-gradient(90deg,#6FD6C0,#E9A23B);transition:width 1.4s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 0 10px rgba(111,214,192,.55)}
+.jNode{display:flex;flex-direction:column;align-items:center;width:74px;flex:none;position:relative;z-index:1;opacity:.38;transition:opacity .5s ease}
+.jNode.done,.jNode.now{opacity:1}
+.jDot{width:14px;height:14px;border-radius:50%;background:var(--ink);border:2.5px solid var(--line);margin-top:50px;
+  transition:background .5s ease,border-color .5s ease,transform .5s cubic-bezier(.34,1.56,.64,1),box-shadow .5s ease}
+.jNode.done .jDot{background:var(--air);border-color:var(--air)}
+.jNode.now .jDot{background:var(--air);border-color:var(--air);transform:scale(1.35);
+  box-shadow:0 0 0 6px rgba(111,214,192,.22);animation:jPulse 1.7s ease-in-out infinite}
+@keyframes jPulse{0%,100%{box-shadow:0 0 0 6px rgba(111,214,192,.22)}50%{box-shadow:0 0 0 12px rgba(111,214,192,.06)}}
+.jNode .jt{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:10px;text-align:center;white-space:nowrap}
+.jNode.done .jt,.jNode.now .jt{color:var(--bone)}
+.jNode.now .jt{color:var(--air);font-weight:700}
+.jNode .js{font-size:9px;color:var(--muted);margin-top:2px;text-align:center;line-height:1.3;max-width:72px}
+.jHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px}
+.jHead .jPct{font-family:var(--mono);font-size:12px;color:var(--air)}
+.jNow{background:var(--surface);border-radius:14px;padding:15px 16px;margin-top:2px;border-left:2px solid var(--air)}
+.jNow b{font-size:13.5px}
+.jNow span{display:block;font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+
+@media (prefers-reduced-motion:reduce){
+  [data-pg].pgIn,[data-pg].pgOut,.reveal,.count.bump,.numFlip,.tabbar button.on svg,.jNode.now .jDot{animation:none!important}
+  button{transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -247,58 +415,46 @@ section{margin-bottom:32px}
 <div class="setup" id="setup"><div class="wrap" id="setupBody"></div></div>
 
 <div id="app" class="hidden">
-<div class="hero">
+<div class="hero" data-pg="bugun">
   <div class="since"><span class="eyebrow">Son sigara</span><b id="quitLabel">—</b></div>
+  <div class="lungWrap"><canvas class="heroCanvas" id="heroCanvas"></canvas><svg width="100%" viewBox="0 0 200 200" role="img" aria-label="Akciğerlerinin temizlenme durumu">
+<g class="nfLungs">
+<path d="M100,38 Q98,53 100,66" fill="none" stroke="#1F3F48" stroke-width="6.5" stroke-linecap="round"/>
+<path d="M100,66 Q88,71 78,79" fill="none" stroke="#1F3F48" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M100,66 Q108,60 116,56" fill="none" stroke="#1F3F48" stroke-width="4.5" stroke-linecap="round"/>
+<path id="lobeL" d="M114.9,118.0 L113.2,119.8 L111.1,121.5 L108.8,122.9 L106.3,124.0 L104.0,125.0 L101.9,125.8 L100.3,126.6 L99.2,127.4 L98.6,128.5 L98.6,129.9 L99.0,131.6 L99.6,133.7 L100.4,136.2 L101.2,138.9 L101.8,141.8 L102.2,144.9 L102.3,148.0 L102.0,151.1 L100.4,152.4 L98.1,152.8 L95.8,153.0 L93.6,153.1 L91.6,153.3 L89.6,153.7 L87.7,154.1 L85.8,154.7 L83.9,155.5 L82.0,156.3 L80.0,157.0 L78.0,157.5 L75.9,157.8 L73.8,157.8 L71.8,157.4 L69.8,156.7 L67.9,155.8 L66.1,154.7 L64.3,153.6 L62.6,152.6 L60.8,151.8 L58.7,151.4 L56.4,151.2 L53.8,151.3 L50.9,151.5 L47.6,151.7 L44.2,151.8 L40.8,151.5 L37.5,150.8 L34.7,149.5 L32.4,147.6 L30.8,145.3 L30.1,142.4 L30.2,139.3 L31.2,136.0 L32.8,132.7 L34.9,129.5 L37.3,126.7 L39.6,124.1 L41.8,121.8 L43.5,119.8 L44.6,118.0 L45.2,116.3 L45.3,114.6 L44.9,112.8 L44.3,110.8 L43.5,108.8 L42.9,106.6 L42.4,104.3 L42.2,102.1 L42.4,99.9 L43.0,97.8 L43.9,95.9 L45.1,94.1 L46.4,92.4 L47.8,90.8 L49.2,89.2 L50.6,87.5 L51.9,85.8 L53.2,83.9 L54.6,82.0 L56.1,80.0 L57.7,78.1 L59.5,76.4 L61.5,74.9 L63.6,73.8 L65.9,73.0 L68.3,72.6 L70.8,72.5 L73.2,72.7 L75.6,73.1 L78.0,73.5 L80.3,73.9 L82.6,74.2 L84.9,74.4 L87.2,74.5 L89.6,74.6 L92.0,74.8 L94.4,75.1 L96.8,75.9 L98.9,77.0 L100.7,78.6 L102.2,80.8 L103.2,83.3 L103.7,86.2 L103.9,89.3 L103.6,92.4 L103.2,95.3 L102.8,97.9 L102.6,100.1 L102.8,101.9 L103.5,103.3 L104.9,104.3 L107.0,105.1 L109.6,105.9 L112.7,106.7 L116.1,107.8 L116.6,109.8 L116.8,111.9 L116.7,113.9 L116.1,116.0 Z" fill="#6B625C"/>
+<path id="lobeR" d="M182.0,112.0 L182.7,114.9 L182.8,117.8 L182.3,120.6 L181.2,123.3 L179.6,125.8 L177.5,128.1 L175.0,130.0 L172.3,131.7 L169.4,133.1 L166.6,134.3 L163.9,135.3 L161.4,136.3 L159.3,137.3 L157.4,138.5 L155.8,139.8 L154.5,141.4 L153.3,143.2 L152.1,145.2 L151.0,147.4 L149.7,149.6 L148.3,151.8 L146.6,153.8 L144.7,155.5 L142.6,156.9 L140.3,157.9 L137.9,158.5 L135.4,158.7 L132.9,158.5 L130.4,157.9 L128.0,157.2 L125.7,156.4 L123.4,155.6 L121.2,154.9 L119.0,154.3 L116.8,153.8 L114.5,153.5 L112.1,153.3 L109.6,153.2 L107.1,153.1 L104.4,152.8 L101.8,152.4 L99.1,151.7 L96.6,150.7 L94.3,149.4 L92.2,147.8 L90.4,145.9 L88.9,143.7 L87.6,141.3 L86.6,138.9 L85.9,136.3 L85.3,133.8 L84.7,131.3 L84.3,128.8 L83.8,126.4 L83.4,124.0 L82.9,121.6 L82.4,119.2 L82.1,116.8 L81.8,114.4 L81.8,112.0 L82.0,109.6 L82.5,107.2 L83.4,104.9 L84.6,102.8 L86.0,100.7 L87.7,98.9 L89.5,97.2 L91.3,95.7 L93.1,94.2 L94.8,92.8 L96.2,91.4 L97.4,89.8 L98.3,87.9 L98.9,85.8 L99.4,83.4 L99.8,80.6 L100.1,77.6 L100.6,74.3 L101.4,71.0 L102.4,67.6 L103.8,64.5 L105.6,61.7 L107.8,59.3 L110.3,57.6 L113.1,56.5 L116.1,56.1 L119.2,56.3 L122.2,57.3 L125.2,58.7 L128.0,60.5 L130.6,62.7 L132.9,64.9 L135.1,67.2 L137.1,69.3 L138.9,71.3 L140.7,73.0 L142.4,74.5 L144.1,75.8 L145.9,77.0 L147.7,78.0 L149.5,78.9 L151.3,79.9 L153.2,80.9 L155.0,82.0 L156.8,83.2 L158.4,84.6 L160.1,86.0 L161.6,87.6 L163.2,89.2 L164.7,90.8 L166.4,92.5 L168.1,94.2 L169.9,95.9 L171.8,97.8 L173.7,99.7 L175.7,101.9 L177.7,104.1 L179.4,106.6 L180.9,109.2 Z" fill="#6B625C"/>
+<circle id="tsL0" cx="75.9" cy="122.2" r="5.6" fill="#241E1A" opacity="0"/><circle id="tsL1" cx="87.2" cy="122.5" r="4.5" fill="#241E1A" opacity="0"/><circle id="tsL2" cx="87.8" cy="121.7" r="3.1" fill="#241E1A" opacity="0"/><circle id="tsL3" cx="75.3" cy="119.2" r="3.4" fill="#241E1A" opacity="0"/><circle id="tsL4" cx="45.1" cy="134.9" r="3.5" fill="#241E1A" opacity="0"/><circle id="tsL5" cx="81.2" cy="137.1" r="6.8" fill="#241E1A" opacity="0"/><circle id="tsL6" cx="66.5" cy="112.0" r="6.9" fill="#241E1A" opacity="0"/><circle id="tsL7" cx="96.1" cy="123.5" r="4.2" fill="#241E1A" opacity="0"/><circle id="tsL8" cx="80.3" cy="120.9" r="4.2" fill="#241E1A" opacity="0"/><circle id="tsL9" cx="80.7" cy="111.8" r="5.3" fill="#241E1A" opacity="0"/><circle id="tsL10" cx="70.0" cy="108.4" r="5.2" fill="#241E1A" opacity="0"/><circle id="tsL11" cx="79.1" cy="118.4" r="3.8" fill="#241E1A" opacity="0"/><circle id="tsL12" cx="71.4" cy="103.8" r="4.3" fill="#241E1A" opacity="0"/><circle id="tsL13" cx="65.1" cy="110.3" r="4.2" fill="#241E1A" opacity="0"/><circle id="tsL14" cx="85.1" cy="93.2" r="4.0" fill="#241E1A" opacity="0"/><circle id="tsL15" cx="62.9" cy="110.4" r="6.5" fill="#241E1A" opacity="0"/><circle id="tsL16" cx="76.6" cy="107.2" r="6.9" fill="#241E1A" opacity="0"/><circle id="tsL17" cx="85.9" cy="125.2" r="6.0" fill="#241E1A" opacity="0"/><circle id="tsL18" cx="87.5" cy="131.4" r="3.2" fill="#241E1A" opacity="0"/><circle id="tsL19" cx="64.5" cy="94.1" r="5.3" fill="#241E1A" opacity="0"/><circle id="tsL20" cx="84.6" cy="111.4" r="5.8" fill="#241E1A" opacity="0"/><circle id="tsL21" cx="62.0" cy="107.2" r="4.8" fill="#241E1A" opacity="0"/><circle id="tsR0" cx="144.3" cy="86.3" r="4.9" fill="#241E1A" opacity="0"/><circle id="tsR1" cx="126.7" cy="109.9" r="5.8" fill="#241E1A" opacity="0"/><circle id="tsR2" cx="106.3" cy="83.2" r="6.3" fill="#241E1A" opacity="0"/><circle id="tsR3" cx="125.1" cy="125.3" r="5.7" fill="#241E1A" opacity="0"/><circle id="tsR4" cx="148.6" cy="114.9" r="3.7" fill="#241E1A" opacity="0"/><circle id="tsR5" cx="129.4" cy="113.3" r="6.1" fill="#241E1A" opacity="0"/><circle id="tsR6" cx="133.5" cy="117.8" r="4.6" fill="#241E1A" opacity="0"/><circle id="tsR7" cx="129.8" cy="110.1" r="4.8" fill="#241E1A" opacity="0"/><circle id="tsR8" cx="98.0" cy="102.4" r="6.3" fill="#241E1A" opacity="0"/><circle id="tsR9" cx="134.0" cy="105.1" r="4.7" fill="#241E1A" opacity="0"/><circle id="tsR10" cx="105.2" cy="140.0" r="6.8" fill="#241E1A" opacity="0"/><circle id="tsR11" cx="131.5" cy="116.8" r="3.9" fill="#241E1A" opacity="0"/><circle id="tsR12" cx="129.9" cy="130.5" r="5.4" fill="#241E1A" opacity="0"/><circle id="tsR13" cx="128.0" cy="112.1" r="4.7" fill="#241E1A" opacity="0"/><circle id="tsR14" cx="112.1" cy="129.1" r="6.8" fill="#241E1A" opacity="0"/><circle id="tsR15" cx="119.5" cy="90.3" r="5.5" fill="#241E1A" opacity="0"/><circle id="tsR16" cx="126.9" cy="109.9" r="6.6" fill="#241E1A" opacity="0"/><circle id="tsR17" cx="134.1" cy="80.0" r="6.2" fill="#241E1A" opacity="0"/><circle id="tsR18" cx="115.2" cy="122.3" r="3.4" fill="#241E1A" opacity="0"/><circle id="tsR19" cx="126.6" cy="110.4" r="3.3" fill="#241E1A" opacity="0"/><circle id="tsR20" cx="129.6" cy="118.1" r="4.4" fill="#241E1A" opacity="0"/><circle id="tsR21" cx="128.0" cy="112.0" r="3.6" fill="#241E1A" opacity="0"/><circle id="tsR22" cx="137.9" cy="119.3" r="3.1" fill="#241E1A" opacity="0"/><circle id="tsR23" cx="142.3" cy="97.6" r="3.6" fill="#241E1A" opacity="0"/><circle id="tsR24" cx="127.8" cy="124.9" r="4.5" fill="#241E1A" opacity="0"/><circle id="tsR25" cx="147.7" cy="131.2" r="7.0" fill="#241E1A" opacity="0"/>
+</g>
+</svg></div>
+<div class="sysStrip" id="sysStrip"><div class="sysIcon beyin" id="sys-beyin"><svg viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3v1a5 5 0 0 0 5 5v6M15 4a3 3 0 0 1 3 3v1a5 5 0 0 1-5 5"/></svg><span class="sl">Beyin</span></div><div class="sysIcon akciger" id="sys-akciger"><svg viewBox="0 0 24 24"><path d="M9 21c-4-2-6-6-6-10a4 4 0 0 1 7-2.6A4 4 0 0 1 17 11c0 4-2 8-6 10z"/></svg><span class="sl">Akciğer</span></div><div class="sysIcon kalp" id="sys-kalp"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.3-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 12c0 4.7-7 9-7 9z"/></svg><span class="sl">Kalp</span></div><div class="sysIcon duyu" id="sys-duyu"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg><span class="sl">Duyu</span></div><div class="sysIcon cilt" id="sys-cilt"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0-6 6c0 4 6 12 6 12s6-8 6-12a6 6 0 0 0-6-6z"/></svg><span class="sl">Cilt</span></div><div class="sysIcon enerji" id="sys-enerji"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg><span class="sl">Enerji</span></div><div class="sysIcon risk" id="sys-risk"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg><span class="sl">Risk</span></div></div>
   <div class="count" id="days">0<small>GÜN</small></div>
   <div class="clock" id="clock">00:00:00</div>
+  <button class="watchBtn" id="watchBtn">▶ İyileşme hikayeni izle</button>
 </div>
 
-<div class="now-card">
+<div class="nicCard" data-pg="bugun" id="nicCard">
+  <div class="nicTop"><span class="lbl">Kanda kalan nikotin</span><span class="nicPct" id="nicPct">100%</span></div>
+  <div class="nicTube"><div class="nicFill" id="nicFill"></div></div>
+  <div class="nicNote" id="nicNote">Nikotinin kandaki yarılanma ömrü ~2 saat — bu yüzden ilk gerçek kriz genelde 2. saat civarı gelir.</div>
+</div>
+
+<div class="now-card" data-pg="bugun">
   <div class="lbl" id="nowLbl">Şu an</div>
   <div class="msg" id="nowMsg">—</div>
   <div class="nxt"><span id="nextTxt">—</span><span id="nextLeft"></span></div>
   <div class="thin"><i id="nextBar" style="width:0%"></i></div>
 </div>
 
-<button class="crave" id="craveBtn">Canım çekiyor</button>
+<button class="crave" id="craveBtn" data-pg="bugun">Canım çekiyor</button>
 
-<!-- Lung Visual Card -->
-<div class="lung-card">
-  <div class="lung-visual">
-    <svg viewBox="0 0 100 100" class="lung-svg">
-      <defs>
-        <linearGradient id="lungGrad" x1="0" y1="1" x2="0" y2="0">
-          <stop id="lungStop" offset="0%" stop-color="#6FD6C0" />
-          <stop id="lungStopDark" offset="0%" stop-color="#1F3F48" />
-        </linearGradient>
-      </defs>
-      <!-- Soluk borusu -->
-      <path d="M46 12 L54 12 L54 32 L46 32 Z" fill="#7C979E" />
-      <path d="M46 30 L28 42 M54 30 L72 42" stroke="#7C979E" stroke-width="3" stroke-linecap="round"/>
-      <!-- Sol Akciğer -->
-      <path d="M22 40 C12 48 10 68 20 82 C28 92 42 85 42 72 C42 58 40 43 32 38 Z" fill="url(#lungGrad)" />
-      <!-- Sağ Akciğer -->
-      <path d="M78 40 C88 48 90 68 80 82 C72 92 58 85 58 72 C58 58 60 43 68 38 Z" fill="url(#lungGrad)" />
-    </svg>
-  </div>
-  <div class="lung-info">
-    <div class="lbl">Akciğer İyileşmesi</div>
-    <div class="val" id="lungPct">%0</div>
-    <div class="desc" id="lungDesc">Siller (temizleyici tüycükler) yenileniyor.</div>
-  </div>
-</div>
-
-<section>
-  <div class="head"><span class="eyebrow">Para & Getiri</span></div>
+<section data-pg="para">
+  <div class="head"><span class="eyebrow">Para</span></div>
   <div class="stats">
     <div class="stat"><div class="v" id="mNom">₺0</div><div class="k">yastık altı — hiç değerlendirmesen</div></div>
     <div class="stat hi"><div class="v" id="mInt">₺0</div><div class="k">günlük bileşik faizle</div></div>
     <div class="stat"><div class="v" id="mGain">₺0</div><div class="k">sadece faiz kazancı</div></div>
     <div class="stat"><div class="v" id="mReal">₺0</div><div class="k">enflasyon düşülmüş reel değer</div></div>
-    <div class="stat full">
-      <div class="v" id="mRealRate">%0</div>
-      <div class="k">net yıllık reel faiz oranı (Fisher formülü: mevduat faizi vs enflasyon)</div>
-    </div>
   </div>
   <div class="chart" style="margin-top:12px">
     <div class="ct">Faizli vs faizsiz</div>
@@ -316,7 +472,7 @@ section{margin-bottom:32px}
   <div class="auto" id="autoBox"></div>
 </section>
 
-<section>
+<section data-pg="bugun">
   <div class="head"><span class="eyebrow">Birikenler</span></div>
   <div class="stats">
     <div class="stat"><div class="v" id="sticks">0</div><div class="k">sigara içilmedi</div></div>
@@ -326,9 +482,20 @@ section{margin-bottom:32px}
   </div>
 </section>
 
-<section>
+<section data-pg="vucut">
   <div class="head"><span class="eyebrow">İyileşme</span></div>
   <div class="rings" id="rings"></div>
+</section>
+
+<section data-pg="ilerleme">
+  <div class="head"><span class="eyebrow">Yolculuğun</span></div>
+  <div class="jHead"><span class="cs" id="jCap">—</span><span class="jPct" id="jPct">0%</span></div>
+  <div class="jScroll"><div class="journey" id="journey"><div class="jLine"></div><div class="jFill" id="jFill"></div></div></div>
+  <div class="jNow" id="jNow"></div>
+</section>
+
+<section data-pg="ilerleme">
+  <div class="head"><span class="eyebrow">Krizlerin</span></div>
   <div class="chart">
     <div class="ct">Atlattığın krizler</div>
     <div class="cs">Haftalara göre. Amaç çubukların küçülmesi — krizler zamanla seyrekleşir.</div>
@@ -346,7 +513,7 @@ section{margin-bottom:32px}
   </div>
 </section>
 
-<section>
+<section data-pg="ilerleme">
   <div class="head"><span class="eyebrow">Desenlerin</span></div>
   <div class="chart">
     <div class="ct">Tetikleyicilerin</div>
@@ -361,41 +528,51 @@ section{margin-bottom:32px}
   </div>
 </section>
 
-<section>
+<section data-pg="bugun">
   <div class="head"><span class="eyebrow">Neden bıraktın</span><button id="edReasons">Düzenle</button></div>
   <div class="reasons" id="reasonsBox"></div>
 </section>
 
-<section>
+<section data-pg="ilerleme">
   <div class="head"><span class="eyebrow">Rozetler</span><span class="eyebrow" id="badgeCount"></span></div>
   <div id="badges"></div>
 </section>
 
-<section>
+<section data-pg="vucut">
   <div class="head"><span class="eyebrow">Vücudunda olanlar</span></div>
   <div class="chips" id="chips"></div>
   <ul class="ms" id="milestones"></ul>
   <button class="more" id="moreBtn">Tümünü göster ↓</button>
 </section>
 
-<section>
+<section data-pg="ayarlar">
   <div class="head"><span class="eyebrow">Hatırlatıcı</span></div>
   <div class="notif" id="notifBox"></div>
 </section>
 
-<section>
+<section data-pg="ayarlar">
   <div class="head"><span class="eyebrow">Kayıt</span><button id="setBtn">Ayarlar</button></div>
   <div class="panel" id="panel">
     <div class="row"><label for="qd">Bıraktığın an</label><input type="datetime-local" id="qd"></div>
     <div class="row"><label for="pd">Günde kaç sigara</label><input type="number" id="pd" min="1" max="80"></div>
+    <div class="row"><label for="brSel">Marka</label><select id="brSel"><option value="">Özel / elle gir</option></select></div>
     <div class="row"><label for="pp">Paket fiyatı (₺)</label><input type="number" id="pp" min="1" max="5000"></div>
-    <div class="row"><label for="ir">Yıllık faiz (%)</label><input type="number" id="ir" min="0" max="200" step="0.5"></div>
-    <div class="row"><label for="ni">Faize girmeyen tutar (₺)</label><input type="number" id="ni" min="0" max="99999999"></div>
-    <div class="row"><label for="inf">Yıllık enflasyon (%)</label><input type="number" id="inf" min="0" max="200" step="0.5"></div>
     <div class="row"><label for="gn">Hedefin</label><input type="text" id="gn" placeholder="ne alacaksın"></div>
     <div class="row"><label for="ga">Hedef tutarı (₺)</label><input type="number" id="ga" min="0" max="99999999"></div>
-    <div class="bgroup">Otomatik veri</div>
-    <div class="row"><label for="du">Veri servisi URL'i</label><input class="wide" type="text" id="du" placeholder="https://....workers.dev"></div>
+
+    <button class="advToggle" id="advToggle">Gelişmiş ayarlar ↓</button>
+    <div class="advBox" id="advBox">
+      <div class="row"><label for="ir">Yıllık faiz (%)</label><input type="number" id="ir" min="0" max="200" step="0.5"></div>
+      <div class="row"><label for="ni">Faize girmeyen tutar (₺)</label><input type="number" id="ni" min="0" max="99999999"></div>
+      <div class="row"><label for="inf">Yıllık enflasyon (%)</label><input type="number" id="inf" min="0" max="200" step="0.5"></div>
+      <div class="bgroup">Otomatik veri</div>
+      <div class="row"><label for="du">Veri servisi URL'i</label><input class="wide" type="text" id="du" placeholder="https://....workers.dev"></div>
+      <div class="row"><label for="af">Ne sıklıkla çekilsin</label><select id="af">
+        <option value="0">Sadece elle</option><option value="1">Günde bir</option>
+        <option value="7">Haftada bir</option><option value="30">Ayda bir</option></select></div>
+      <div class="row"><label for="ah">En erken saat</label><input type="number" id="ah" min="0" max="23"></div>
+    </div>
+
     <div class="bgroup">Yedekleme</div>
     <div class="bk">
       <button class="exp" id="expBtn">Yedeği indir</button>
@@ -407,12 +584,24 @@ section{margin-bottom:32px}
   <ul class="log" id="log"></ul>
 </section>
 
-<p class="src">Zaman çizelgesi: NHS, CDC ve American Cancer Society yayınları; nikotinik reseptör iyileşmesi için PET/SPECT görüntüleme çalışmaları. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına ortalama 17 dk (erkek). Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
+<p class="src" data-pg="ayarlar">Zaman çizelgesi: NHS, CDC ve American Cancer Society yayınları; nikotinik reseptör iyileşmesi için PET/SPECT görüntüleme çalışmaları. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına ortalama 17 dk (erkek). Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
+</div>
+
+<div class="tabbar hidden" id="tabbar">
+  <button data-go="bugun" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="tl">Bugün</span></button>
+  <button data-go="para"><svg viewBox="0 0 24 24"><path d="M15 5H10a3 3 0 0 0-3 3v11"/><path d="M5 11h9"/><path d="M5 15h8"/></svg><span class="tl">Para</span></button>
+  <button data-go="vucut"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.3-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.7-7 9-7 9z"/></svg><span class="tl">Vücut</span></button>
+  <button data-go="ilerleme"><svg viewBox="0 0 24 24"><path d="M4 19V11"/><path d="M10 19V5"/><path d="M16 19v-6"/><path d="M22 19H2"/></svg><span class="tl">İlerleme</span></button>
+  <button data-go="ayarlar"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg><span class="tl">Ayarlar</span></button>
 </div>
 
 <div class="veil" id="veil">
   <div id="breathe">
-    <div class="ring2"><div class="orb" id="orb"></div></div>
+    <div class="ring2">
+      <canvas class="craveCanvas" id="craveCanvas"></canvas>
+      <svg class="craveRing" viewBox="0 0 190 190"><circle cx="95" cy="95" r="88" fill="none" stroke="#1F3F48" stroke-width="2"/><circle id="craveArc" cx="95" cy="95" r="88" fill="none" stroke="#6FD6C0" stroke-width="2" stroke-linecap="round" transform="rotate(-90 95 95)"/></svg>
+      <div class="orbWrap" id="orbWrap"><div class="orbGlow"></div><div class="orb" id="orb"></div></div>
+    </div>
     <div class="phase" id="phase">Hazır ol</div>
     <div class="sub" id="sub">Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.</div>
     <div class="veilReasons" id="veilReasons"></div>
@@ -435,6 +624,46 @@ section{margin-bottom:32px}
   </div>
 </div>
 
+<div class="story" id="story">
+  <canvas class="storyCanvas" id="storyCanvas"></canvas>
+  <div class="storyBar"><div class="storySeg"><i id="storySeg0"></i></div><div class="storySeg"><i id="storySeg1"></i></div><div class="storySeg"><i id="storySeg2"></i></div><div class="storySeg"><i id="storySeg3"></i></div></div>
+  <button class="storyX" id="storyX">✕</button>
+  <div class="storyEyebrow">Senin hikayen</div>
+
+  <div class="storyScene" id="scCig">
+    <div class="cigWrap">
+      <div class="smoke s1"></div><div class="smoke s2"></div><div class="smoke s3"></div>
+      <div class="cigBody"></div><div class="cigEmber"></div>
+    </div>
+    <div class="storyCap">Son sigaran <b id="capQuitDate">—</b> tarihinde söndü.</div>
+  </div>
+
+  <div class="storyScene" id="scLungs">
+    <svg class="storyLungSvg" viewBox="0 0 200 200">
+      <path id="storyLobeL" d="M114.9,118.0 L113.2,119.8 L111.1,121.5 L108.8,122.9 L106.3,124.0 L104.0,125.0 L101.9,125.8 L100.3,126.6 L99.2,127.4 L98.6,128.5 L98.6,129.9 L99.0,131.6 L99.6,133.7 L100.4,136.2 L101.2,138.9 L101.8,141.8 L102.2,144.9 L102.3,148.0 L102.0,151.1 L100.4,152.4 L98.1,152.8 L95.8,153.0 L93.6,153.1 L91.6,153.3 L89.6,153.7 L87.7,154.1 L85.8,154.7 L83.9,155.5 L82.0,156.3 L80.0,157.0 L78.0,157.5 L75.9,157.8 L73.8,157.8 L71.8,157.4 L69.8,156.7 L67.9,155.8 L66.1,154.7 L64.3,153.6 L62.6,152.6 L60.8,151.8 L58.7,151.4 L56.4,151.2 L53.8,151.3 L50.9,151.5 L47.6,151.7 L44.2,151.8 L40.8,151.5 L37.5,150.8 L34.7,149.5 L32.4,147.6 L30.8,145.3 L30.1,142.4 L30.2,139.3 L31.2,136.0 L32.8,132.7 L34.9,129.5 L37.3,126.7 L39.6,124.1 L41.8,121.8 L43.5,119.8 L44.6,118.0 L45.2,116.3 L45.3,114.6 L44.9,112.8 L44.3,110.8 L43.5,108.8 L42.9,106.6 L42.4,104.3 L42.2,102.1 L42.4,99.9 L43.0,97.8 L43.9,95.9 L45.1,94.1 L46.4,92.4 L47.8,90.8 L49.2,89.2 L50.6,87.5 L51.9,85.8 L53.2,83.9 L54.6,82.0 L56.1,80.0 L57.7,78.1 L59.5,76.4 L61.5,74.9 L63.6,73.8 L65.9,73.0 L68.3,72.6 L70.8,72.5 L73.2,72.7 L75.6,73.1 L78.0,73.5 L80.3,73.9 L82.6,74.2 L84.9,74.4 L87.2,74.5 L89.6,74.6 L92.0,74.8 L94.4,75.1 L96.8,75.9 L98.9,77.0 L100.7,78.6 L102.2,80.8 L103.2,83.3 L103.7,86.2 L103.9,89.3 L103.6,92.4 L103.2,95.3 L102.8,97.9 L102.6,100.1 L102.8,101.9 L103.5,103.3 L104.9,104.3 L107.0,105.1 L109.6,105.9 L112.7,106.7 L116.1,107.8 L116.6,109.8 L116.8,111.9 L116.7,113.9 L116.1,116.0 Z" fill="#6B625C"/>
+      <path id="storyLobeR" d="M182.0,112.0 L182.7,114.9 L182.8,117.8 L182.3,120.6 L181.2,123.3 L179.6,125.8 L177.5,128.1 L175.0,130.0 L172.3,131.7 L169.4,133.1 L166.6,134.3 L163.9,135.3 L161.4,136.3 L159.3,137.3 L157.4,138.5 L155.8,139.8 L154.5,141.4 L153.3,143.2 L152.1,145.2 L151.0,147.4 L149.7,149.6 L148.3,151.8 L146.6,153.8 L144.7,155.5 L142.6,156.9 L140.3,157.9 L137.9,158.5 L135.4,158.7 L132.9,158.5 L130.4,157.9 L128.0,157.2 L125.7,156.4 L123.4,155.6 L121.2,154.9 L119.0,154.3 L116.8,153.8 L114.5,153.5 L112.1,153.3 L109.6,153.2 L107.1,153.1 L104.4,152.8 L101.8,152.4 L99.1,151.7 L96.6,150.7 L94.3,149.4 L92.2,147.8 L90.4,145.9 L88.9,143.7 L87.6,141.3 L86.6,138.9 L85.9,136.3 L85.3,133.8 L84.7,131.3 L84.3,128.8 L83.8,126.4 L83.4,124.0 L82.9,121.6 L82.4,119.2 L82.1,116.8 L81.8,114.4 L81.8,112.0 L82.0,109.6 L82.5,107.2 L83.4,104.9 L84.6,102.8 L86.0,100.7 L87.7,98.9 L89.5,97.2 L91.3,95.7 L93.1,94.2 L94.8,92.8 L96.2,91.4 L97.4,89.8 L98.3,87.9 L98.9,85.8 L99.4,83.4 L99.8,80.6 L100.1,77.6 L100.6,74.3 L101.4,71.0 L102.4,67.6 L103.8,64.5 L105.6,61.7 L107.8,59.3 L110.3,57.6 L113.1,56.5 L116.1,56.1 L119.2,56.3 L122.2,57.3 L125.2,58.7 L128.0,60.5 L130.6,62.7 L132.9,64.9 L135.1,67.2 L137.1,69.3 L138.9,71.3 L140.7,73.0 L142.4,74.5 L144.1,75.8 L145.9,77.0 L147.7,78.0 L149.5,78.9 L151.3,79.9 L153.2,80.9 L155.0,82.0 L156.8,83.2 L158.4,84.6 L160.1,86.0 L161.6,87.6 L163.2,89.2 L164.7,90.8 L166.4,92.5 L168.1,94.2 L169.9,95.9 L171.8,97.8 L173.7,99.7 L175.7,101.9 L177.7,104.1 L179.4,106.6 L180.9,109.2 Z" fill="#6B625C"/>
+    </svg>
+    <div class="storyCap">Akciğerlerin <b>temizleniyor</b>.</div>
+    <div class="storyStat" id="storyLungStat"></div>
+  </div>
+
+  <div class="storyScene" id="scBreath">
+    <div class="ring2 storyOrbWrap"><div class="orbGlow"></div><div class="orb" id="storyOrb"></div></div>
+    <div class="storyCap">Nefesin <b>açılıyor</b>.</div>
+    <div class="storyNic">
+      <div class="n1"><span>Kanda kalan nikotin</span><span id="storyNicPct">100%</span></div>
+      <div class="nicTube"><div class="nicFill" id="storyNicFill"></div></div>
+    </div>
+  </div>
+
+  <div class="storyScene" id="scClose">
+    <div class="storyDay" id="storyDay">0</div>
+    <div class="storyDayLbl">GÜN TEMİZSİN</div>
+    <div class="storyClose">İyileşme her saniye sürüyor — sen uyurken bile devam ediyor.</div>
+    <button class="storyDone" id="storyDone">Kapat</button>
+  </div>
+</div>
+
 <script>
 const DB={
  async get(){try{if(window.storage){const r=await window.storage.get('nefes');return r?JSON.parse(r.value):null}
@@ -445,11 +674,12 @@ const DB={
 const D=86400,H=3600,Y=365*D;
 const AUTO_DEFAULTS={
   workerUrl:'',
+  everyDays:7,
+  hour:9,
   lastCheck:0,
   lastMsg:'Henüz kontrol edilmedi.'
 };
-let S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,rate:40,infl:33,noInterest:0,
-       priceHist:[],rateHist:[],inflHist:[],
+let S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,brand:'',rate:40,infl:33,noInterest:0,
        best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
 const TRIGGERS=['Stres','Kahve','Yemek sonrası','Can sıkıntısı','Alkol','Araba','Sosyal ortam','Yorgunluk','Sebepsiz'];
 let expanded=false,filter='all',autoBusy=false;
@@ -503,6 +733,300 @@ const MS=[
 
 const RINGS=[[Y,'Kalp &<br>damar'],[270*D,'Akciğer'],[42*D,'Beyin'],[14*D,'Tat &<br>koku']];
 
+/* yolculuk zaman çizelgesi: bırakma sürecinin görsel, canlı ilerleme haritası */
+const JOURNEY=[
+ [20*60,'20dk','İlk iyileşme'],[2*H,'2sa','İlk kriz'],[24*H,'1g','İlk gün'],[72*H,'3g','Nikotin sıfır'],
+ [7*D,'1h','En riskli hafta'],[14*D,'2h','Dolaşım düzeldi'],[30*D,'1a','Öksürük azaldı'],
+ [42*D,'6h','Reseptörler normal'],[90*D,'3a','Dopamin normal'],[180*D,'6a','Balgam bitti'],
+ [Y,'1y','Kalp riski yarı'],[2*Y,'2y','Kalp krizi riski normale yakın'],[5*Y,'5y','Kanser riski yarı'],[10*Y,'10y','Akciğer riski yarı']
+];
+function renderJourney(sec){
+  const days=sec/D;
+  let lastDone=-1;
+  const nodes=JOURNEY.map((m,i)=>{const done=sec>=m[0];if(done)lastDone=i;return done});
+  const now=nodes.lastIndexOf(false)===-1?JOURNEY.length-1:nodes.indexOf(false);
+  const prevT=lastDone>=0?JOURNEY[lastDone][0]:0;
+  const nextT=now<JOURNEY.length?JOURNEY[now][0]:JOURNEY[JOURNEY.length-1][0];
+  const frac=nextT>prevT?Math.min(1,(sec-prevT)/(nextT-prevT)):1;
+  // segPos: 0 = henüz ilk dönüm noktasına ulaşılmadı, N-1 = tüm dönüm noktaları geçildi.
+  // lastDone=-1 iken (ilk eşik daha gelmedi) 0'a sabitliyoruz — aksi halde eksi yüzde çıkıyordu.
+  const segPos=Math.max(0,lastDone+(lastDone<JOURNEY.length-1?frac:0));
+  const pct=Math.min(100,segPos/(JOURNEY.length-1)*100);
+  // düğümler flex ile eşit 74px aralıklı; dolgu genişliğini yüzde değil piksel olarak
+  // hesaplıyoruz ki konteynerin toplam genişliğine göre kayıp/taşma olmasın.
+  $('jFill').style.width=(segPos*74).toFixed(1)+'px';
+  $('jPct').textContent=Math.round(pct)+'%';
+  $('jCap').textContent='İyileşme yolculuğunda %'+Math.round(pct)+' ilerledin — '+Math.floor(days)+' gündesin.';
+  $('journey').querySelectorAll('.jNode').forEach(n=>n.remove());
+  const frag=document.createDocumentFragment();
+  JOURNEY.forEach((m,i)=>{
+    const done=sec>=m[0],isNow=i===now&&!done;
+    const el=document.createElement('div');
+    el.className='jNode'+(done?' done':isNow?' now':'');
+    el.innerHTML='<div class="jDot"></div><div class="jt">'+m[1]+'</div><div class="js">'+m[2]+'</div>';
+    frag.appendChild(el);
+  });
+  $('journey').appendChild(frag);
+  const cur=JOURNEY[now]||JOURNEY[JOURNEY.length-1];
+  if(lastDone>=JOURNEY.length-1){
+    $('jNow').innerHTML='<b>Tüm dönüm noktalarını geçtin.</b><span>Yolculuk haritasındaki her eşiği aştın — bundan sonrası kalıcılık.</span>';
+  }else{
+    $('jNow').innerHTML='<b>Sıradaki durak: '+cur[1]+' · '+cur[2]+'</b><span>'+dur(Math.max(0,cur[0]-sec))+' kaldı. Şu ana kadar '+(lastDone+1)+'/'+JOURNEY.length+' dönüm noktasını geçtin.</span>';
+  }
+}
+
+/* ---------- heroFX: canvas tabanlı glow + parçacık motoru ----------
+   Akciğer sahnesi (Bugün) ve kriz nefes ekranı bu tek motoru paylaşır.
+   Neden canvas: onlarca DOM node yaratıp yok etmek yerine tek bir
+   requestAnimationFrame döngüsünde çiziyoruz — hem çok daha akıcı, hem de
+   katran/oksijen parçacıklarını, ortam parçacıklarını ve nefes hâlesini
+   gerçek zamanlı, iç içe geçmiş tek bir sahne olarak bestelemeyi sağlıyor. */
+function makeCanvasFX(canvas){
+  const ctx=canvas.getContext('2d');
+  let w=0,h=0,dpr=Math.min(2,window.devicePixelRatio||1),running=false,raf=null,last=0;
+  function resize(){
+    const r=canvas.getBoundingClientRect();
+    w=Math.max(1,r.width);h=Math.max(1,r.height);
+    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  window.addEventListener('resize',resize);
+  resize();
+  return {
+    get ctx(){return ctx},get w(){return w},get h(){return h},resize,
+    start(draw){
+      if(running)return;running=true;last=performance.now();
+      const frame=(t)=>{if(!running)return;const dt=Math.min(.05,(t-last)/1000);last=t;
+        ctx.clearRect(0,0,w,h);draw(dt,t/1000);raf=requestAnimationFrame(frame)};
+      raf=requestAnimationFrame(frame);
+    },
+    stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=null}
+  };
+}
+const REDUCE_MOTION=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* akciğer sahnesi: nefes hâlesi + katran (temizleninceye kadar) + oksijen (temizlendikçe artan) parçacıkları */
+let heroFX=null,heroStars=[],heroTar=[],heroO2=[];
+function initHeroFX(){
+  const canvas=$('heroCanvas');if(!canvas||heroFX||REDUCE_MOTION)return;
+  heroFX=makeCanvasFX(canvas);
+  for(let i=0;i<22;i++)heroStars.push({x:Math.random(),y:Math.random()*.85,r:.5+Math.random()*1.5,ph:Math.random()*9,sp:.12+Math.random()*.22});
+  heroFX.start((dt,t)=>{
+    const {ctx,w,h}=heroFX,cx=w*0.5,cy=h*0.53,p=lastLungP||0;
+    // nefes hâlesi: akciğerin CSS breathe animasyonuyla aynı 3.6s ritmi izler
+    const breath=0.5+0.5*Math.sin(t*(2*Math.PI/3.6));
+    const gr=Math.min(w,h)*0.4*(1+0.055*breath);
+    const g=ctx.createRadialGradient(cx,cy-4,2,cx,cy-4,gr);
+    g.addColorStop(0,'rgba(111,214,192,'+(0.06+0.15*p).toFixed(3)+')');
+    g.addColorStop(1,'rgba(111,214,192,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy-4,gr,0,Math.PI*2);ctx.fill();
+    // ortam parçacıkları — çok hafif, uzayda asılı toz hissi
+    heroStars.forEach(s=>{
+      const op=.05+.09*(0.5+0.5*Math.sin(t*s.sp+s.ph));
+      ctx.beginPath();ctx.fillStyle='rgba(111,214,192,'+op.toFixed(3)+')';
+      ctx.arc(s.x*w+Math.sin(t*0.05+s.ph)*7,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    // katran: temizlik oranı düştükçe daha sık ve daha görünür
+    if(Math.random()<(0.5*(1-p)+0.03))heroTar.push({
+      x:cx+(Math.random()-0.5)*36,y:cy+14+Math.random()*18,
+      vx:(Math.random()-0.5)*9,vy:7+Math.random()*8,
+      life:0,max:2.4+Math.random()*1.3,r:2+Math.random()*3.2});
+    heroTar=heroTar.filter(pt=>{
+      pt.life+=dt;if(pt.life>=pt.max)return false;
+      pt.x+=pt.vx*dt;pt.y+=pt.vy*dt;
+      const a=1-pt.life/pt.max;
+      ctx.beginPath();ctx.fillStyle='rgba(107,98,92,'+(a*0.5).toFixed(3)+')';
+      ctx.arc(pt.x,pt.y,pt.r,0,Math.PI*2);ctx.fill();
+      return true;
+    });
+    // oksijen: temizlendikçe daha sık, daha parlak yükselir
+    if(Math.random()<(0.1+0.5*p))heroO2.push({
+      x:cx+(Math.random()-0.5)*42,y:cy+18,
+      vx:(Math.random()-0.5)*12,vy:-(16+Math.random()*20),
+      life:0,max:1.7+Math.random()*1.1,r:1.3+Math.random()*2.3});
+    heroO2=heroO2.filter(pt=>{
+      pt.life+=dt;if(pt.life>=pt.max)return false;
+      pt.x+=pt.vx*dt;pt.y+=pt.vy*dt;
+      const a=Math.sin(Math.min(1,pt.life/pt.max)*Math.PI);
+      ctx.save();ctx.shadowColor='rgba(111,214,192,.95)';ctx.shadowBlur=7;
+      ctx.beginPath();ctx.fillStyle='rgba(151,232,214,'+(a*0.9).toFixed(3)+')';
+      ctx.arc(pt.x,pt.y,pt.r,0,Math.PI*2);ctx.fill();ctx.restore();
+      return true;
+    });
+  });
+}
+
+/* kriz / nefes ekranı: sakinleştirici, yavaş süzülen ortam parçacıkları */
+let craveFX=null,craveStars=[];
+function initCraveFX(){
+  const canvas=$('craveCanvas');if(!canvas||craveFX||REDUCE_MOTION)return;
+  craveFX=makeCanvasFX(canvas);
+  for(let i=0;i<26;i++)craveStars.push({a:Math.random()*Math.PI*2,d:.3+Math.random()*.62,r:.6+Math.random()*1.8,ph:Math.random()*9,sp:.08+Math.random()*.14,orb:.002+Math.random()*.006});
+  craveFX.start((dt,t)=>{
+    const {ctx,w,h}=craveFX,cx=w/2,cy=h/2,maxR=Math.min(w,h)/2;
+    craveStars.forEach(s=>{
+      s.a+=s.orb*dt*60;
+      const op=.08+.14*(0.5+0.5*Math.sin(t*s.sp+s.ph));
+      const rr=s.d*maxR;
+      ctx.beginPath();ctx.fillStyle='rgba(111,214,192,'+op.toFixed(3)+')';
+      ctx.arc(cx+Math.cos(s.a)*rr,cy+Math.sin(s.a)*rr,s.r,0,Math.PI*2);ctx.fill();
+    });
+  });
+}
+function stopCraveFX(){if(craveFX){craveFX.stop();craveFX=null;craveStars=[]}}
+
+/* ---------- İyileşme Hikayen: sahne sahne oynatılan, gerçek verinle kapanan kısa hikaye ---------- */
+const STORY_SCENES=[
+  {id:'scCig',dur:4.6},
+  {id:'scLungs',dur:7.4},
+  {id:'scBreath',dur:6.8},
+  {id:'scClose',dur:5.4},
+];
+let storyTimers=[],storyFX=null,storyStars=[],storyLungsActive=false,storyLungsStart=0;
+function clearStoryTimers(){storyTimers.forEach(t=>clearTimeout(t));storyTimers=[]}
+function initStoryFX(){
+  const canvas=$('storyCanvas');if(!canvas||REDUCE_MOTION)return;
+  storyFX=makeCanvasFX(canvas);
+  storyStars=[];
+  for(let i=0;i<30;i++)storyStars.push({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.6,ph:Math.random()*9,sp:.1+Math.random()*.2});
+  let tarP=[];
+  storyFX.start((dt,t)=>{
+    const {ctx,w,h}=storyFX;
+    storyStars.forEach(s=>{
+      const op=.05+.1*(0.5+0.5*Math.sin(t*s.sp+s.ph));
+      ctx.beginPath();ctx.fillStyle='rgba(111,214,192,'+op.toFixed(3)+')';
+      ctx.arc(s.x*w+Math.sin(t*0.05+s.ph)*10,s.y*h,s.r,0,Math.PI*2);ctx.fill();
+    });
+    if(storyLungsActive){
+      const cx=w*0.5,cy=h*0.4;
+      const elapsed=(Date.now()-storyLungsStart)/1000;
+      const fadeP=Math.min(1,elapsed/6.2);
+      if(Math.random()<0.5*(1-fadeP)+0.03)tarP.push({
+        x:cx+(Math.random()-0.5)*46,y:cy+16+Math.random()*16,
+        vx:(Math.random()-0.5)*10,vy:10+Math.random()*10,
+        life:0,max:2.2+Math.random()*1.2,r:2+Math.random()*3.4});
+    }
+    tarP=tarP.filter(pt=>{
+      pt.life+=dt;if(pt.life>=pt.max)return false;
+      pt.x+=pt.vx*dt;pt.y+=pt.vy*dt;
+      const a=1-pt.life/pt.max;
+      ctx.beginPath();ctx.fillStyle='rgba(107,98,92,'+(a*0.55).toFixed(3)+')';
+      ctx.arc(pt.x,pt.y,pt.r,0,Math.PI*2);ctx.fill();
+      return true;
+    });
+  });
+}
+function stopStoryFX(){if(storyFX){storyFX.stop();storyFX=null}storyStars=[];storyLungsActive=false}
+
+function triggerLungMorph(){
+  const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
+  const p=lungProgress(days);
+  const col=lerpHex(LUNG_SICK,LUNG_HEALTHY,p);
+  const l=$('storyLobeL'),r=$('storyLobeR');
+  if(l)l.style.fill=col;if(r)r.style.fill=col;
+  $('storyLungStat').textContent='Şu an %'+Math.round(p*100)+' temizlenmiş durumda.';
+  storyLungsActive=true;storyLungsStart=Date.now();
+  setTimeout(()=>{storyLungsActive=false},6400);
+}
+function triggerNicCountdown(){
+  const sec=Math.max(0,(Date.now()-S.quitAt)/1000);
+  const target=Math.max(0,100*Math.pow(0.5,sec/(2*H)));
+  const dur=4200,start=performance.now(),from=100;
+  function step(now){
+    const t=Math.min(1,(now-start)/dur),e=1-Math.pow(1-t,3);
+    const v=from+(target-from)*e;
+    $('storyNicPct').textContent=(v>=10?Math.round(v):v.toFixed(1))+'%';
+    $('storyNicFill').style.width=Math.max(0.6,v).toFixed(2)+'%';
+    if(t<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function triggerDayCount(){
+  const sec=Math.max(0,(Date.now()-S.quitAt)/1000),target=Math.floor(sec/D);
+  if(target<=0){$('storyDay').textContent='0';return}
+  const dur=1400,start=performance.now();
+  function step(now){
+    const t=Math.min(1,(now-start)/dur),e=1-Math.pow(1-t,3);
+    $('storyDay').textContent=Math.round(target*e);
+    if(t<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function playStory(){
+  clearStoryTimers();
+  $('capQuitDate').textContent=new Date(S.quitAt).toLocaleDateString('tr-TR',{day:'numeric',month:'long'});
+  document.querySelectorAll('.storyScene').forEach(s=>s.classList.remove('on'));
+  [0,1,2,3].forEach(i=>{const el=$('storySeg'+i);el.style.transition='none';el.style.width='0%'});
+  $('story').classList.add('open');
+  initStoryFX();
+  let t=0;
+  STORY_SCENES.forEach((seg,i)=>{
+    storyTimers.push(setTimeout(()=>{
+      document.querySelectorAll('.storyScene').forEach(s=>s.classList.remove('on'));
+      $(seg.id).classList.add('on');
+      const segEl=$('storySeg'+i);
+      segEl.style.transition='none';segEl.style.width='0%';
+      void segEl.offsetWidth;
+      segEl.style.transition='width '+seg.dur+'s linear';
+      segEl.style.width='100%';
+      if(seg.id==='scLungs')triggerLungMorph();
+      if(seg.id==='scBreath')triggerNicCountdown();
+      if(seg.id==='scClose')triggerDayCount();
+    },t*1000));
+    t+=seg.dur;
+  });
+}
+function closeStory(){clearStoryTimers();$('story').classList.remove('open');stopStoryFX()}
+
+/* akciğer: gün gün sürekli temizlenme.
+   LUNG_ANCHORS = [gün, temizlik(0-1)] — aralarında doğrusal enterpolasyon,
+   böylece her gün (hatta gün içinde saat saat) küçük bir değişim olur,
+   birkaç sabit "aşama" arasında sıçramaz. Eşikler mevcut zaman çizelgesindeki
+   akciğerle ilgili kilometre taşlarına (24s, 48s, 72s, 21g, 30g, 180g, 270g) oturuyor. */
+const LUNG_ANCHORS=[[0,0],[1,.12],[2,.22],[3,.30],[10,.42],[21,.55],[30,.62],[90,.78],[180,.90],[270,1]];
+const LUNG_SICK=[107,98,92], LUNG_HEALTHY=[232,169,173];
+const SPOT_META=[['tsL0',0.74,0.0594],['tsL1',0.66,0.0781],['tsL2',0.56,0.0969],['tsL3',0.58,0.1156],['tsL4',0.59,0.1344],['tsL5',0.83,0.1531],['tsL6',0.84,0.1719],['tsL7',0.64,0.1906],['tsL8',0.64,0.2094],['tsL9',0.72,0.2281],['tsL10',0.72,0.2469],['tsL11',0.61,0.2656],['tsL12',0.65,0.2844],['tsL13',0.64,0.3031],['tsL14',0.62,0.3219],['tsL15',0.81,0.3406],['tsL16',0.84,0.3594],['tsL17',0.78,0.3781],['tsL18',0.57,0.3969],['tsL19',0.72,0.4156],['tsL20',0.76,0.4344],['tsL21',0.69,0.4531],['tsR0',0.69,0.4719],['tsR1',0.76,0.4906],['tsR2',0.8,0.5094],['tsR3',0.75,0.5281],['tsR4',0.6,0.5469],['tsR5',0.78,0.5656],['tsR6',0.67,0.5844],['tsR7',0.69,0.6031],['tsR8',0.8,0.6219],['tsR9',0.68,0.6406],['tsR10',0.83,0.6594],['tsR11',0.62,0.6781],['tsR12',0.73,0.6969],['tsR13',0.68,0.7156],['tsR14',0.83,0.7344],['tsR15',0.74,0.7531],['tsR16',0.82,0.7719],['tsR17',0.79,0.7906],['tsR18',0.58,0.8094],['tsR19',0.57,0.8281],['tsR20',0.66,0.8469],['tsR21',0.6,0.8656],['tsR22',0.56,0.8844],['tsR23',0.6,0.9031],['tsR24',0.66,0.9219],['tsR25',0.85,0.9406]];
+const FADE_WIN=0.035;
+function lungProgress(days){
+  if(days<=0)return 0;
+  for(let i=1;i<LUNG_ANCHORS.length;i++){
+    const [d0,p0]=LUNG_ANCHORS[i-1],[d1,p1]=LUNG_ANCHORS[i];
+    if(days<=d1)return p0+(p1-p0)*(days-d0)/(d1-d0);
+  }
+  return 1;
+}
+function lerpHex(a,b,t){
+  t=Math.max(0,Math.min(1,t));
+  const c=a.map((v,i)=>Math.round(v+(b[i]-v)*t));
+  return '#'+c.map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+function smoothstep(e0,e1,x){
+  if(e0===e1)return x<e0?0:1;
+  const t=Math.max(0,Math.min(1,(x-e0)/(e1-e0)));
+  return t*t*(3-2*t);
+}
+let lastLungP=0;
+function updateLung(days){
+  const p=lungProgress(days);
+  lastLungP=p;
+  const col=lerpHex(LUNG_SICK,LUNG_HEALTHY,p);
+  const lL=$('lobeL'),lR=$('lobeR');
+  if(lL)lL.setAttribute('fill',col);
+  if(lR)lR.setAttribute('fill',col);
+  SPOT_META.forEach(([id,baseOp,clearP])=>{
+    const el=$(id);if(!el)return;
+    const cleared=smoothstep(clearP-FADE_WIN,clearP+FADE_WIN,p);
+    el.setAttribute('opacity',(baseOp*(1-cleared)).toFixed(2));
+  });
+}
+let lastActiveSys=null;
+function updateSysStrip(catKey){
+  if(catKey===lastActiveSys)return;
+  if(lastActiveSys){const prev=$('sys-'+lastActiveSys);if(prev)prev.classList.remove('on')}
+  if(catKey){const cur=$('sys-'+catKey);if(cur)cur.classList.add('on')}
+  lastActiveSys=catKey;
+}
+
 const BG=[
  ['Süre',[
   ['1sa','İlk saat',c=>c.sec>=H],['12sa','Yarım gün',c=>c.sec>=12*H],['1G','İlk gün',c=>c.sec>=D],
@@ -538,11 +1062,6 @@ function dur(s){s=Math.max(0,s);const d=Math.floor(s/D),h=Math.floor(s%D/H),m=Ma
 function dailyRate(annual){return Math.pow(1+annual/100,1/365)-1}
 function pct(n,d=3){return (n*100).toFixed(d).replace('.',',')+'%'}
 
-function calcRealRate(rate, infl){
- if(infl <= -100) return rate;
- return (((1 + rate/100) / (1 + infl/100)) - 1) * 100;
-}
-
 /* bileşik faiz: her gün c kadar yatırılıyor; taban tutara faiz işletilmiyor */
 function fv(c,days,annual,noInterest=0){
  const i=dailyRate(annual),whole=Math.floor(Math.max(0,days)),part=Math.max(0,days)-whole;
@@ -557,83 +1076,17 @@ function fv(c,days,annual,noInterest=0){
  }
  return bal;
 }
-function histKey(kind){return kind+'Hist'}
-function cleanHist(arr,fallback,at){
- arr=Array.isArray(arr)?arr:[];
- arr=arr.map(x=>({at:+x.at||at,value:+x.value||fallback,source:x.source||'kayıt'}))
-  .filter(x=>Number.isFinite(x.value)&&x.value>=0&&Number.isFinite(x.at))
-  .sort((a,b)=>a.at-b.at);
- if(!arr.length)arr=[{at,value:fallback,source:'başlangıç'}];
- return arr;
-}
-function histVal(arr,at,fallback){
- arr=Array.isArray(arr)?arr:[];
- let v=fallback;
- for(const x of arr){if((+x.at||0)<=at)v=+x.value;else break}
- return Number.isFinite(v)?v:fallback;
-}
-function setHist(kind,value,source='manuel',at=Date.now()){
- const k=histKey(kind),v=Math.max(0,+value||0);
- S[k]=cleanHist(S[k],v,S.quitAt);
- const last=S[k][S[k].length-1];
- if(last&&Math.abs((+last.value||0)-v)<0.0001){last.at=at;last.source=source;return}
- S[k].push({at,value:v,source});
- S[k]=cleanHist(S[k],v,S.quitAt);
-}
-function moneyAt(daysFromQuit){
- const totalDays=Math.max(0,daysFromQuit),whole=Math.floor(totalDays),part=totalDays-whole;
- const start=+S.quitAt||Date.now();
- let nom=0,bal=0,infFactor=1;
- const step=(dayPart,idx)=>{
-  const at=start+idx*D*1000;
-  const price=histVal(S.priceHist,at,S.packPrice);
-  const rate=histVal(S.rateHist,at,S.rate);
-  const infl=histVal(S.inflHist,at,S.infl);
-  const daily=S.perDay/20*price*dayPart;
-  const i=dailyRate(rate),pi=dailyRate(infl);
-  nom+=daily;bal+=daily;
-  if(i>0)bal+=Math.max(0,bal-S.noInterest)*i*dayPart;
-  if(pi>0)infFactor*=1+pi*dayPart;
- };
- for(let d=0;d<whole;d++)step(1,d);
- if(part>0)step(part,whole);
- return {nom,wint:bal,gain:bal-nom,real:bal/infFactor,infFactor};
-}
-
-function moneyAtFuture(futureDays){
- const currentDays = Math.max(0, (Date.now() - S.quitAt) / (D * 1000));
- if (futureDays <= currentDays) return moneyAt(futureDays);
-
- const curr = moneyAt(currentDays);
- let { nom, wint: bal, infFactor } = curr;
-
- const extraDays = futureDays - currentDays;
- const whole = Math.floor(extraDays);
- const part = extraDays - whole;
-
- const price = S.packPrice;
- const rate = S.rate;
- const infl = S.infl;
- const dailyAmount = (S.perDay / 20) * price;
- const i = dailyRate(rate);
- const pi = dailyRate(infl);
-
- const step = (dayPart) => {
-  const daily = dailyAmount * dayPart;
-  nom += daily;
-  bal += daily;
-  if (i > 0) bal += Math.max(0, bal - S.noInterest) * i * dayPart;
-  if (pi > 0) infFactor *= (1 + pi * dayPart);
- };
-
- for (let d = 0; d < whole; d++) step(1);
- if (part > 0) step(part);
-
- return { nom, wint: bal, gain: bal - nom, real: bal / infFactor, infFactor };
-}
 
 /* ---------- setup ---------- */
 let stp=0,tmp={};
+/* yaklaşık 2026 paket fiyatları (₺) — güncel piyasa ortalaması; kullanıcı bir sonraki
+   adımda kendi fiyatını yazarak istediği zaman düzeltebilir. */
+const BRANDS=[
+ ['Marlboro',125],['Parliament',135],['Winston',128],['Camel',120],['Kent',130],
+ ['Chesterfield',120],['Muratti',122],['L&M',120],['LD',115],['Lark',120],
+ ['Monte Carlo',115],['Rothmans',115],['Pall Mall',120],['Tekel 2000',115],
+ ['Davidoff',125],['West',105],['Polo',115],['Esse',95]
+];
 const STEPS=[
  {t:'Ne zaman içtin son sigaranı?',s:'Bilmiyorsan yaklaşık seç. Sonradan Ayarlar\'dan gün ve saatine kadar düzeltebilirsin.',
   r:()=>'<div class="opts">'+
@@ -641,8 +1094,12 @@ const STEPS=[
    '</div><input type="datetime-local" class="dtin hidden" id="sd">'},
  {t:'Günde kaç sigara içiyordun?',s:'Para, ömür ve içilmeyen sigara hesapları bunun üzerinden çalışıyor.',
   r:()=>'<input type="number" class="bigin" id="s2" value="20" min="1" max="80" inputmode="numeric"><div class="unit">adet / gün</div>'},
- {t:'Bir paket kaç lira?',s:'Son aldığın fiyatı yaz.',
-  r:()=>'<input type="number" class="bigin" id="s3" value="110" min="1" max="5000" inputmode="numeric"><div class="unit">₺ / 20\'lik paket</div>'},
+ {t:'Hangi sigarayı içiyordun?',s:'Seçersen fiyatı senin için otomatik dolduruyoruz — bir sonraki adımda istediğin gibi düzeltebilirsin. Bulamazsan "Başka" de, fiyatı elle gireceksin.',
+  r:()=>'<div class="brandGrid" id="brandGrid">'+
+   BRANDS.map((b,i)=>'<button class="brandBtn" data-i="'+i+'">'+b[0]+'<span class="bp">₺'+b[1]+'</span></button>').join('')+
+   '<button class="brandBtn" data-i="-1">Başka / bilmiyorum</button></div>'},
+ {t:'Bir paket kaç lira?',s:'Son aldığın fiyatı yaz — seçtiğin markanın güncel ortalaması otomatik dolduruldu.',
+  r:()=>'<input type="number" class="bigin" id="s3" value="'+(tmp.packPrice||110)+'" min="1" max="5000" inputmode="numeric"><div class="unit">₺ / paket</div>'},
  {t:'Bu parayı değerlendirsen?',s:'Biriken tutarın günlük bileşik faizle nereye gideceğini gösteriyorum. Mevduat, fon, ne düşünüyorsan onun yıllık oranını yaz — bir tahmin, taahhüt değil.',
   r:()=>'<input type="number" class="bigin" id="s4" value="40" min="0" max="200" step="0.5" inputmode="decimal"><div class="unit">yıllık % faiz</div>'},
  {t:'Neye biriktiriyorsun?',s:'İsteğe bağlı ama işe yarıyor: soyut bir rakam yerine somut bir şey görmek. Boş bırakabilirsin.',
@@ -668,13 +1125,21 @@ function drawStep(){
       else $('sd').classList.add('hidden');
     });
   }
+  if(stp===2){
+    document.querySelectorAll('.brandBtn').forEach(b=>b.onclick=()=>{
+      document.querySelectorAll('.brandBtn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+      const i=+b.dataset.i;
+      if(i>=0){tmp.brand=BRANDS[i][0];tmp.packPrice=BRANDS[i][1]}
+      else{tmp.brand='';}
+    });
+  }
   $('nx').onclick=()=>{
     if(stp===0&&!tmp.quitAt)return;
     if(stp===1)tmp.perDay=Math.max(1,+$('s2').value||20);
-    if(stp===2)tmp.packPrice=Math.max(1,+$('s3').value||110);
-    if(stp===3)tmp.rate=Math.max(0,+$('s4').value||0);
-    if(stp===4){tmp.goalName=$('s5a').value.slice(0,40);tmp.goalAmount=Math.max(0,+$('s5b').value||0)}
-    if(stp===5){tmp.reasons=[$('r1').value,$('r2').value,$('r3').value].map(v=>v.trim().slice(0,120)).filter(Boolean);finish();return}
+    if(stp===3)tmp.packPrice=Math.max(1,+$('s3').value||110);
+    if(stp===4)tmp.rate=Math.max(0,+$('s4').value||0);
+    if(stp===5){tmp.goalName=$('s5a').value.slice(0,40);tmp.goalAmount=Math.max(0,+$('s5b').value||0)}
+    if(stp===6){tmp.reasons=[$('r1').value,$('r2').value,$('r3').value].map(v=>v.trim().slice(0,120)).filter(Boolean);finish();return}
     stp++;drawStep();
   };
   if($('bk'))$('bk').onclick=()=>{stp--;drawStep()};
@@ -683,7 +1148,9 @@ async function finish(){
   Object.assign(S,tmp,{onboarded:true});
   await DB.set(S);
   $('setup').classList.remove('open');$('app').classList.remove('hidden');
+  $('tabbar').classList.remove('hidden');go('bugun');
   render();
+  initHeroFX();
 }
 
 /* ---------- çizimler ---------- */
@@ -694,22 +1161,13 @@ function ring(pct,label){
    '<circle cx="32" cy="32" r="'+r+'" fill="none" stroke="#6FD6C0" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+off.toFixed(1)+'" transform="rotate(-90 32 32)"/>'+
    '<text x="32" y="37" text-anchor="middle">'+Math.floor(pct)+'</text></svg><div class="rl">'+label+'</div></div>';
 }
-function moneyChart(days){
-  const W=320, Hh=94, p=4, spanD=Math.max(days*1.4, 5*365);
-  const maxY=moneyAtFuture(spanD).wint || 1;
-  const x=n=>p+(n/spanD)*(W-p*2), y=v=>Hh-(v/maxY)*(Hh-12);
-  let pts=[], nom=[];
-  
-  for(let k=0; k<=50; k++){
-    const n = spanD * k / 50;
-    const m = moneyAtFuture(n);
-    pts.push(x(n).toFixed(1) + ',' + y(m.wint).toFixed(1));
-    nom.push(x(n).toFixed(1) + ',' + y(m.nom).toFixed(1));
-  }
-  
-  const curM = moneyAt(Math.min(days, spanD));
-  const nx = x(Math.min(days, spanD)), ny = y(curM.wint);
-  
+function moneyChart(days,c,rate,noInterest){
+  const W=320,Hh=94,p=4,spanD=Math.max(days*1.4,5*365);
+  const maxY=fv(c,spanD,rate,noInterest)||1;
+  const x=n=>p+(n/spanD)*(W-p*2),y=v=>Hh-(v/maxY)*(Hh-12);
+  let pts=[],nom=[];
+  for(let k=0;k<=50;k++){const n=spanD*k/50;pts.push(x(n).toFixed(1)+','+y(fv(c,n,rate,noInterest)).toFixed(1));nom.push(x(n).toFixed(1)+','+y(c*n).toFixed(1))}
+  const nx=x(Math.min(days,spanD)),ny=y(fv(c,Math.min(days,spanD),rate,noInterest));
   let s='<polyline points="'+pts.join(' ')+'" fill="none" stroke="#6FD6C0" stroke-width="2.2" stroke-linecap="round" opacity=".9"/>';
   s+='<polyline points="'+nom.join(' ')+'" fill="none" stroke="#7C979E" stroke-width="1.6" stroke-dasharray="3 4"/>';
   s+='<circle cx="'+nx+'" cy="'+ny+'" r="4" fill="#6FD6C0"/>';
@@ -780,9 +1238,7 @@ function notify(t,b){try{if(window.Notification&&Notification.permission==='gran
 function migrate(){
  S.auto=Object.assign({},AUTO_DEFAULTS,S.auto||{});
  S.noInterest=Math.max(0,+S.noInterest||0);
- S.priceHist=cleanHist(S.priceHist,S.packPrice,S.quitAt);
- S.rateHist=cleanHist(S.rateHist,S.rate,S.quitAt);
- S.inflHist=cleanHist(S.inflHist,S.infl,S.quitAt);
+ if(typeof S.brand!=='string')S.brand='';
  if(!Array.isArray(S.log))S.log=[];
  if(!Array.isArray(S.reasons))S.reasons=[];
  if(!Array.isArray(S.transfers))S.transfers=[];
@@ -800,17 +1256,17 @@ async function fetchFromWorker(){
   if(!r.ok)throw new Error('HTTP '+r.status);
   data=await r.json();
  }catch(e){return 'Worker\'a ulaşılamadı: '+(e.message||'bağlantı hatası')+'. URL doğru mu, worker deploy edildi mi kontrol et.'}
-  const out=[];
-  if(data.price&&data.price.ok){
-  S.packPrice=Math.max(1,+data.price.value||S.packPrice);setHist('price',S.packPrice,'worker');S.auto.priceAt=Date.now();
+ const out=[];
+ if(data.price&&data.price.ok){
+  S.packPrice=Math.max(1,+data.price.value||S.packPrice);S.auto.priceAt=Date.now();
   out.push('Fiyat '+TL(S.packPrice)+' olarak güncellendi.');
  }else out.push('Fiyat çekilemedi'+(data.price&&data.price.error?': '+data.price.error:'.'));
  if(data.cpi&&data.cpi.ok){
-  S.infl=Math.max(0,+data.cpi.value||S.infl);setHist('infl',S.infl,'worker');S.auto.cpiAt=Date.now();S.auto.cpiDate=data.cpi.date||'';
+  S.infl=Math.max(0,+data.cpi.value||S.infl);S.auto.cpiAt=Date.now();S.auto.cpiDate=data.cpi.date||'';
   out.push('TÜFE %'+S.infl.toFixed(1)+' olarak güncellendi.');
  }else out.push('TÜFE çekilemedi'+(data.cpi&&data.cpi.error?': '+data.cpi.error:'.'));
  if(data.deposit&&data.deposit.ok){
-  S.rate=Math.max(0,+data.deposit.value||S.rate);setHist('rate',S.rate,'worker');S.auto.depositAt=Date.now();S.auto.depositDate=data.deposit.date||'';
+  S.rate=Math.max(0,+data.deposit.value||S.rate);S.auto.depositAt=Date.now();S.auto.depositDate=data.deposit.date||'';
   out.push('Faiz %'+S.rate.toFixed(1)+' olarak güncellendi.');
  }else out.push('Faiz çekilemedi'+(data.deposit&&data.deposit.error?': '+data.deposit.error:'.'));
  return out.join(' ');
@@ -823,68 +1279,67 @@ async function autoCheck(){
  S.auto.lastCheck=Date.now();S.auto.lastMsg=msg;
  autoBusy=false;await DB.set(S);render();
 }
+function nextCheckAt(){
+ const ev=+S.auto.everyDays||0;
+ if(!ev||!S.auto.workerUrl)return null;
+ if(!S.auto.lastCheck)return Date.now();
+ const d=new Date(S.auto.lastCheck+ev*D*1000);
+ d.setHours(Math.min(23,Math.max(0,+S.auto.hour||0)),0,0,0);
+ return d.getTime();
+}
+async function maybeAutoCheck(){
+ const n=nextCheckAt();
+ if(n===null)return;
+ if(Date.now()>=n)await autoCheck();
+}
 function renderAutoBox(){
  const dr=dailyRate(S.rate),last=S.auto.lastMsg||'Henüz kontrol edilmedi.';
- const urlNote=S.auto.workerUrl?'Worker bağlı.':'Henüz worker URL\'i girilmedi — aşağıda elle girdiğin değerler kullanılıyor.';
+ const ev=+S.auto.everyDays||0;
+ const n=nextCheckAt();
+ const plan=!S.auto.workerUrl
+   ? 'Worker URL\'i girilmedi — aşağıda elle girdiğin değerler kullanılıyor.'
+   : (ev===0
+     ? 'Otomatik çekim kapalı; sadece bu butona bastığında güncelleniyor.'
+     : 'Her '+(ev===1?'gün':ev+' günde bir')+', en erken saat '+pad(S.auto.hour)+':00\'da uygulamayı açtığında kontrol ediliyor.'+
+       (n&&n>Date.now()?' Sıradaki: '+niceDate(n)+'.':' Sıradaki açılışta yenilenecek.'));
  $('autoBox').innerHTML='<div class="top"><div class="ct">Otomatik veri kontrolü</div></div>'+
   '<div class="auto-grid">'+
   '<div class="auto-mini"><b>'+TL(S.packPrice)+'</b><span>Paket fiyatı · '+niceDate(S.auto.priceAt)+'</span></div>'+
   '<div class="auto-mini"><b>'+pct(dr)+'</b><span>Günlük mevduat · yıllık '+pct(S.rate/100,2)+'</span></div>'+
   '<div class="auto-mini"><b>'+pct(S.infl/100,2)+'</b><span>Yıllık TÜFE · '+niceDate(S.auto.cpiAt)+'</span></div>'+
-  '</div><div class="auto-note">Faize girmeyen tutar: '+TL(S.noInterest)+'. '+urlNote+' Son kontrol: '+niceDate(S.auto.lastCheck)+'. '+esc(last)+'</div>'+
-  '<div class="auto-actions"><button class="run" id="autoRun" '+(autoBusy?'disabled':'')+'>'+(autoBusy?'Kontrol ediliyor...':'Verileri kontrol et')+'</button><button id="openDataSettings">Kaynak ayarları</button></div>';
+  '</div><div class="auto-note">'+plan+' Son kontrol: '+niceDate(S.auto.lastCheck)+'. '+esc(last)+'</div>'+
+  '<div class="auto-actions"><button class="run" id="autoRun" '+(autoBusy?'disabled':'')+'>'+(autoBusy?'Kontrol ediliyor...':'Şimdi kontrol et')+'</button><button id="openDataSettings">Kaynak ayarları</button></div>';
  $('autoRun').onclick=autoCheck;
- $('openDataSettings').onclick=()=>{if(!$('panel').classList.contains('open'))$('setBtn').click();$('du').focus()};
+ $('openDataSettings').onclick=()=>{go('ayarlar');if(!$('panel').classList.contains('open'))$('setBtn').click();$('du').focus()};
 }
 
 /* ---------- render ---------- */
-function render(){
+/* hızlı iş: her saniye — sayaç, saat, akciğer, sistem şeridi, sıradaki eşik.
+   Ağır DOM yeniden çizimlerini (grafikler, listeler) burada YAPMIYORUZ; onlar
+   render()'da ve sadece gerektiğinde çalışır — böylece CSS geçişleri/animasyonları
+   saniyede bir sıfırlanıp bozulmuyor. */
+let lastDayShown=-1;
+function beat(){
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
-  $('days').firstChild.nodeValue=Math.floor(days);
+  const dEl=$('days'),curDay=Math.floor(days);
+  dEl.firstChild.nodeValue=curDay;
+  if(curDay!==lastDayShown){lastDayShown=curDay;dEl.classList.remove('bump');void dEl.offsetWidth;dEl.classList.add('bump')}
   $('clock').textContent=pad(Math.floor(sec%D/H))+':'+pad(Math.floor(sec%H/60))+':'+pad(Math.floor(sec%60));
   $('quitLabel').textContent=new Date(S.quitAt).toLocaleString('tr-TR',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
-
-  // Akciğer görselini güncelle (270 günde %100 iyileşme)
-  const lungProgress = Math.min(100, Math.max(0, (days / 270) * 100));
-  $('lungPct').textContent = '%' + lungProgress.toFixed(1);
-  $('lungStop').setAttribute('offset', lungProgress + '%');
-  $('lungStopDark').setAttribute('offset', lungProgress + '%');
-  if(days < 1) $('lungDesc').textContent = 'Siller (mukus süpürücü tüycükler) uyanmaya hazırlanıyor.';
-  else if(days < 14) $('lungDesc').textContent = 'Akciğerlerin yoğun mukus ve zifir temizliği yapıyor.';
-  else if(days < 90) $('lungDesc').textContent = 'Nefes darlığı azaldı, bronşlar gevşemeye başladı.';
-  else if(days < 270) $('lungDesc').textContent = 'Siller tamamen yenileniyor. Enfeksiyon riski düşüyor.';
-  else $('lungDesc').textContent = 'Akciğer tüycükleri tamamen yenilendi! Tam kapasite solunum.';
-
-  const mNow = moneyAt(days);
-  const nom = mNow.nom, wint = mNow.wint, gain = mNow.gain, real = mNow.real;
-  const realRateVal = calcRealRate(S.rate, S.infl);
-
-  const sticks=days*S.perDay, lifeMin=sticks*17;
-  const wins=S.log.filter(l=>l.type==='won').length, resets=S.log.filter(l=>l.type==='reset').length;
-
-  $('mNom').textContent=TL(nom);$('mInt').textContent=TL(wint);
-  $('mGain').textContent=TL(gain);$('mReal').textContent=TL(real);
-  
-  $('mRealRate').textContent = (realRateVal >= 0 ? '+' : '') + realRateVal.toFixed(1) + '%';
-  $('mRealRate').style.color = realRateVal >= 0 ? 'var(--air)' : 'var(--ember)';
-
-  $('mCap').textContent='Günde ₺'+T((S.perDay/20)*S.packPrice)+' kenara koyuyorsun. Yıllık %'+S.rate+' ile günlük efektif '+pct(dailyRate(S.rate))+'. Faize girmeyen taban: '+TL(S.noInterest)+'.';
-  $('mChart').innerHTML=moneyChart(days);
-
-  $('proj').innerHTML='<tr><th>Süre</th><th>Yastık altı</th><th>Faizli</th><th>Fark</th></tr>'+
-   [1,3,5,10,20].map(yy=>{
-    const n = yy * 365;
-    const m = moneyAtFuture(n);
-    return '<tr><td>'+yy+' yıl</td><td>'+TL(m.nom)+'</td><td>'+TL(m.wint)+'</td><td class="gain">+'+TL(m.gain)+'</td></tr>';
-   }).join('');
-
-  $('sticks').textContent=T(sticks);
-  $('life').textContent=lifeMin<1440?Math.floor(lifeMin/60)+' sa':Math.floor(lifeMin/1440)+' g '+Math.floor(lifeMin%1440/60)+' sa';
-  $('won').textContent=wins;
-  $('best').textContent=Math.floor(Math.max(S.best,sec*1000)/D/1000)+' g';
-
+  // kanda kalan nikotin: yarılanma ömrü ~2 saat — saat saat, hatta saniye saniye ilerleyen canlı bir gösterge
+  const nicPct=Math.max(0,100*Math.pow(0.5,sec/(2*H)));
+  const nicShow=nicPct<0.05?0:nicPct;
+  $('nicPct').textContent=(nicShow>=10?Math.round(nicShow):nicShow.toFixed(nicShow>=1?1:2))+'%';
+  $('nicPct').style.color=lerpHex([233,162,59],[111,214,192],1-nicPct/100);
+  $('nicFill').style.width=Math.max(0.6,nicPct).toFixed(2)+'%';
+  $('nicFill').style.background=nicPct>50?'linear-gradient(90deg,#E9A23B,#f0c987)':'linear-gradient(90deg,#E9A23B,#6FD6C0)';
+  $('nicNote').textContent=nicPct<=0.05
+    ?'Nikotin vücudundan tamamen çıktı. Bundan sonrası kimyasal değil, alışkanlık meselesi.'
+    :'Yarılanma ömrü ~2 saat — bu yüzden ilk gerçek kriz genelde 2. saat civarı gelir ve sonra hızla hafifler.';
+  updateLung(days);
   let last=null,li=-1;
   MS.forEach((m,i)=>{if(sec>=m[0]){last=m;li=i}});
+  updateSysStrip(last?last[2]:null);
   const next=MS[li+1]||null;
   if(last){$('nowLbl').textContent=last[1]+' · '+SYS[last[2]];$('nowMsg').textContent=last[3]}
   else{$('nowLbl').textContent='Şu an';$('nowMsg').textContent='Sayaç işliyor. İlk ölçülebilir değişim 20 dakikada geliyor.'}
@@ -894,9 +1349,35 @@ function render(){
     $('nextBar').style.width=Math.min(100,(sec-from)/(next[0]-from)*100).toFixed(1)+'%';
   }else{$('nextTxt').textContent='Listedeki her eşiği geçtin.';$('nextLeft').textContent='';$('nextBar').style.width='100%'}
   if(li>S.notifIdx&&last){S.notifIdx=li;DB.set(S);notify(last[1]+' geçti · '+SYS[last[2]],last[3])}
+  return sec;
+}
+
+function render(){
+  const sec=beat(),days=sec/D;
+
+  const c=S.perDay/20*S.packPrice;
+  const nom=c*days, wint=fv(c,days,S.rate,S.noInterest), gain=wint-nom;
+  const real=wint/Math.pow(1+S.infl/100,days/365);
+  const sticks=days*S.perDay, lifeMin=sticks*17;
+  const wins=S.log.filter(l=>l.type==='won').length, resets=S.log.filter(l=>l.type==='reset').length;
+
+  $('mNom').textContent=TL(nom);$('mInt').textContent=TL(wint);
+  $('mGain').textContent=TL(gain);$('mReal').textContent=TL(real);
+  $('mCap').textContent='Günde ₺'+T(c)+' kenara koyuyorsun. Yıllık %'+S.rate+' ile günlük efektif '+pct(dailyRate(S.rate))+'. Faize girmeyen taban: '+TL(S.noInterest)+'.';
+  $('mChart').innerHTML=moneyChart(days,c,S.rate,S.noInterest);
+  $('proj').innerHTML='<tr><th>Süre</th><th>Yastık altı</th><th>Faizli</th><th>Fark</th></tr>'+
+   [1,3,5,10,20].map(yy=>{const n=yy*365,a=c*n,b=fv(c,n,S.rate,S.noInterest);
+    return '<tr><td>'+yy+' yıl</td><td>'+TL(a)+'</td><td>'+TL(b)+'</td><td class="gain">+'+TL(b-a)+'</td></tr>'}).join('');
+
+  $('sticks').textContent=T(sticks);
+  $('life').textContent=lifeMin<1440?Math.floor(lifeMin/60)+' sa':Math.floor(lifeMin/1440)+' g '+Math.floor(lifeMin%1440/60)+' sa';
+  $('won').textContent=wins;
+  $('best').textContent=Math.floor(Math.max(S.best,sec*1000)/D/1000)+' g';
+
+  renderJourney(sec);
 
   const gb=$('goalBox');
-  if(S.goalAmount>0){const p=Math.min(100,nom/S.goalAmount*100),kalan=Math.max(0,(S.goalAmount-nom)/((S.perDay/20)*S.packPrice)*D);
+  if(S.goalAmount>0){const p=Math.min(100,nom/S.goalAmount*100),kalan=Math.max(0,(S.goalAmount-nom)/c*D);
     gb.innerHTML='<div class="top"><b>'+(S.goalName||'Hedef')+'</b><span>'+TL(nom)+' / '+TL(S.goalAmount)+'</span></div>'+
      '<div class="thin"><i style="width:'+p.toFixed(1)+'%"></i></div>'+
      '<div class="note">'+(p>=100?'Ulaştın. Al gitsin.':'Bu hızla '+dur(kalan)+' sonra tamam. Faizle sayarsan daha erken.')+'</div>';
@@ -947,8 +1428,8 @@ function render(){
   let got=0,tot=0,bh='';
   BG.forEach(([name,arr])=>{
     bh+='<div class="bgroup">'+name+'</div><div class="badges">';
-    arr.forEach(b=>{tot++;const ok=b[2](ctx);if(ok)got++;
-      bh+='<div class="badge'+(ok?' got':'')+'"><div class="bn">'+b[0]+'</div><div class="bl">'+b[1]+'</div></div>'});
+    arr.forEach((b,bi)=>{tot++;const ok=b[2](ctx);if(ok)got++;
+      bh+='<div class="badge'+(ok?' got reveal':'')+'"'+(ok?' style="animation-delay:'+(bi%8*35)+'ms"':'')+'><div class="bn">'+b[0]+'</div><div class="bl">'+b[1]+'</div></div>'});
     bh+='</div>';
   });
   $('badges').innerHTML=bh;$('badgeCount').textContent=got+'/'+tot;
@@ -958,9 +1439,9 @@ function render(){
   document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{filter=b.dataset.f;render()});
   const list=MS.filter(m=>filter==='all'||m[2]===filter);
   const cut=expanded?list.length:Math.min(list.length,list.filter(m=>sec>=m[0]).length+4);
-  $('milestones').innerHTML=list.slice(0,cut).map(m=>{
+  $('milestones').innerHTML=list.slice(0,cut).map((m,mi)=>{
     const done=sec>=m[0],nxt=!done&&list.filter(x=>x[0]<m[0]).every(x=>sec>=x[0]);
-    return '<li class="'+(done?'done':nxt?'nx':'')+'"><span class="dot"></span><span class="t">'+m[1]+'</span>'+
+    return '<li class="reveal'+(done?' done':nxt?' nx':'')+'" style="animation-delay:'+(Math.min(mi,10)*30)+'ms"><span class="dot"></span><span class="t">'+m[1]+'</span>'+
       '<span class="d">'+(filter==='all'?'<span class="sys">'+SYS[m[2]]+'</span>':'')+m[3]+'</span></li>'}).join('');
   $('moreBtn').textContent=expanded?'Daralt ↑':'Tümünü göster ↓';
   $('moreBtn').style.display=(list.length>cut||expanded)?'block':'none';
@@ -990,20 +1471,26 @@ function startCrave(){
   $('veil').classList.add('open');$('acts').style.display='none';
   $('tagStep').style.display='none';$('breathe').style.display='';
   $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
+  initCraveFX();
   endAt=Date.now()+240000;let i=0;
   const step=()=>{const a=PH[i%3];$('phase').textContent=a[0];
-    $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';i++;timer=setTimeout(step,a[1]*1000)};
+    $('orbWrap').style.transitionDuration=a[1]+'s';$('orbWrap').style.transform='scale('+a[2]+')';i++;timer=setTimeout(step,a[1]*1000)};
   step();
+  $('craveArc').style.strokeDashoffset='0';
   tick=setInterval(()=>{const r=Math.max(0,endAt-Date.now());
     $('left').textContent=pad(Math.floor(r/60000))+':'+pad(Math.floor(r%60000/1000));
+    $('craveArc').style.strokeDashoffset=(552.9*(1-r/240000)).toFixed(1);
     if(r<=0){clearInterval(tick);clearTimeout(timer);$('phase').textContent='Dört dakika geçti';
       $('sub').textContent='Krizin tepesi arkanda kaldı.';$('left').textContent='';$('acts').style.display='flex'}},250);
   setTimeout(()=>{if($('veil').classList.contains('open'))$('acts').style.display='flex'},30000);
 }
-function stopCrave(){clearTimeout(timer);clearInterval(tick);$('veil').classList.remove('open')}
+function stopCrave(){clearTimeout(timer);clearInterval(tick);$('veil').classList.remove('open');stopCraveFX()}
 async function save(){await DB.set(S);render()}
 
 $('craveBtn').onclick=startCrave;
+$('watchBtn').onclick=playStory;
+$('storyX').onclick=closeStory;
+$('storyDone').onclick=closeStory;
 
 let pickTrigger=null,pickInt=null;
 function drawTagStep(){
@@ -1030,31 +1517,27 @@ $('smoked').onclick=async()=>{S.best=Math.max(S.best,Date.now()-S.quitAt);S.log.
  S.quitAt=Date.now();S.notifIdx=-1;stopCrave();await save();
  alert('Sayaç sıfırlandı. En uzun serin kayıtlı — onu bir kere yaptıysan tekrar yapabilirsin.')};
 $('moreBtn').onclick=()=>{expanded=!expanded;render()};
+if(!$('brSel').options.length||$('brSel').options.length===1){
+  BRANDS.forEach(b=>{const o=document.createElement('option');o.value=b[0];o.textContent=b[0]+' · ₺'+b[1];$('brSel').appendChild(o)});
+}
 $('setBtn').onclick=()=>{const p=$('panel');p.classList.toggle('open');
- $('qd').value=tl(S.quitAt);$('pd').value=S.perDay;$('pp').value=S.packPrice;
+ $('qd').value=tl(S.quitAt);$('pd').value=S.perDay;$('pp').value=S.packPrice;$('brSel').value=S.brand||'';
  $('ir').value=S.rate;$('ni').value=S.noInterest;$('inf').value=S.infl;$('gn').value=S.goalName;$('ga').value=S.goalAmount||'';
- $('du').value=S.auto.workerUrl};
+ $('du').value=S.auto.workerUrl;$('af').value=String(S.auto.everyDays);$('ah').value=S.auto.hour;
+ $('advBox').classList.remove('open');$('advToggle').textContent='Gelişmiş ayarlar ↓'};
+$('advToggle').onclick=()=>{const b=$('advBox'),open=b.classList.toggle('open');$('advToggle').textContent=(open?'Gelişmiş ayarlar ↑':'Gelişmiş ayarlar ↓')};
+$('brSel').onchange=async e=>{
+  const b=BRANDS.find(x=>x[0]===e.target.value);
+  S.brand=e.target.value;
+  if(b){S.packPrice=b[1];$('pp').value=b[1]}
+  await save();
+};
 $('qd').onchange=async e=>{if(e.target.value){S.quitAt=new Date(e.target.value).getTime();S.notifIdx=-1;await save()}};
 $('pd').onchange=async e=>{S.perDay=Math.max(1,+e.target.value||1);await save()};
-$('pp').onchange=async e=>{
-  const newPrice = Math.max(1,+e.target.value||1);
-  S.packPrice = newPrice;
-  setHist('price', newPrice, 'manuel');
-  await save();
-};
-$('ir').onchange=async e=>{
-  const newRate = Math.max(0,+e.target.value||0);
-  S.rate = newRate;
-  setHist('rate', newRate, 'manuel');
-  await save();
-};
+$('pp').onchange=async e=>{S.packPrice=Math.max(1,+e.target.value||1);await save()};
+$('ir').onchange=async e=>{S.rate=Math.max(0,+e.target.value||0);await save()};
 $('ni').onchange=async e=>{S.noInterest=Math.max(0,+e.target.value||0);await save()};
-$('inf').onchange=async e=>{
-  const newInfl = Math.max(0,+e.target.value||0);
-  S.infl = newInfl;
-  setHist('infl', newInfl, 'manuel');
-  await save();
-};
+$('inf').onchange=async e=>{S.infl=Math.max(0,+e.target.value||0);await save()};
 $('gn').onchange=async e=>{S.goalName=e.target.value.slice(0,40);await save()};
 $('ga').onchange=async e=>{S.goalAmount=Math.max(0,+e.target.value||0);await save()};
 $('du').onchange=async e=>{S.auto.workerUrl=e.target.value.trim();await save()};
@@ -1091,16 +1574,81 @@ $('impFile').onchange=e=>{
   e.target.value='';
 };
 
+let pgBusy=false;
+function go(pg){
+  const curOn=[...document.querySelectorAll('[data-pg].on')];
+  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('on',b.dataset.go===pg));
+  if(pgBusy||!curOn.length||curOn[0].dataset.pg===pg){
+    document.querySelectorAll('[data-pg]').forEach(el=>el.classList.toggle('on',el.dataset.pg===pg));
+    window.scrollTo(0,0);
+    return;
+  }
+  pgBusy=true;
+  curOn.forEach(el=>{el.classList.remove('pgIn');el.classList.add('pgOut')});
+  setTimeout(()=>{
+    document.querySelectorAll('[data-pg]').forEach(el=>el.classList.toggle('on',el.dataset.pg===pg));
+    window.scrollTo(0,0);
+    document.querySelectorAll('[data-pg="'+pg+'"]').forEach((el,i)=>{
+      el.classList.remove('pgOut','pgIn');void el.offsetWidth;
+      el.style.animationDelay=(i*35)+'ms';el.classList.add('pgIn');
+    });
+    pgBusy=false;
+  },160);
+}
+document.querySelectorAll('.tabbar button').forEach(b=>b.onclick=()=>go(b.dataset.go));
+
+/* buton ripple: her butona dokunuşta gerçek bir dalga efekti */
+document.addEventListener('pointerdown',e=>{
+  const btn=e.target.closest('button');
+  if(!btn)return;
+  const rect=btn.getBoundingClientRect();
+  const size=Math.max(rect.width,rect.height)*1.3;
+  const x=(e.clientX||rect.left+rect.width/2)-rect.left-size/2;
+  const y=(e.clientY||rect.top+rect.height/2)-rect.top-size/2;
+  const r=document.createElement('span');
+  r.className='rip';r.style.width=r.style.height=size+'px';r.style.left=x+'px';r.style.top=y+'px';
+  btn.appendChild(r);
+  setTimeout(()=>r.remove(),650);
+});
+
+$('af').onchange=async e=>{S.auto.everyDays=+e.target.value||0;await save()};
+$('ah').onchange=async e=>{S.auto.hour=Math.min(23,Math.max(0,+e.target.value||0));await save()};
+
 $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı baştan açılacak. Emin misin?')){
- S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,rate:40,infl:33,noInterest:0,best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
+ S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,brand:'',rate:40,infl:33,noInterest:0,best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
  await DB.set(S);location.reload()}};
 
 (async()=>{
   const s=await DB.get();if(s)S=Object.assign(S,s);migrate();
   if(!S.onboarded){$('setup').classList.add('open');drawStep()}
-  else{$('app').classList.remove('hidden');render()}
-  setInterval(()=>{if(S.onboarded)render()},1000);
+  else{
+    $('app').classList.remove('hidden');
+    $('tabbar').classList.remove('hidden');go('bugun');
+    render();
+    maybeAutoCheck();
+    initHeroFX();
+  }
+  // saniyede bir: hafif tık (sayaç/akciğer/saat). Ağır listeler/grafikler 20sn'de bir tazelenir.
+  let slowCounter=0;
+  setInterval(()=>{
+    if(!S.onboarded)return;
+    beat();
+    slowCounter++;
+    if(slowCounter>=20){slowCounter=0;render()}
+  },1000);
+  // uygulama arka plandan geri geldiğinde de zamanı gelmişse kontrol et
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden&&S.onboarded)maybeAutoCheck();
+  });
 })();
+
+// Service worker'ı kaydet: uygulama kabuğu bundan sonra internetsiz de açılır.
+// index.html, sw.js ile aynı klasörde olmalı (GitHub Pages kökü gibi).
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{/* offline ilk kurulumda sorun değil */});
+  });
+}
 </script>
 </body>
 </html>
