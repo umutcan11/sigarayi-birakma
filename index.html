@@ -830,7 +830,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v13',t:'Yeni: dört widget tasarımı (Sayaç, Para, Sağlık, Arkadaş). Ayarlar > Widget\'tan seç, betiği yeniden kopyala.'};
+const SURUM_NOTU={v:'v14',t:'Bildirimler: Ayarlar > Bildirimler\'de son gönderimin Apple\'a ulaşıp ulaşmadığı görünüyor. "Uygulama kapalıyken dene" ile kendin test edebilirsin.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -1984,11 +1984,31 @@ async function pushDisable(){
   try{await postJSON('sync',{id:S.devId,state:devState(),push:null})}catch(e){}
   toast('Bildirimler kapatıldı');
 }
-async function pushTest(){
-  const b=$('pTest');if(b){b.disabled=true;b.textContent='Gönderiliyor...'}
-  try{await syncDevice(true);await postJSON('push/test',{id:S.devId});toast('Gönderildi. Birkaç saniye içinde gelir.')}
+async function pushTest(closed){
+  const b=$(closed?'pTestC':'pTest'),t=b?b.textContent:'';if(b){b.disabled=true;b.textContent='Gönderiliyor...'}
+  try{await syncDevice(true);
+    if(closed){await postJSON('push/test',{id:S.devId,delay:15});
+      showUndo('15 saniye sonra bildirim gelecek. Şimdi uygulamayı kapat (aşağıdan yukarı kaydır) ve telefonu kilitle.',null,'Tamam');
+      setTimeout(()=>{pushStat=null;pushStatus(true)},25000)}
+    else{await postJSON('push/test',{id:S.devId});toast('Gönderildi. Birkaç saniye içinde gelir.');setTimeout(()=>pushStatus(true),1500)}}
   catch(e){toast('Gönderilemedi: '+(e.message||'hata'))}
-  if(b){b.disabled=false;b.textContent='Test bildirimi'}
+  if(b){b.disabled=false;b.textContent=t}
+}
+// Sunucudaki son gönderim ve sıradaki bildirim. Apple 201 dönerse teslim almıştır.
+let pushStat=null,pushStatAt=0;
+async function pushStatus(force){
+  if(!S.push.on||!navigator.onLine)return;
+  if(!force&&Date.now()-pushStatAt<60e3)return;
+  pushStatAt=Date.now();
+  try{const j=await (await fetch(WORKER_URL+'push/status?id='+S.devId,{cache:'no-store'})).json();if(j.ok){pushStat=j;const el=$('pLast');if(el)el.innerHTML=pushStatHtml()}}catch(e){}
+}
+function pushStatHtml(){
+  const j=pushStat;if(!j)return '';
+  const tm=t=>{const d=new Date(t),td=new Date();return (d.toDateString()===td.toDateString()?'bugün ':d.toDateString()===new Date(td.getTime()+864e5).toDateString()?'yarın ':d.toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+' ')+pad(d.getHours())+':'+pad(d.getMinutes())};
+  if(!j.push)return '<div class="pErr">Sunucuda bu telefonun aboneliği yok. Bildirimleri kapatıp yeniden aç.</div>';
+  const L=j.last,st=!L?'':L.status===201||L.status===200?'<span class="sOk">Apple teslim aldı</span>':L.status===404||L.status===410?'<span class="sWarn">abonelik geçersiz, kapatıp yeniden aç</span>':L.status===403?'<span class="sWarn">Apple imzayı reddetti</span>':'<span class="sWarn">hata '+L.status+'</span>';
+  return '<div class="pStat">'+(L?'Son gönderim: '+tm(L.at)+' · '+esc(L.title)+' · '+st+'<br>':'Henüz planlı bildirim gönderilmedi.<br>')+
+    (j.next?'Sıradaki: '+tm(j.next.at)+' · '+esc(j.next.title):'Sırada bildirim yok')+'</div>';
 }
 function renderPushBox(){
   const box=$('pushBox');if(!box)return;
@@ -2012,8 +2032,14 @@ function renderPushBox(){
     '<label class="tgl"><input type="checkbox" id="pRisk"'+(P.risk?' checked':'')+'><span><b>Zor saatten önce</b><small>'+(rw?'Senin için '+rw.rng+', 15 dk önce':'Kriz kayıtların biriktikçe saat belirlenir')+'</small></span></label>'+
     '<label class="tgl"><input type="checkbox" id="pBadge"'+(P.badge!==false?' checked':'')+'><span><b>Simgede gün sayısı</b><small>Uygulama simgesinin köşesinde kaçıncı gün olduğun yazar</small></span></label>'+
     '<label class="tgl"><input type="checkbox" id="pUpd"'+(P.upd!==false?' checked':'')+'><span><b>Uygulama güncellenince</b><small>Neyin değiştiğini kısaca yazar</small></span></label>'+
-    '<div class="pStat">'+(P.lastSync?'Sırada '+P.count+' bildirim · son eşitleme '+niceDate(P.lastSync):'Eşitleniyor...')+'</div>'+err+
-    '<div class="pActs"><button id="pTest">Test bildirimi</button><button id="pOff">Kapat</button></div>';
+    '<div id="pLast">'+(pushStat?pushStatHtml():'<div class="pStat">'+(P.lastSync?'Sırada '+P.count+' bildirim':'Eşitleniyor...')+'</div>')+'</div>'+err+
+    '<button class="pBtn" id="pTestC">Uygulama kapalıyken dene</button>'+
+    '<div class="pActs"><button id="pTest">Hemen test et</button><button id="pOff">Bildirimleri kapat</button></div>'+
+    '<details class="wDet"><summary>Bildirim gelmiyorsa</summary><ol class="wSteps">'+
+    '<li>Önce <b>Kapalıyken dene</b>\'ye bas, uygulamayı kapat, telefonu kilitle. 15 saniye sonra gelmeli.</li>'+
+    '<li>Yukarıda "Apple teslim aldı" yazıyor ama bildirim görünmediyse sorun telefonda: <b>Ayarlar › Bildirimler › Nefes</b>, izin açık olsun, teslim şekli <b>Anında</b> olsun (Planlanmış Özet değil).</li>'+
+    '<li>Odak modu (Rahatsız Etme, Uyku) açıksa Nefes\'i o modun izinli uygulamalarına ekle.</li>'+
+    '<li>Nefes\'in simgesini ana ekrandan silip yeniden eklersen bildirim izni sıfırlanır. Buradan yeniden açman gerekir.</li></ol></details>';
   const upd=async(k,v)=>{S.push[k]=v;S.push.lastHash='';await DB.set(S);syncDevice(true)};
   $('pMs').onchange=e=>upd('ms',e.target.checked);
   $('pDaily').onchange=e=>upd('daily',e.target.checked);
@@ -2021,7 +2047,8 @@ function renderPushBox(){
   $('pUpd').onchange=e=>upd('upd',e.target.checked);
   $('pBadge').onchange=e=>{lastBadge=-1;upd('badge',e.target.checked);render()};
   $('pHour').onchange=e=>upd('hour',+e.target.value);
-  $('pTest').onclick=pushTest;$('pOff').onclick=pushDisable;
+  $('pTest').onclick=()=>pushTest(false);$('pTestC').onclick=()=>pushTest(true);$('pOff').onclick=pushDisable;
+  pushStatus(false);
 }
 
 /* ---------- Widget (Scriptable) ---------- */
@@ -2487,8 +2514,9 @@ function renderFriendBox(force){
   box.innerHTML='<div class="psm" style="margin:0">Birlikte bırakıyorsanız: birbirinizin gün sayısını görürsünüz. Biri "Canım çekiyor"a basınca diğerine bildirim gider, o da tek dokunuşla destek gönderir.</div>'+
     '<div class="frForm"><input type="text" id="frMe" placeholder="Adın (arkadaşın görecek)" maxlength="24" value="'+esc(F.myName||'')+'"></div>'+
     (live?'<div class="cCode"><span>Davet kodun · '+Math.max(1,Math.round((F.inviteUntil-Date.now())/3600e3))+' saat geçerli</span><b>'+F.invite+'</b><button id="frCopy">Kopyala</button></div>'+
-      '<div class="pStat">Arkadaşın kendi Nefes\'inde Ayarlar > Arkadaş kısmına bu kodu yazsın. Bağlanınca burada görünür.</div>'
+      '<div class="pStat">Arkadaşın kod oluşturmasın, kendi Nefes\'inde Ayarlar > Arkadaş altındaki "Arkadaşının kodu" kutusuna bu kodu yazsın. Bağlanınca burada görünür.</div>'
       :'<button class="pBtn" id="frInv">Davet kodu oluştur</button>')+
+    '<div class="pStat" style="margin-top:14px">Arkadaşın kod oluşturduysa sen oluşturma, onun kodunu buraya yaz:</div>'+
     '<div class="frForm join"><input type="text" id="frCode" placeholder="Arkadaşının kodu" maxlength="8" autocapitalize="characters" autocomplete="off"><button id="frJoin">Bağlan</button></div>'+err;
   if($('frInv'))$('frInv').onclick=friendInvite;
   if($('frCopy'))$('frCopy').onclick=async()=>{try{await navigator.clipboard.writeText(F.invite);toast('Kod kopyalandı')}catch(e){toast('Kopyalanamadı')}};
