@@ -15,7 +15,7 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v8';
+const SURUM = 'nefes-v10';
 
 const KABUK = [
   './',
@@ -87,6 +87,37 @@ self.addEventListener('fetch', (event) => {
         if (yedek) return yedek;
       }
       return new Response('Çevrimdışısın ve bu içerik henüz cihazına inmemiş.', { status: 503 });
+    })
+  );
+});
+
+// ---------------------------------------------------------------------
+// Bildirimler: worker'dan gelen push burada gösterilir. Gövde iOS 18.4+
+// "declarative web push" biçiminde ({web_push:8030, notification:{...}}),
+// eski biçim ({title, body}) de kabul edilir. iOS her push'ta görünür bir
+// bildirim ister. Göstermezsek birkaç kez sonra aboneliği iptal eder.
+self.addEventListener('push', (event) => {
+  let d = {};
+  try { d = event.data ? event.data.json() : {}; }
+  catch (e) { d = { title: 'Nefes', body: event.data ? event.data.text() : '' }; }
+  const n = d.notification || d;
+  event.waitUntil(self.registration.showNotification(n.title || 'Nefes', {
+    body: n.body || '',
+    icon: './icons/icon-192.png',
+    badge: './icons/icon-96.png',
+    tag: d.tag || undefined,
+    data: { url: n.navigate || './' },
+  }));
+});
+
+// Bildirime dokununca: açık uygulama varsa öne getir, yoksa aç
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = (event.notification.data && event.notification.data.url) || './';
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      for (const c of list) { if ('focus' in c) return c.focus(); }
+      return self.clients.openWindow(url);
     })
   );
 });
