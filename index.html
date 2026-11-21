@@ -244,6 +244,7 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .mhTop{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .mhDays{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 .mhV{font-size:clamp(54px,17vw,72px);font-weight:700;letter-spacing:-.035em;line-height:1;margin-top:12px;font-variant-numeric:tabular-nums}
+.mhV.l2{font-size:clamp(40px,12.5vw,56px)} .mhV.l3{font-size:clamp(32px,10vw,46px)}
 .mhV .cur{font-size:.5em;color:var(--air);font-weight:500;margin-right:4px;vertical-align:.55em;letter-spacing:0}
 .mhRate{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
 .mhRate span{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:5px 10px}
@@ -261,6 +262,9 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .mCard{background:var(--surface);border-radius:18px;padding:16px 14px 14px}
 .mcHead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:0 2px 6px}
 .mcNow{font-family:var(--mono);font-size:15px;color:var(--bone)}
+.mSeg{display:flex;background:var(--ink);border-radius:100px;padding:3px;margin:4px 2px 8px;gap:2px}
+.mSeg button{flex:1;font-size:12px;font-weight:600;color:var(--muted);padding:7px 6px;border-radius:100px}
+.mSeg button.on{background:var(--line);color:var(--bone)}
 .mProj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
 .mProj button{text-align:left;border:1px solid var(--line);border-radius:12px;padding:9px 10px;min-width:0}
 .mProj button.on{border-color:var(--air);background:rgba(111,214,192,.07)}
@@ -268,6 +272,7 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .mProj .pv{display:block;font-family:var(--mono);font-size:15px;font-weight:700;margin-top:3px;white-space:nowrap}
 .mProj .pn{display:block;font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap}
 .mFoot{font-size:11.5px;color:var(--muted);margin-top:10px;padding:0 2px;line-height:1.45}
+.mFoot b{color:var(--bone);font-weight:600}
 .mXfer{background:var(--surface);border-radius:18px;padding:14px}
 .xfRow{display:flex;align-items:center;gap:12px}
 .xfTx{flex:1;min-width:0;font-size:12.5px;color:var(--muted);line-height:1.4}
@@ -306,6 +311,54 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .pActs button:disabled{opacity:.5}
 .wSteps{margin:12px 0 0 18px;font-size:13px;color:var(--muted);line-height:1.5;display:grid;gap:6px}
 .wSteps b{color:var(--bone);font-weight:600}
+/* arkadaş, bulut yedeği */
+.todayLbl{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.frChip{font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:none;color:var(--air);display:flex;align-items:center;gap:6px;padding:0;line-height:1.2;max-width:62%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.frChip i{flex:none;width:6px;height:6px;border-radius:50%;background:var(--air)}
+.frChip.hot{color:var(--ember)} .frChip.hot i{background:var(--ember);animation:frP 1.2s ease-in-out infinite}
+@keyframes frP{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.frChip.hot i{animation:none}}
+.frTop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.frName{font-size:18px;font-weight:700}
+.frSt{font-size:12.5px;color:var(--muted);margin-top:4px}
+.frSt .hot{color:var(--ember);font-weight:600}
+.frDays{text-align:right}
+.frDays b{display:block;font-size:40px;font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.frDays span{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+.pBtn.hot{border-color:var(--ember);color:var(--ember)}
+.frLine{font-size:14px;margin-bottom:4px} .frLine b{font-weight:700}
+.frForm{margin-top:12px;display:flex;gap:8px}
+.frForm input{flex:1;min-width:0;font-family:var(--sans);font-size:15px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.frForm.join input{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase}
+.frForm button{flex:none;border:1px solid var(--air);color:var(--air);border-radius:100px;padding:0 18px;font-weight:700;font-size:13.5px}
+.frNote{margin-top:18px;font-size:13px;color:var(--air);min-height:18px;text-align:center}
+.cCode{display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;background:var(--ink);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:12px}
+.cCode span{flex-basis:100%;font-size:11.5px;color:var(--muted)}
+.cCode b{flex:1;font-family:var(--mono);font-size:15px;letter-spacing:.06em;color:var(--bone);word-break:break-all}
+.cCode button{flex:none;font-size:12.5px;color:var(--air);font-weight:600}
+.cAck{display:block;margin-top:8px;border:1px solid var(--ember);color:var(--ember);border-radius:100px;padding:7px 14px;font-weight:600;font-size:12.5px}
+.wDet summary{cursor:pointer;font-size:13px;color:var(--air);margin-top:12px;list-style:none}
+.wDet summary::-webkit-details-marker{display:none}
+.wDet summary::after{content:' +';font-family:var(--mono)} .wDet[open] summary::after{content:' −'}
+.rsLink{display:block;margin:22px auto 0;font-size:13.5px;color:var(--air);text-decoration:underline;text-underline-offset:3px}
+/* ayarlar: katlanır bölümler, başlıkta durum */
+.sGroup{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:18px 4px 10px}
+.sGroup:first-child{margin-top:0}
+details.sec{background:var(--surface);border-radius:16px;margin-bottom:8px}
+details.sec>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:16px;cursor:pointer;-webkit-user-select:none;user-select:none}
+details.sec>summary::-webkit-details-marker{display:none}
+.sT{flex:none;font-size:15px;font-weight:600}
+.sS{flex:1;min-width:0;text-align:right;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sS.sOk{color:var(--air)} .sS.sWarn{color:var(--ember)}
+details.sec>summary::after{content:'';flex:none;width:7px;height:7px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);transition:transform .2s;margin:0 2px 0 4px}
+details.sec[open]>summary::after{transform:rotate(45deg)}
+details.sec[open]>summary{border-bottom:1px solid var(--line)}
+.sBody{padding:0 0 4px}
+.sBody>.pcard,.sBody>.panel,.sBody>.auto,.sBody>.reasons{background:none;margin-bottom:0!important}
+.sBody>.auto{border:none;margin-top:0}
+.sBar{display:flex;justify-content:flex-end;padding:10px 16px 0}
+.sBar button{font-family:var(--mono);font-size:11px;color:var(--air);letter-spacing:.06em}
+@media (prefers-reduced-motion:reduce){details.sec>summary::after{transition:none}}
 /* bugün: tek ekran düzeni */
 .sysStrip[hidden]{display:none!important}
 .sinceSmall[hidden]{display:none!important}
@@ -524,7 +577,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 </div>
 
 <section data-pg="bugun" class="todaySec">
-  <div class="todayLbl">Bugün</div>
+  <div class="todayLbl"><span>Bugün</span><button class="frChip" id="frChip" hidden></button></div>
   <div class="todayGrid">
     <div class="tcell"><b id="tNot">0</b><span>sigara içmedin</span></div>
     <div class="tcell h"><b id="tLung">+0</b><span id="tLungK">akciğer bugün</span></div>
@@ -545,6 +598,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 </section>
 <section class="mCard">
   <div class="mcHead"><span class="eyebrow">Faizde dursaydı</span><b class="mcNow" id="mInt">₺0</b></div>
+  <div class="mSeg" id="mSeg"><button data-m="real">Bugünün parasıyla</button><button data-m="nom">Nominal</button></div>
   <div class="chartWrap"><svg id="mChart" viewBox="0 0 340 172"></svg><div class="ctip" id="mTip" hidden></div></div>
   <div class="mProj" id="mProj"></div>
   <div class="mFoot" id="mFoot"></div>
@@ -569,6 +623,10 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 </div>
 
 <div id="prog" data-pg="ilerleme">
+<section id="frSec" hidden>
+  <div class="head"><span class="eyebrow">Arkadaşın</span></div>
+  <div class="pcard" id="frCard"></div>
+</section>
 <section>
   <div class="head"><span class="eyebrow">Bu hafta</span></div>
   <div class="pcard" id="sumCard"></div>
@@ -594,40 +652,15 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 
 
 <div id="settings" data-pg="ayarlar">
-<section>
-  <div class="head"><span class="eyebrow">Sigara</span></div>
-  <div class="panel open">
-    <div class="row stack"><label for="qd">Son sigaranı içtiğin an</label><input type="datetime-local" id="qd"></div>
-    <div class="row"><label for="pd">Günde kaç sigara içiyordun</label><input type="number" id="pd" min="1" max="80" inputmode="numeric"></div>
-    <div class="row"><label for="pp">Paket fiyatı (₺)</label><input type="number" id="pp" min="1" max="5000" inputmode="decimal"></div>
-  </div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Neden bıraktın</span><button id="edReasons">Düzenle</button></div>
-  <div class="reasons" id="reasonsBox"></div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Para</span></div>
-  <div class="panel open">
-    <div class="row"><label for="ir">Yıllık mevduat faizi (%)</label><input type="number" id="ir" min="0" max="200" step="0.5" inputmode="decimal"></div>
-    <div class="row"><label for="ni">Faize girmeyen tutar (₺)</label><input type="number" id="ni" min="0" max="99999999" inputmode="numeric"></div>
-    <div class="row"><label for="inf">Yıllık enflasyon (%)</label><input type="number" id="inf" min="0" max="200" step="0.5" inputmode="decimal"></div>
-    <div class="row"><label for="gn">Hedefin</label><input type="text" id="gn" placeholder="ne alacaksın"></div>
-    <div class="row"><label for="ga">Hedef tutarı (₺)</label><input type="number" id="ga" min="0" max="99999999" inputmode="numeric"></div>
-  </div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Otomatik veri</span></div>
-  <div class="auto" id="autoBox" style="margin-bottom:10px"></div>
-  <div class="panel open">
-    <div class="row"><label for="af">Ne sıklıkla çekilsin</label><select id="af">
-      <option value="0">Sadece elle</option><option value="1">Günde bir</option>
-      <option value="7">Haftada bir</option><option value="30">Ayda bir</option></select></div>
-    <div class="row"><label for="ah">En erken saat</label><input type="number" id="ah" min="0" max="23" inputmode="numeric"></div>
-  </div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Yedekleme</span></div>
+<div class="sGroup">Özellikler</div>
+<details class="sec" id="sec-push"><summary><span class="sT">Bildirimler</span><span class="sS" id="ss-push"></span></summary><div class="sBody">
+  <div class="pcard" id="pushBox"></div>
+</div></details>
+<details class="sec" id="sec-friend"><summary><span class="sT">Arkadaş</span><span class="sS" id="ss-friend"></span></summary><div class="sBody">
+  <div class="pcard" id="friendBox"></div>
+</div></details>
+<details class="sec" id="sec-cloud"><summary><span class="sT">Yedekleme</span><span class="sS" id="ss-cloud"></span></summary><div class="sBody">
+  <div class="pcard" id="cloudBox" style="margin-bottom:10px"></div>
   <div class="pcard">
     <div class="psm" id="bkNote" style="margin:0 0 4px"></div>
     <div class="bk">
@@ -636,20 +669,45 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
     </div>
     <input type="file" id="impFile" accept="application/json,.json" style="display:none">
   </div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Kriz kayıtları</span><button id="logToggle"></button></div>
-  <div class="pcard"><div class="psm" id="logSum" style="margin:0"></div><ul class="log" id="log" hidden></ul></div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Bildirimler</span></div>
-  <div class="pcard" id="pushBox"></div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Widget</span></div>
+</div></details>
+<details class="sec" id="sec-widget"><summary><span class="sT">Widget</span><span class="sS" id="ss-widget"></span></summary><div class="sBody">
   <div class="pcard" id="widgetBox"></div>
-</section>
-<section>
+</div></details>
+<div class="sGroup">Değerlerin</div>
+<details class="sec" id="sec-sigara"><summary><span class="sT">Sigara</span><span class="sS" id="ss-sigara"></span></summary><div class="sBody">
+  <div class="panel open">
+    <div class="row stack"><label for="qd">Son sigaranı içtiğin an</label><input type="datetime-local" id="qd"></div>
+    <div class="row"><label for="pd">Günde kaç sigara içiyordun</label><input type="number" id="pd" min="1" max="80" inputmode="numeric"></div>
+    <div class="row"><label for="pp">Paket fiyatı (₺)</label><input type="number" id="pp" min="1" max="5000" inputmode="decimal"></div>
+  </div>
+</div></details>
+<details class="sec" id="sec-para"><summary><span class="sT">Para</span><span class="sS" id="ss-para"></span></summary><div class="sBody">
+  <div class="panel open">
+    <div class="row"><label for="ir">Yıllık mevduat faizi (%)</label><input type="number" id="ir" min="0" max="200" step="0.5" inputmode="decimal"></div>
+    <div class="row"><label for="ni">Faize girmeyen tutar (₺)</label><input type="number" id="ni" min="0" max="99999999" inputmode="numeric"></div>
+    <div class="row"><label for="inf">Yıllık enflasyon (%)</label><input type="number" id="inf" min="0" max="200" step="0.5" inputmode="decimal"></div>
+    <div class="row"><label for="gn">Hedefin</label><input type="text" id="gn" placeholder="ne alacaksın"></div>
+    <div class="row"><label for="ga">Hedef tutarı (₺)</label><input type="number" id="ga" min="0" max="99999999" inputmode="numeric"></div>
+  </div>
+</div></details>
+<details class="sec" id="sec-reasons"><summary><span class="sT">Neden bıraktın</span><span class="sS" id="ss-reasons"></span></summary><div class="sBody">
+  <div class="sBar"><button id="edReasons">Düzenle</button></div>
+  <div class="reasons" id="reasonsBox"></div>
+</div></details>
+<details class="sec" id="sec-auto"><summary><span class="sT">Otomatik veri</span><span class="sS" id="ss-auto"></span></summary><div class="sBody">
+  <div class="auto" id="autoBox" style="margin-bottom:10px"></div>
+  <div class="panel open">
+    <div class="row"><label for="af">Ne sıklıkla çekilsin</label><select id="af">
+      <option value="0">Sadece elle</option><option value="1">Günde bir</option>
+      <option value="7">Haftada bir</option><option value="30">Ayda bir</option></select></div>
+    <div class="row"><label for="ah">En erken saat</label><input type="number" id="ah" min="0" max="23" inputmode="numeric"></div>
+  </div>
+</div></details>
+<details class="sec" id="sec-log"><summary><span class="sT">Kriz kayıtları</span><span class="sS" id="ss-log"></span></summary><div class="sBody">
+  <div class="sBar"><button id="logToggle"></button></div>
+  <div class="pcard"><div class="psm" id="logSum" style="margin:0"></div><ul class="log" id="log" hidden></ul></div>
+</div></details>
+<section style="margin-top:22px">
   <button class="danger" id="wipe">Tüm kaydı sil ve baştan başla</button>
 </section>
 </div>
@@ -674,6 +732,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
     <div class="sub" id="sub">Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.</div>
     <div class="veilReasons" id="veilReasons"></div>
     <div class="left" id="left"></div>
+    <div class="frNote" id="frNote"></div>
   </div>
   <div class="acts" id="acts" style="display:none">
     <button class="ok" id="passed">Geçti</button>
@@ -711,6 +770,8 @@ const DB={
 const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
+// Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
+const SURUM_NOTU={v:'v12',t:'Yeni: arkadaş modu, otomatik bulut yedeği, simgede gün sayısı ve bugünün parasıyla gerçekçi birikim tahmini. Ayarlar\'dan aç.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -914,26 +975,27 @@ const BADGES=[
 const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
 const tl=ms=>new Date(ms-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
 const T=n=>Math.round(n).toLocaleString('tr-TR');
-const TL=n=>'₺'+(Math.abs(n)>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+'M':T(n));
+const TL=n=>{const a=Math.abs(n);if(a>=1e9)return '₺'+(n/1e9).toFixed(a>=1e10?0:1).replace('.',',')+' mr';if(a>=1e6)return '₺'+(n/1e6).toFixed(a>=1e7?0:1).replace('.',',')+' mn';return '₺'+T(n)};
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function dur(s){s=Math.max(0,s);const d=Math.floor(s/D),h=Math.floor(s%D/H),m=Math.floor(s%H/60);
  if(d>365)return Math.floor(d/365)+' yıl '+Math.floor(d%365/30)+' ay';
  if(d>0)return d+' gün '+h+' sa';if(h>0)return h+' sa '+m+' dk';return m+' dk '+Math.floor(s%60)+' sn';}
 
 function dailyRate(annual){return Math.pow(1+annual/100,1/365)-1}
-function pct(n,d=3){return (n*100).toFixed(d).replace('.',',')+'%'}
+function pct(n,d=3){return '%'+(n*100).toFixed(d).replace('.',',')}
+const pc1=v=>'%'+(+v).toFixed(1).replace('.',',').replace(',0','');
 
 /* bileşik faiz: her gün c kadar yatırılıyor; taban tutara faiz işletilmiyor */
-function fv(c,days,annual,noInterest=0){
+function fv(c,days,annual,noInterest=0,start=0){
  const i=dailyRate(annual),whole=Math.floor(Math.max(0,days)),part=Math.max(0,days)-whole;
- let bal=0;
+ let bal=start;
  for(let d=0;d<whole;d++){
   bal+=c;
-  if(i>0)bal+=Math.max(0,bal-noInterest)*i;
+  if(i!==0)bal+=Math.max(0,bal-noInterest)*i;
  }
  if(part>0){
   bal+=c*part;
-  if(i>0)bal+=Math.max(0,bal-noInterest)*i*part;
+  if(i!==0)bal+=Math.max(0,bal-noInterest)*i*part;
  }
  return bal;
 }
@@ -944,7 +1006,7 @@ const STEPS=[
  {t:'Ne zaman içtin son sigaranı?',s:'Bilmiyorsan yaklaşık seç. Sonradan Ayarlar\'dan gün ve saatine kadar düzeltebilirsin.',
   r:()=>'<div class="opts">'+
    ['Şu an bırakıyorum','Bugün sabah','Dün','Daha eski — tarih seçeyim'].map((o,i)=>'<button class="opt" data-w="'+i+'">'+o+'</button>').join('')+
-   '</div><input type="datetime-local" class="dtin hidden" id="sd">'},
+   '</div><input type="datetime-local" class="dtin hidden" id="sd"><button class="rsLink" id="rsBtn">Daha önce kullandım, buluttan yükle</button>'},
  {t:'Günde kaç sigara içiyordun?',s:'Para, ömür ve içilmeyen sigara hesapları bunun üzerinden çalışıyor.',
   r:()=>'<input type="number" class="bigin" id="s2" value="20" min="1" max="80" inputmode="numeric"><div class="unit">adet / gün</div>'},
  {t:'Bir paket kaç lira?',s:'Son aldığın fiyatı yaz.',
@@ -964,6 +1026,7 @@ function drawStep(){
   $('setupBody').innerHTML='<div class="step">'+(stp+1)+' / '+STEPS.length+'</div><h1 class="q">'+st.t+'</h1><p class="qs">'+st.s+'</p>'+st.r()+
    '<div class="nav">'+(stp>0?'<button class="sec" id="bk">Geri</button>':'')+'<button class="pri" id="nx">'+(stp===STEPS.length-1?'Başla':'Devam')+'</button></div>';
   if(stp===0){
+    $('rsBtn').onclick=restoreFlow;
     document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
       document.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
       const w=+b.dataset.w,n=new Date();
@@ -986,7 +1049,7 @@ function drawStep(){
   if($('bk'))$('bk').onclick=()=>{stp--;drawStep()};
 }
 async function finish(){
-  Object.assign(S,tmp,{onboarded:true});
+  Object.assign(S,tmp,{onboarded:true,seenVer:SURUM_NOTU.v});
   await DB.set(S);
   $('setup').classList.remove('open');$('app').classList.remove('hidden');
   $('tabbar').classList.remove('hidden');go('bugun');
@@ -1007,7 +1070,8 @@ let moneyKey='',mSpanY=null,mGeom=null,heroAnim=null;
 // kısa para: ₺850, ₺12 bin, ₺1,2 mn
 function TLc(v){
   v=Math.max(0,v);
-  if(v>=1e6)return '₺'+(v/1e6).toFixed(v>=1e7?0:1).replace('.',',').replace(',0','')+' mn';
+  if(v>=1e9)return '₺'+(v/1e9).toFixed(v>=1e10?0:1).replace('.',',').replace(',0','')+' mr';
+  if(v>=1e6)return '₺'+(v>=1e7?T(v/1e6):String(Math.round(v/1e5)/10).replace('.',','))+' mn';
   if(v>=1e4)return '₺'+Math.round(v/1e3)+' bin';
   if(v>=1e3)return '₺'+(v/1e3).toFixed(1).replace('.',',').replace(',0','')+' bin';
   return '₺'+Math.round(v);
@@ -1015,13 +1079,23 @@ function TLc(v){
 function spanLabel(n){if(n<1)return 'İlk gün';if(n<60)return Math.round(n)+'. gün';const y=Math.floor(n/365),mo=Math.round((n%365)/30.4);
   if(!y)return mo+'. ay';return y+' yıl'+(mo&&mo<12?' '+mo+' ay':'')}
 // büyük sayı: ₺ işareti küçük ve renkli
-function heroMoney(v){return '<span class="cur">₺</span>'+T(v)}
+function heroMoney(v){const t=T(v);$('mNom').classList.toggle('l2',t.length>=10);$('mNom').classList.toggle('l3',t.length>=12);return '<span class="cur">₺</span>'+t}
 // projeksiyon sütunları: bugünden ileride kalan ilk üç yıl dönümü
-function projYears(days){const L=[1,2,3,5,10,15,20,30];const f=L.filter(y=>y*365>days*1.04);return (f.length>=3?f:L.slice(-3)).slice(0,3)}
+function projYears(days){const L=[1,2,3,5,10,15,20];const f=L.filter(y=>y*365>days*1.04);return (f.length>=3?f:L.slice(-3)).slice(0,3)}
 
-function drawMoneyChart(days,c,span){
+// Gerçekçi model: sigara fiyatı enflasyonla artar, yani bugünün parasıyla günlük
+// tasarruf sabit kalır. Biriken para gerçek faizle büyür: (1+faiz)/(1+enflasyon)-1.
+// Faizsiz kenarda duran para her yıl enflasyon kadar erir. Geçmiş kısım gerçekleşen tutardır.
+function moneyModel(days,c){
+  const rr=((1+S.rate/100)/(1+S.infl/100)-1)*100,mr=(1/(1+S.infl/100)-1)*100;
+  const W0=fv(c,days,S.rate,S.noInterest),N0=c*days,real=!S.moneyNominal;
+  const f=n=>n<=days?fv(c,n,S.rate,S.noInterest):real?fv(c,n-days,rr,S.noInterest,W0):fv(c,n,S.rate,S.noInterest);
+  const g=n=>n<=days?c*n:real?fv(c,n-days,mr,0,N0):c*n;
+  return {f,g,rr,mr,real};
+}
+function drawMoneyChart(days,c,span,M){
   const X0=8,X1=332,Y0=22,Y1=142;
-  const f=n=>fv(c,n,S.rate,S.noInterest),g=n=>c*n;
+  const f=M.f,g=M.g;
   const maxY=f(span)*1.04||1;
   const x=n=>X0+(n/span)*(X1-X0),y=v=>Y1-(v/maxY)*(Y1-Y0);
   const N=80,pts=[...Array(N+1)].map((_,i)=>span*i/N);
@@ -1051,7 +1125,7 @@ function drawMoneyChart(days,c,span){
      '<circle class="cg" r="4.5" fill="var(--cG)" stroke="var(--surface)" stroke-width="2"/></g>'+
      '<rect id="mHit" x="'+X0+'" y="0" width="'+(X1-X0)+'" height="'+(Y1+22)+'" fill="transparent"/>';
   $('mChart').innerHTML=s;
-  mGeom={X0,X1,span,x,y,f,g};
+  mGeom={X0,X1,span,x,y,f,g,days};
 }
 function moneyTip(ev){
   if(!mGeom)return;
@@ -1061,11 +1135,9 @@ function moneyTip(ev){
   const cx=x(n),cur=$('mCur');cur.style.display='';
   cur.querySelector('line').setAttribute('x1',cx);cur.querySelector('line').setAttribute('x2',cx);
   const cg=cur.querySelector('.cg');cg.setAttribute('cx',cx);cg.setAttribute('cy',y(f(n)));
-  const real=f(n)/Math.pow(1+S.infl/100,n/365);
   const tip=$('mTip'),wrap=tip.parentElement.getBoundingClientRect();
-  tip.innerHTML='<div class="tt">'+spanLabel(n)+'</div>'+
-    '<div>Faizle <b>'+TL(f(n))+'</b></div><div>Faizsiz <b>'+TL(g(n))+'</b></div>'+
-    '<div>Bugünün parasıyla <b>'+TL(real)+'</b></div>';
+  tip.innerHTML='<div class="tt">'+spanLabel(n)+(n>mGeom.days&&!S.moneyNominal?' · bugünün parasıyla':'')+'</div>'+
+    '<div>Faizle <b>'+TL(f(n))+'</b></div><div>Faizsiz <b>'+TL(g(n))+'</b></div>';
   tip.hidden=false;
   const px=cx/340*wrap.width,tw=tip.offsetWidth;
   tip.style.left=Math.max(tw/2,Math.min(wrap.width-tw/2,px))+'px';
@@ -1078,7 +1150,7 @@ function renderMoney(force){
   const root=$('paraTab');if(!root)return;
   if(!force&&!root.classList.contains('on'))return;
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
-  const key=[Math.floor(sec/60),S.quitAt,S.perDay,S.packPrice,S.rate,S.noInterest,S.infl,S.goalAmount,S.goalName,S.transfers.length,mSpanY].join('|');
+  const key=[Math.floor(sec/60),S.quitAt,S.perDay,S.packPrice,S.rate,S.noInterest,S.infl,S.goalAmount,S.goalName,S.transfers.length,mSpanY,S.moneyNominal].join('|');
   if(!force&&key===moneyKey)return;moneyKey=key;
   const c=S.perDay/20*S.packPrice,nom=c*days,wint=fv(c,days,S.rate,S.noInterest);
   // büyük sayı
@@ -1097,16 +1169,20 @@ function renderMoney(force){
       '<div class="gBar"><i style="width:'+(p*100).toFixed(1)+'%"></i></div>'+
       '<div class="gNote">'+(p>=1?'<b>Ulaştın.</b> Al gitsin.':'%'+Math.floor(p*100)+' · bu hızla <b>'+left+' gün</b> sonra')+'</div>';
   }else gb.innerHTML='<button class="gAdd" id="gAdd">+ Biriktirdiğin bir şey ekle</button>';
-  if($('gAdd'))$('gAdd').onclick=()=>{go('ayarlar');setTimeout(()=>{$('gn').scrollIntoView({block:'center'});$('gn').focus()},80)};
+  if($('gAdd'))$('gAdd').onclick=()=>{go('ayarlar');$('sec-para').open=true;setTimeout(()=>{$('gn').scrollIntoView({block:'center'});$('gn').focus()},80)};
   // faiz kartı
   $('mInt').textContent=TL(wint);
-  const Ys=projYears(days);
+  const Ys=projYears(days),M=moneyModel(days,c);
   if(!Ys.includes(mSpanY))mSpanY=Ys[0];
-  drawMoneyChart(days,c,mSpanY*365);
-  $('mProj').innerHTML=Ys.map(yy=>{const b=fv(c,365*yy,S.rate,S.noInterest);
-    return '<button data-y="'+yy+'" class="'+(yy===mSpanY?'on':'')+'"><span class="py">'+yy+'. yıl</span><span class="pv">'+TLc(b)+'</span><span class="pn">faizsiz '+TLc(c*365*yy)+'</span></button>'}).join('');
+  drawMoneyChart(days,c,mSpanY*365,M);
+  document.querySelectorAll('#mSeg button').forEach(b=>{b.classList.toggle('on',(b.dataset.m==='nom')===!!S.moneyNominal);
+    b.onclick=async()=>{S.moneyNominal=b.dataset.m==='nom';moneyTipHide();await DB.set(S);renderMoney(false)}});
+  $('mProj').innerHTML=Ys.map(yy=>{const n=365*yy;
+    return '<button data-y="'+yy+'" class="'+(yy===mSpanY?'on':'')+'"><span class="py">'+yy+'. yıl</span><span class="pv">'+TLc(M.f(n))+'</span><span class="pn">faizsiz '+TLc(M.g(n))+'</span></button>'}).join('');
   document.querySelectorAll('#mProj button').forEach(b=>b.onclick=()=>{mSpanY=+b.dataset.y;moneyTipHide();renderMoney(false)});
-  $('mFoot').textContent='Yıllık %'+String(S.rate).replace('.',',')+' faiz, günlük bileşik. Grafiğe dokununca o güne ait tutarı görürsün.';
+  $('mFoot').innerHTML=M.real
+    ?'Bugünün parasıyla: paket fiyatı enflasyonla (%'+pc1(S.infl).slice(1)+') artar, faiz '+pc1(S.rate)+'. Gerçek getiri yılda <b>'+pc1(M.rr)+'</b>. Faizsiz kenarda duran para yılda '+pc1(-M.mr)+' erir.'
+    :'Nominal: enflasyon hesaba katılmadan, yıllık '+pc1(S.rate)+' faiz, günlük bileşik. Uzun vadede sayılar büyük görünür ama alım gücü bu değil.';
   // aktarım
   const moved=S.transfers.reduce((a,t)=>a+(+t.amount||0),0),bek=Math.max(0,nom-moved);
   $('xferBox').innerHTML='<div class="xfRow"><div class="xfTx">'+(bek>1?'Hesaba aktarılmayı bekleyen<b>'+TL(bek)+'</b>':'Hepsini aktardın<b>'+TL(moved)+'</b>')+'</div>'+
@@ -1303,8 +1379,11 @@ function migrate(){
  if(!Array.isArray(S.transfers))S.transfers=[];
  // bu telefona özel kimlik: bildirim aboneliği ve widget bu kimlikle eşleşir
  if(!/^[a-f0-9]{32}$/.test(S.devId||''))S.devId=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
- S.push=Object.assign({on:false,ms:true,daily:true,risk:true,hour:21,key:'',lastSync:0,lastHash:'',lastErr:'',count:0},S.push||{});
+ S.push=Object.assign({on:false,ms:true,daily:true,risk:true,upd:true,hour:21,key:'',lastSync:0,lastHash:'',lastErr:'',count:0},S.push||{});
  S.widget=Object.assign({on:false},S.widget||{});
+ S.push.badge=S.push.badge!==false;S.push.friend=S.push.friend!==false;
+ S.cloud=Object.assign({on:true,code:'',lastAt:0,lastHash:'',saved:false,err:''},S.cloud||{});
+ S.friend=Object.assign({on:false,myName:'',name:'',quitAt:0,crisisAt:0,wonAt:0,supportAt:0,push:false,notify:true,invite:'',inviteUntil:0,lastFetch:0,err:''},S.friend||{});
 }
 function niceDate(ms){return ms?new Date(ms).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'yok'}
 
@@ -1361,26 +1440,27 @@ function renderAutoBox(){
      ? 'Otomatik çekim kapalı. Sadece bu butona bastığında güncelleniyor.'
      : 'Her '+(ev===1?'gün':ev+' günde bir')+', en erken saat '+pad(S.auto.hour)+':00\'da uygulamayı açtığında kontrol ediliyor.'+
        (n&&n>Date.now()?' Sıradaki: '+niceDate(n)+'.':' Sıradaki açılışta yenilenecek.');
- const lk=S.auto.locks||{},anyLock=Object.values(lk).some(Boolean);
+ const lk=S.auto.locks||{},anyLock=['deposit','cpi'].some(k=>lk[k]);
  const autoMini=(k,val,label,fmt)=>'<div class="auto-mini"><b>'+val+'</b><span>'+label+' · '+
    (lk[k]?'elle girildi'+(S.auto[k+'Fetched']!=null?', kaynakta '+fmt(+S.auto[k+'Fetched']):''):niceDate(S.auto[k+'At']))+'</span></div>';
  $('autoBox').innerHTML='<div class="top"><div class="ct">Otomatik veri kontrolü</div></div>'+
   '<div class="auto-grid">'+
   autoMini('price',TL(S.packPrice),'Paket fiyatı',v=>TL(v))+
-  autoMini('deposit',pct(dr),'Günlük mevduat · yıllık '+pct(S.rate/100,2),v=>'%'+v.toFixed(1).replace('.',','))+
-  autoMini('cpi',pct(S.infl/100,2),'Yıllık TÜFE',v=>'%'+v.toFixed(1).replace('.',','))+
+  autoMini('deposit',pc1(S.rate),'Mevduat faizi',v=>pc1(v))+
+  autoMini('cpi',pc1(S.infl),'Yıllık enflasyon',v=>pc1(v))+
   '</div><div class="auto-note">'+plan+' Son kontrol: '+niceDate(S.auto.lastCheck)+'. '+esc(last)+'</div>'+
   '<div class="auto-actions"><button class="run" id="autoRun" '+(autoBusy?'disabled':'')+'>'+(autoBusy?'Kontrol ediliyor...':'Şimdi kontrol et')+'</button>'+
   (anyLock?'<button id="unlockAuto">Otomatiğe dön</button>':'<button id="openDataSettings">Kaynak ayarları</button>')+'</div>';
  $('autoRun').onclick=autoCheck;
- if($('unlockAuto'))$('unlockAuto').onclick=async()=>{S.auto.locks={};await save();autoCheck()};
- if($('openDataSettings')) $('openDataSettings').onclick=()=>{go('ayarlar');setTimeout(()=>$('af').focus(),50)};
+ if($('unlockAuto'))$('unlockAuto').onclick=async()=>{S.auto.locks={price:true};await save();autoCheck()};
+ if($('openDataSettings')) $('openDataSettings').onclick=()=>{go('ayarlar');($('sec-auto').open=true,setTimeout(()=>$('af').focus(),50))};
 }
 
 /* ---------- render ---------- */
 function render(){
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
   $('days').firstChild.nodeValue=Math.floor(days);
+  updateBadge(Math.floor(days));
   $('clock').textContent=pad(Math.floor(sec%D/H))+':'+pad(Math.floor(sec%H/60))+':'+pad(Math.floor(sec%60));
   {const q=new Date(S.quitAt);$('quitLabel').textContent=q.toLocaleString('tr-TR',Object.assign({day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'},q.getFullYear()!==new Date().getFullYear()?{year:'numeric'}:{}))}
 
@@ -1434,6 +1514,8 @@ function startCrave(){
   $('veil').classList.add('open');$('acts').style.display='none';
   $('tagStep').style.display='none';$('slipStep').style.display='none';$('breathe').style.display='';
   $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
+  $('frNote').textContent='';
+  friendPing('crisis').then(j=>{if(j&&j.sent)$('frNote').textContent=S.friend.name+' biliyor. Yalnız değilsin.'});
   endAt=Date.now()+240000;let i=0;
   const step=()=>{const a=PH[i%3];$('phase').textContent=a[0];
     $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';i++;timer=setTimeout(step,a[1]*1000)};
@@ -1466,7 +1548,7 @@ $('tagSave').onclick=async()=>{
   const e={at:Date.now(),type:'won'};
   if(pickTrigger)e.trigger=pickTrigger;
   if(pickInt)e.intensity=pickInt;
-  S.log.unshift(e);
+  S.log.unshift(e);friendPing('won');
   $('tagStep').style.display='none';$('breathe').style.display='';
   stopCrave();await save();
 };
@@ -1495,13 +1577,13 @@ $('slipReset').onclick=async()=>{
     Object.assign(S,prev);S.log=S.log.filter(l=>l!==entry);await save();});
 };
 let undoT,undoFn=null;
-function showUndo(msg,fn){
-  undoFn=fn;$('undoTxt').textContent=msg;$('undoBar').classList.add('show');
+function showUndo(msg,fn,label){
+  undoFn=fn;$('undoTxt').textContent=msg;$('undoBtn').textContent=label||'Geri al';$('undoBar').classList.add('show');
   clearTimeout(undoT);undoT=setTimeout(()=>{$('undoBar').classList.remove('show');undoFn=null},8000);
 }
 $('undoBtn').onclick=async()=>{
   clearTimeout(undoT);$('undoBar').classList.remove('show');
-  const f=undoFn;undoFn=null;if(f){await f();toast('Geri alındı')}
+  const f=undoFn;undoFn=null;if(typeof f==='function'){await f();toast('Geri alındı')}
 };
 $('qd').onchange=async e=>{if(e.target.value){S.quitAt=new Date(e.target.value).getTime();S.notifIdx=-1;await save()}};
 $('pd').onchange=async e=>{S.perDay=Math.max(1,+e.target.value||1);await save()};
@@ -1539,7 +1621,7 @@ $('impFile').onchange=e=>{
     const g=Math.floor((Date.now()-d.quitAt)/D/1000);
     if(!confirm('Yedek yüklenecek ve şu anki kayıt değiştirilecek.\n\nYedekteki seri: '+g+' gün\nKayıt sayısı: '+((d.log||[]).length)+'\n\nDevam edilsin mi?'))return;
     // kimlik, bildirim aboneliği ve widget bu telefona ait: yedekten gelmez
-    const own={devId:S.devId,push:S.push,widget:S.widget};
+    const own={devId:S.devId,push:S.push,widget:S.widget,cloud:S.cloud,friend:S.friend};
     S=Object.assign({},S,d,own);migrate();
     await DB.set(S);location.reload();
   };
@@ -1705,9 +1787,8 @@ function renderSettings(force){
   renderAutoBox();
   // yedek uyarısı
   const age=S.lastBackupAt?Math.floor((Date.now()-S.lastBackupAt)/D/1000):null;
-  $('bkNote').innerHTML=age===null
-    ?'<b style="color:var(--ember);font-weight:500">Hiç yedek almadın.</b> Tüm kaydın sadece bu telefonda duruyor. Safari verilerini silersen ya da adres değişirse hepsi gider.'
-    :'Son yedek: '+(age===0?'bugün':age+' gün önce')+'.'+(age>=30?' <b style="color:var(--ember);font-weight:500">Yenisini almanın zamanı.</b>':'');
+  $('bkNote').innerHTML='Dosya olarak yedek'+(age===null?': hiç alınmadı.':': '+(age===0?'bugün':age+' gün önce')+'.')+
+    (!S.cloud.on&&(age===null||age>=30)?' <b style="color:var(--ember);font-weight:500">Bulut yedeği kapalıyken tüm kaydın sadece bu telefonda.</b>':'');
   // kriz kayıtları
   const won=S.log.filter(l=>l.type==='won').length,rs=S.log.filter(l=>l.type==='reset').length,sl=S.log.filter(l=>l.type==='slip').length;
   $('logSum').textContent=S.log.length?won+' atlatılmış kriz'+(sl?', '+sl+' tek sigara':'')+(rs?', '+rs+' sıfırlama':'')+' kayıtlı.':'Henüz kayıt yok. Canın çektiğinde "Canım çekiyor"a basınca buraya yazılır.';
@@ -1726,7 +1807,7 @@ function renderSettings(force){
     const at=+b.dataset.at;S.log=S.log.filter(l=>!(l.type!=='reset'&&l.at===at));
     await save();toast('Kayıt silindi');
   });
-  renderPushBox();renderWidgetBox();
+  renderPushBox();renderWidgetBox();renderCloudBox();renderFriendBox();renderSecStatus();
 }
 /* ---------- Bildirimler (Web Push) ---------- */
 // iPhone'da uygulama kapalıyken bildirim ancak sunucudan gelen "push" ile olur.
@@ -1749,7 +1830,7 @@ function buildSchedule(){
   const near=(at,gap)=>out.some(x=>Math.abs(x.at-at)<gap);
   if(P.ms){
     const g=new Map();MS.forEach(m=>{const at=q+m[0]*1000;if(at>now){if(!g.has(at))g.set(at,[m[1],[]]);g.get(at)[1].push(m[3])}});
-    g.forEach(([lbl,tx],at)=>out.push({at,title:'Nefes · '+lbl,body:tx.join(' ').slice(0,420),tag:'ms'}));
+    g.forEach(([lbl,tx],at)=>out.push({at,title:'Nefes · '+lbl,body:tx.join(' ').slice(0,420),tag:'ms',badge:P.badge!==false?Math.floor((at-q)/D/1000):undefined}));
   }
   if(P.daily){
     for(let k=0;k<45;k++){
@@ -1757,8 +1838,9 @@ function buildSchedule(){
       if(at<=now||near(at,45*60e3))continue;
       const days=(at-q)/D/1000;if(days<0.5)continue;
       const nx=MS.find(m=>q+m[0]*1000>at);
-      out.push({at,title:Math.floor(days)+'. gün',tag:'gun',
-        body:T(days*S.perDay)+' sigara içmedin, '+TL(c*days)+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')});
+      const fr=S.friend.on&&S.friend.quitAt?' '+S.friend.name+' '+Math.max(0,Math.floor((at-S.friend.quitAt)/D/1000))+'. günde.':'';
+      out.push({at,title:Math.floor(days)+'. gün',tag:'gun',badge:P.badge!==false?Math.floor(days):undefined,
+        body:T(days*S.perDay)+' sigara içmedin, '+TL(c*days)+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')+fr});
     }
   }
   const rw=P.risk&&riskWindow();
@@ -1784,17 +1866,17 @@ async function postJSON(path,body){
 }
 // cihaz kaydını worker'a gönder (widget verisi + bildirim takvimi). Değişmediyse 12 saatte bir.
 async function syncDevice(force){
-  if(!(S.push.on||S.widget.on)||!navigator.onLine)return;
-  const hash=JSON.stringify([devState(),S.push.on,S.push.ms,S.push.daily,S.push.risk,S.push.hour,S.widget.on,new Date().toDateString(),S.log.filter(l=>l.type==='won').length]);
+  if(!(S.push.on||S.widget.on||S.friend.on)||!navigator.onLine)return;
+  const hash=JSON.stringify([devState(),S.push.on,S.push.ms,S.push.daily,S.push.risk,S.push.upd,S.push.badge,S.push.friend,S.friend.on,S.friend.myName,S.friend.quitAt,S.push.hour,S.widget.on,new Date().toDateString(),S.log.filter(l=>l.type==='won').length]);
   if(!force&&hash===S.push.lastHash&&Date.now()-S.push.lastSync<12*3600e3)return;
   let push=null;
   try{
     if(S.push.on){
       const sub=await getSub();
       if(!sub){S.push.on=false;S.push.lastErr='Telefon bildirim aboneliğini silmiş. Bildirimleri yeniden aç.';await DB.set(S);renderSettings(true);return}
-      push={sub:sub.toJSON(),key:S.push.key,schedule:buildSchedule()};
+      push={sub:sub.toJSON(),key:S.push.key,upd:S.push.upd!==false,friend:S.push.friend!==false,schedule:buildSchedule()};
     }
-    const j=await postJSON('sync',{id:S.devId,state:devState(),push});
+    const j=await postJSON('sync',{id:S.devId,state:devState(),push,profile:{name:S.friend.myName||''}});
     S.push.lastSync=Date.now();S.push.lastHash=hash;S.push.lastErr='';S.push.count=j.scheduled||0;
     // worker'ın anahtarı değiştiyse eski abonelik çalışmaz: yenisiyle abone ol
     if(S.push.on&&j.publicKey&&j.publicKey!==S.push.key){
@@ -1839,7 +1921,7 @@ async function pushEnable(){
 }
 async function pushDisable(){
   try{const sub=await getSub();if(sub)await sub.unsubscribe()}catch(e){}
-  S.push.on=false;S.push.count=0;await DB.set(S);renderSettings(true);
+  S.push.on=false;S.push.count=0;lastBadge=-1;await DB.set(S);renderSettings(true);render();
   try{await postJSON('sync',{id:S.devId,state:devState(),push:null})}catch(e){}
   toast('Bildirimler kapatıldı');
 }
@@ -1869,12 +1951,16 @@ function renderPushBox(){
     '<label class="tgl"><input type="checkbox" id="pDaily"'+(P.daily?' checked':'')+'><span><b>Günün özeti</b><small>Her gün aynı saatte, kısa</small></span>'+
       '<select id="pHour" aria-label="Özet saati">'+hours.map(h=>'<option value="'+h+'"'+(h===P.hour?' selected':'')+'>'+pad(h)+':00</option>').join('')+'</select></label>'+
     '<label class="tgl"><input type="checkbox" id="pRisk"'+(P.risk?' checked':'')+'><span><b>Zor saatten önce</b><small>'+(rw?'Senin için '+rw.rng+', 15 dk önce':'Kriz kayıtların biriktikçe saat belirlenir')+'</small></span></label>'+
+    '<label class="tgl"><input type="checkbox" id="pBadge"'+(P.badge!==false?' checked':'')+'><span><b>Simgede gün sayısı</b><small>Uygulama simgesinin köşesinde kaçıncı gün olduğun yazar</small></span></label>'+
+    '<label class="tgl"><input type="checkbox" id="pUpd"'+(P.upd!==false?' checked':'')+'><span><b>Uygulama güncellenince</b><small>Neyin değiştiğini kısaca yazar</small></span></label>'+
     '<div class="pStat">'+(P.lastSync?'Sırada '+P.count+' bildirim · son eşitleme '+niceDate(P.lastSync):'Eşitleniyor...')+'</div>'+err+
     '<div class="pActs"><button id="pTest">Test bildirimi</button><button id="pOff">Kapat</button></div>';
   const upd=async(k,v)=>{S.push[k]=v;S.push.lastHash='';await DB.set(S);syncDevice(true)};
   $('pMs').onchange=e=>upd('ms',e.target.checked);
   $('pDaily').onchange=e=>upd('daily',e.target.checked);
   $('pRisk').onchange=e=>upd('risk',e.target.checked);
+  $('pUpd').onchange=e=>upd('upd',e.target.checked);
+  $('pBadge').onchange=e=>{lastBadge=-1;upd('badge',e.target.checked);render()};
   $('pHour').onchange=e=>upd('hour',+e.target.value);
   $('pTest').onclick=pushTest;$('pOff').onclick=pushDisable;
 }
@@ -1971,14 +2057,217 @@ async function widgetCopy(){
 function renderWidgetBox(){
   const box=$('widgetBox');if(!box)return;
   box.innerHTML='<div class="psm" style="margin:0">iPhone web uygulamalarına widget izni vermiyor. Ücretsiz <b>Scriptable</b> uygulamasıyla gün sayısı, cebinde kalan para ve sıradaki eşik ana ekranda ve kilit ekranında durur.</div>'+
-    '<ol class="wSteps"><li>App Store\'dan Scriptable\'ı indir.</li><li>Aşağıdaki butona bas, betik panoya kopyalanır.</li>'+
+    '<details class="wDet"'+(S.widget.on?'':' open')+'><summary>Nasıl kurulur (5 adım)</summary><ol class="wSteps"><li>App Store\'dan Scriptable\'ı indir.</li><li>Aşağıdaki butona bas, betik panoya kopyalanır.</li>'+
     '<li>Scriptable\'da sağ üstteki <b>+</b> ile yeni betik aç, yapıştır, adını <b>Nefes</b> yap.</li>'+
     '<li>Ana ekranda boş bir yere uzun bas, <b>Düzenle › Widget Ekle › Scriptable</b>. Eklenen widget\'a uzun bas, <b>Widget\'ı Düzenle</b>, Script: Nefes.</li>'+
-    '<li>Kilit ekranı için kilit ekranına uzun bas, <b>Özelleştir</b>, widget alanına Scriptable ekle ve aynı betiği seç.</li></ol>'+
+    '<li>Kilit ekranı için kilit ekranına uzun bas, <b>Özelleştir</b>, widget alanına Scriptable ekle ve aynı betiği seç.</li></ol></details>'+
     '<button class="pBtn" id="wCopy">'+(S.widget.on?'Betiği yeniden kopyala':'Widget betiğini kopyala')+'</button>'+
     (S.widget.on?'<div class="pStat">Bu telefonun widget\'ı açık. Her telefonda betiği o telefondan kopyala.</div>':'');
   $('wCopy').onclick=widgetCopy;
 }
+
+/* ---------- Simgede gün sayısı ---------- */
+// iOS ana ekran web uygulamalarında simgedeki sayıyı destekliyor (bildirim izni gerekiyor).
+// Uygulama açıkken buradan, kapalıyken her bildirimle birlikte service worker'dan güncellenir.
+let lastBadge=-1;
+function updateBadge(dayN){
+  if(!('setAppBadge' in navigator))return;
+  const want=S.push.on&&S.push.badge!==false?dayN:0;
+  if(want===lastBadge)return;lastBadge=want;
+  (want>0?navigator.setAppBadge(want):navigator.clearAppBadge()).catch(()=>{});
+}
+
+/* ---------- Bulut yedeği ---------- */
+// Yedek telefonda, kurtarma kodundan türetilen anahtarla (PBKDF2 + AES-GCM) şifrelenir.
+// Worker sadece şifreli metni görür. Kod olmadan yedek açılamaz.
+const B32='ABCDEFGHJKMNPQRSTVWXYZ23456789';
+const normCode=x=>String(x||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+const fmtCode=x=>normCode(x).replace(/(.{4})(?=.)/g,'$1-');
+function newCode(){return fmtCode([...crypto.getRandomValues(new Uint8Array(16))].map(x=>B32[x%B32.length]).join(''))}
+function bytesToB64(u8){let t='';for(let i=0;i<u8.length;i+=0x8000)t+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(t)}
+function b64ToBytes(b){const t=atob(b),u=new Uint8Array(t.length);for(let i=0;i<t.length;i++)u[i]=t.charCodeAt(i);return u}
+function hashStr(t){let h=2166136261;for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
+async function codeKeys(code){
+  const c=normCode(code),te=new TextEncoder();
+  const h=new Uint8Array(await crypto.subtle.digest('SHA-256',te.encode('nefes-yedek|'+c)));
+  const k=[...h.slice(0,16)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  const base=await crypto.subtle.importKey('raw',te.encode(c),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:te.encode('nefes-yedek-v1'),iterations:150000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+  return {k,key};
+}
+function backupPayload(){
+  const o=JSON.parse(JSON.stringify(S));
+  ['push','widget','devId','cloud','friend','lastSeenAt'].forEach(k=>delete o[k]);
+  if(o.auto){o.auto.lastCheck=0;o.auto.lastMsg=''}
+  return JSON.stringify(o);
+}
+let cloudBusy=false;
+async function cloudBackup(force){
+  if(!S.cloud.on||!S.onboarded||!navigator.onLine||cloudBusy)return;
+  if(!S.cloud.code){S.cloud.code=newCode();await DB.set(S)}
+  const txt=backupPayload(),h=hashStr(txt),age=Date.now()-S.cloud.lastAt;
+  if(!force&&(h===S.cloud.lastHash?age<7*864e5:age<6*3600e3))return;
+  cloudBusy=true;
+  try{
+    const {k,key}=await codeKeys(S.cloud.code),iv=crypto.getRandomValues(new Uint8Array(12));
+    const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(txt)));
+    const j=await postJSON('backup',{k,iv:bytesToB64(iv),ct:bytesToB64(ct)});
+    S.cloud.lastAt=j.at||Date.now();S.cloud.lastHash=h;S.cloud.err='';
+  }catch(e){S.cloud.err='Yedek alınamadı: '+(e.message||'bağlantı hatası')}
+  cloudBusy=false;await DB.set(S);renderSettings(true);
+}
+async function cloudFetch(code){
+  const c=normCode(code);if(c.length!==16)throw new Error('Kod 16 harf ve rakamdan oluşuyor');
+  const {k,key}=await codeKeys(c);
+  const r=await fetch(WORKER_URL+'backup?k='+k,{cache:'no-store'});let j={};try{j=await r.json()}catch(e){}
+  if(!j.ok)throw new Error(j.error||('HTTP '+r.status));
+  let txt;try{txt=new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b64ToBytes(j.iv)},key,b64ToBytes(j.ct)))}
+  catch(e){throw new Error('Kod bu yedeği açmıyor')}
+  return {data:JSON.parse(txt),at:j.at,code:fmtCode(c)};
+}
+async function restoreFlow(){
+  const code=prompt('Kurtarma kodunu yaz (XXXX-XXXX-XXXX-XXXX):');if(!code)return;
+  toast('Yedek aranıyor...');
+  try{
+    const {data,at,code:c}=await cloudFetch(code);
+    const g=Math.floor((Date.now()-data.quitAt)/D/1000);
+    if(!confirm('Yedek bulundu ('+niceDate(at)+').\n\nSeri: '+g+' gün\nKayıt sayısı: '+((data.log||[]).length)+'\n\nBu telefondaki kayıt bununla değiştirilsin mi?'))return;
+    const own={devId:S.devId,push:S.push,widget:S.widget,friend:S.friend};
+    S=Object.assign({},S,data,own,{onboarded:true,cloud:{on:true,code:c,lastAt:at,lastHash:'',saved:true,err:''}});migrate();
+    await DB.set(S);location.reload();
+  }catch(e){alert('Geri yüklenemedi: '+e.message)}
+}
+function renderSecStatus(){
+  const set=(id,t,cls)=>{const e=$(id);if(e){e.textContent=t;e.className='sS'+(cls==='ok'?' sOk':cls==='warn'?' sWarn':'')}};
+  set('ss-push',S.push.on?'Açık · '+S.push.count+' sırada':(isStandalone()&&pushSupported()?'Kapalı':'Ana ekrandan aç'),S.push.on?'ok':'');
+  set('ss-friend',S.friend.on?S.friend.name+' · '+frDays()+'. gün':(S.friend.invite&&Date.now()<S.friend.inviteUntil)?'Davet bekliyor':'Bağlı değil',S.friend.on?'ok':'');
+  const C=S.cloud;
+  set('ss-cloud',!C.on?'Kapalı':C.err?'Alınamadı':C.code&&!C.saved?'Kodu kaydet':C.lastAt?'Bulutta · '+niceDate(C.lastAt):'Bekliyor',!C.on||C.err||(C.code&&!C.saved)?'warn':'ok');
+  set('ss-widget',S.widget.on?'Kuruldu':'Kurulmadı',S.widget.on?'ok':'');
+  set('ss-sigara',S.perDay+'/gün · '+TL(S.packPrice));
+  set('ss-para',pc1(S.rate)+' faiz'+(S.goalAmount>0?' · '+(S.goalName||'hedef'):''));
+  set('ss-reasons',(S.reasons||[]).length+' sebep');
+  set('ss-auto',!S.auto.everyDays?'Elle':S.auto.everyDays===1?'Günde bir':S.auto.everyDays===7?'Haftada bir':'Ayda bir');
+  set('ss-log',S.log.filter(l=>l.type==='won').length+' atlatılmış kriz');
+}
+function renderCloudBox(){
+  const box=$('cloudBox');if(!box)return;const C=S.cloud;
+  box.innerHTML='<label class="tgl"><input type="checkbox" id="cOn"'+(C.on?' checked':'')+'><span><b>Otomatik bulut yedeği</b><small>Telefonda şifrelenir, sunucu içini göremez</small></span></label>'+
+    (C.on?(
+      '<div class="cCode"><span>Kurtarma kodun</span><b id="cCodeV">'+(C.code||'İlk yedekte oluşacak')+'</b>'+(C.code?'<button id="cCopy">Kopyala</button>':'')+'</div>'+
+      (C.code&&!C.saved?'<div class="pErr">Bu kodu bir yere yaz ya da ekran görüntüsünü al. Telefonu değiştirirsen ya da uygulamayı silersen yedeği sadece bu kod açar. Kod kaybolursa ben de açamam.<button class="cAck" id="cAck">Kaydettim</button></div>':'')+
+      '<div class="pStat">'+(C.lastAt?'Son bulut yedeği: '+niceDate(C.lastAt):'Henüz bulut yedeği yok')+'</div>'+
+      (C.err?'<div class="pErr">'+esc(C.err)+'</div>':'')
+    ):'')+
+    '<div class="pActs">'+(C.on?'<button id="cNow">Şimdi yedekle</button>':'')+'<button id="cRestore">Buluttan yükle</button></div>';
+  $('cOn').onchange=async e=>{S.cloud.on=e.target.checked;await DB.set(S);renderSettings(true);if(S.cloud.on)cloudBackup(true)};
+  if($('cCopy'))$('cCopy').onclick=async()=>{try{await navigator.clipboard.writeText(S.cloud.code);toast('Kod kopyalandı')}catch(e){toast('Kopyalanamadı, elle yaz')}};
+  if($('cAck'))$('cAck').onclick=async()=>{S.cloud.saved=true;await DB.set(S);renderSettings(true)};
+  if($('cNow'))$('cNow').onclick=async()=>{$('cNow').disabled=true;$('cNow').textContent='Yedekleniyor...';await cloudBackup(true);if(!S.cloud.err)toast('Bulut yedeği alındı')};
+  $('cRestore').onclick=restoreFlow;
+  renderSecStatus();
+}
+
+/* ---------- Arkadaş modu ---------- */
+const frDays=()=>S.friend.quitAt?Math.max(0,Math.floor((Date.now()-S.friend.quitAt)/D/1000)):0;
+const frInCrisis=()=>S.friend.on&&S.friend.crisisAt&&Date.now()-S.friend.crisisAt<30*60e3&&!(S.friend.wonAt>S.friend.crisisAt);
+async function friendFetch(force){
+  if(!navigator.onLine||!(S.friend.on||S.friend.invite))return;
+  const gap=S.friend.on?4*60e3:20e3;
+  if(!force&&Date.now()-S.friend.lastFetch<gap)return;
+  S.friend.lastFetch=Date.now();
+  try{
+    const r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'});const j=await r.json();
+    if(!j.ok)return;
+    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,push:j.friend.push,invite:'',err:''});
+      if(!was){toast(j.friend.name+' ile bağlandınız');syncDevice(true)}}
+    else if(S.friend.on){S.friend.on=false;S.friend.err='Arkadaşın bağlantıyı kaldırdı.'}
+    else if(S.friend.inviteUntil&&Date.now()>S.friend.inviteUntil){S.friend.invite=''}
+    await DB.set(S);renderFriendUI();
+  }catch(e){}
+}
+function frName(){const v=($('frMe')&&$('frMe').value||S.friend.myName||'').trim().slice(0,24);if(v)S.friend.myName=v;return v}
+async function friendInvite(){
+  const nm=frName();if(!nm){toast('Önce adını yaz');return}
+  try{await postJSON('sync',{id:S.devId,state:devState(),profile:{name:nm}});
+    const j=await postJSON('friend/invite',{id:S.devId,name:nm});S.friend.invite=j.code;S.friend.inviteUntil=j.until;S.friend.err='';S.friend.lastFetch=Date.now()}
+  catch(e){S.friend.err=e.message}
+  await DB.set(S);renderFriendBox(true);
+}
+async function friendJoin(){
+  const nm=frName(),code=($('frCode').value||'').trim();
+  if(!nm){toast('Önce adını yaz');return}if(normCode(code).length!==6){toast('Kod 6 karakter');return}
+  try{await postJSON('sync',{id:S.devId,state:devState(),profile:{name:nm}});
+    const j=await postJSON('friend/join',{id:S.devId,name:nm,code});
+    Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,push:j.friend.push,invite:'',err:'',lastFetch:Date.now()});
+    toast(j.friend.name+' ile bağlandınız');syncDevice(true);
+  }catch(e){S.friend.err=e.message}
+  await DB.set(S);renderFriendUI();renderFriendBox(true);
+}
+async function friendLeave(){
+  if(!confirm(S.friend.name+' ile bağlantı kaldırılsın mı? Birbirinizin gününü görmez, bildirim almazsınız.'))return;
+  try{await postJSON('friend/leave',{id:S.devId})}catch(e){}
+  Object.assign(S.friend,{on:false,name:'',quitAt:0,crisisAt:0,wonAt:0,supportAt:0,invite:'',err:''});
+  await DB.set(S);renderFriendUI();renderFriendBox(true);
+}
+async function friendPing(kind){
+  if(!S.friend.on||!navigator.onLine)return null;
+  if(kind!=='support'&&!S.friend.notify)return null;
+  try{return await postJSON('friend/ping',{id:S.devId,kind})}catch(e){return null}
+}
+async function friendSupport(){
+  const j=await friendPing('support');
+  toast(!j?'Gönderilemedi':j.sent?'Destek gönderildi':j.reason==='sık'?'Az önce gönderdin':S.friend.name+' bildirimleri açmamış');
+}
+function frStatus(){
+  const F=S.friend;
+  if(frInCrisis())return '<b class="hot">Şu an zorlanıyor</b> · '+niceDate(F.crisisAt).split(' ')[1];
+  const t0=new Date();t0.setHours(0,0,0,0);
+  if(F.crisisAt>=t0.getTime())return 'Bugün zorlandı'+(F.wonAt>=F.crisisAt?', atlattı':'');
+  return F.crisisAt?'Son zor an: '+niceDate(F.crisisAt):'Henüz zor an bildirmedi';
+}
+function renderFriendUI(){
+  const chip=$('frChip'),sec=$('frSec');
+  if(!S.friend.on){if(chip)chip.hidden=true;if(sec)sec.hidden=true;return}
+  const hot=frInCrisis();
+  if(chip){chip.hidden=false;chip.classList.toggle('hot',hot);chip.innerHTML=hot?'<i></i>'+esc(S.friend.name)+' zorlanıyor · destek ver':'<i></i>'+esc(S.friend.name)+' · '+frDays()+'. gün'}
+  if(sec){sec.hidden=false;
+    $('frCard').innerHTML='<div class="frTop"><div><div class="frName">'+esc(S.friend.name)+'</div><div class="frSt">'+frStatus()+'</div></div>'+
+      '<div class="frDays"><b>'+frDays()+'</b><span>gün</span></div></div>'+
+      '<button class="pBtn'+(hot?' hot':'')+'" id="frSup">Destek gönder</button>'+
+      (!S.friend.push?'<div class="pStat">'+esc(S.friend.name)+' bildirimleri açmamış. Destek gönderirsen ona ulaşmaz.</div>':'')+
+      (!S.push.on?'<div class="pStat">Onun zor anlarından haber almak için Ayarlar\'dan bildirimleri aç.</div>':'');
+    $('frSup').onclick=friendSupport;
+  }
+}
+function renderFriendBox(force){
+  const box=$('friendBox');if(!box)return;
+  if(!force&&box.contains(document.activeElement))return; // yazarken silinmesin
+  const F=S.friend,err=F.err?'<div class="pErr">'+esc(F.err)+'</div>':'';
+  if(F.on){
+    box.innerHTML='<div class="frLine"><b>'+esc(F.name)+'</b> ile bağlısın · '+frDays()+'. gün</div>'+
+      '<label class="tgl"><input type="checkbox" id="frNotify"'+(F.notify?' checked':'')+'><span><b>Zorlandığımda haber ver</b><small>"Canım çekiyor"a basınca '+esc(F.name)+'\'e bildirim gider</small></span></label>'+
+      '<label class="tgl"><input type="checkbox" id="frRecv"'+(S.push.friend!==false?' checked':'')+'><span><b>O zorlanınca bana haber ver</b><small>'+(S.push.on?'Bildirim olarak gelir':'Önce yukarıdan bildirimleri aç')+'</small></span></label>'+err+
+      '<div class="pActs"><button id="frLeave">Bağlantıyı kaldır</button></div>';
+    $('frNotify').onchange=async e=>{S.friend.notify=e.target.checked;await DB.set(S)};
+    $('frRecv').onchange=async e=>{S.push.friend=e.target.checked;S.push.lastHash='';await DB.set(S);syncDevice(true)};
+    $('frLeave').onclick=friendLeave;renderSecStatus();return;
+  }
+  const live=F.invite&&Date.now()<F.inviteUntil;
+  box.innerHTML='<div class="psm" style="margin:0">Birlikte bırakıyorsanız: birbirinizin gün sayısını görürsünüz. Biri "Canım çekiyor"a basınca diğerine bildirim gider, o da tek dokunuşla destek gönderir.</div>'+
+    '<div class="frForm"><input type="text" id="frMe" placeholder="Adın (arkadaşın görecek)" maxlength="24" value="'+esc(F.myName||'')+'"></div>'+
+    (live?'<div class="cCode"><span>Davet kodun · '+Math.max(1,Math.round((F.inviteUntil-Date.now())/3600e3))+' saat geçerli</span><b>'+F.invite+'</b><button id="frCopy">Kopyala</button></div>'+
+      '<div class="pStat">Arkadaşın kendi Nefes\'inde Ayarlar > Arkadaş kısmına bu kodu yazsın. Bağlanınca burada görünür.</div>'
+      :'<button class="pBtn" id="frInv">Davet kodu oluştur</button>')+
+    '<div class="frForm join"><input type="text" id="frCode" placeholder="Arkadaşının kodu" maxlength="8" autocapitalize="characters" autocomplete="off"><button id="frJoin">Bağlan</button></div>'+err;
+  if($('frInv'))$('frInv').onclick=friendInvite;
+  if($('frCopy'))$('frCopy').onclick=async()=>{try{await navigator.clipboard.writeText(F.invite);toast('Kod kopyalandı')}catch(e){toast('Kopyalanamadı')}};
+  $('frJoin').onclick=friendJoin;
+  $('frMe').onchange=async()=>{frName();await DB.set(S)};
+  renderSecStatus();
+}
+$('frChip').onclick=()=>{if(frInCrisis())friendSupport();else go('ilerleme')};
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.go==='arkadas'){go('ilerleme');friendFetch(true)}});
 
 $('logToggle').onclick=()=>{showLog=!showLog;renderSettings(true)};
 $('tlClear').onclick=()=>{sysFilter=null;renderBody(false)};
@@ -2005,13 +2294,17 @@ $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı
     playIntro();
     maybeAutoCheck();
     syncDevice(false);
+    cloudBackup(false);friendFetch(true);renderFriendUI();
+    if(location.hash==='#arkadas'){go('ilerleme');history.replaceState(null,'',location.pathname)}
+    // kurulumu bitmiş biri bu notu görmediyse güncelleme gelmiş demektir (yeni kurulum finish() içinde işaretlenir)
+    if(S.seenVer!==SURUM_NOTU.v){S.seenVer=SURUM_NOTU.v;DB.set(S);setTimeout(()=>showUndo(SURUM_NOTU.t,null,'Tamam'),1800)}
   }
-  setInterval(()=>{if(S.onboarded)render()},1000);
+  setInterval(()=>{if(!S.onboarded)return;render();if(S.friend.on||S.friend.invite){friendFetch(false);renderFriendUI()}},1000);
   // arka plana giderken son bakış anını kaydet, geri gelince aradan beri olanı canlandır
   document.addEventListener('visibilitychange',()=>{
     if(!S.onboarded)return;
     if(document.hidden){S.lastSeenAt=Date.now();DB.set(S);return}
-    pickReason();playIntro();maybeAutoCheck();syncDevice(false);
+    pickReason();playIntro();maybeAutoCheck();syncDevice(false);cloudBackup(false);friendFetch(true);
   });
 })();
 
