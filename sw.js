@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v12';
+const SURUM = 'nefes-v13';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Arkadaş modu, otomatik bulut yedeği, simgede gün sayısı ve bugünün parasıyla gerçekçi birikim tahmini geldi. Güncellemeler artık bildirimle geliyor.';
+const NOT = 'Dört widget tasarımı geldi: Sayaç, Para, Sağlık ve Arkadaş. Widget artık dokununca kurulum ekranı yerine günün özetini açıyor.';
 
 const KABUK = [
   './',
