@@ -25,6 +25,9 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 :focus-visible{outline:2px solid var(--air);outline-offset:3px;border-radius:4px}
 .hidden{display:none!important}
 
+/* dokunmatik: yatayda yazı büyümesin, düğmelerde çift dokunma gecikmesi ve uzun basınca çıkan menü olmasın */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,.opt,.tag,.tabbar,label.tgl,summary{touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 /* setup */
 .setup{position:fixed;inset:0;background:var(--ink);z-index:80;overflow-y:auto;
   padding:calc(env(safe-area-inset-top) + 54px) 24px calc(env(safe-area-inset-bottom) + 40px);display:none}
@@ -44,7 +47,7 @@ button{font-family:inherit;color:inherit;background:none;border:none;cursor:poin
 .nav button{flex:1;padding:16px;border-radius:100px;font-size:15px;font-weight:700}
 .pri{background:var(--air);color:#06171A}
 .sec{border:1px solid var(--line);color:var(--muted);font-weight:500!important;flex:0 0 90px!important}
-.dtin{width:100%;font-family:var(--mono);font-size:15px;color:var(--bone);background:var(--surface);
+.dtin{width:100%;font-family:var(--mono);font-size:16px;color:var(--bone);background:var(--surface);
   border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:16px}
 
 /* hero */
@@ -139,7 +142,7 @@ section{margin-bottom:32px}
 .row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:none}
 .row label{font-size:13.5px;flex:1;color:var(--muted)}
-.row input{font-family:var(--mono);font-size:14px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:152px;text-align:right}
+.row input{font-family:var(--mono);font-size:16px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:152px;text-align:right}
 .row input[type=number]{width:92px}
 .row input[type=text]{width:132px;text-align:right}
 .danger{color:var(--ember);font-size:13px;padding:15px 0;width:100%;text-align:left}
@@ -169,7 +172,7 @@ section{margin-bottom:32px}
 .auto-actions button{flex:1;border-radius:100px;border:1px solid var(--line);padding:12px 10px;font-size:12.5px;font-weight:700}
 .auto-actions .run{background:var(--air);border-color:var(--air);color:#06171A}
 .row input.wide{width:205px;text-align:left}
-.row input.key{font-size:11px}
+.row input.key{font-size:16px}
 @media (max-width:380px){.auto-grid{grid-template-columns:1fr}.row input.wide{width:150px}}
 
 /* tetikleyici / şiddet / sebepler / aktarım / yedek */
@@ -214,7 +217,7 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .tabbar .tl{font-size:10px;letter-spacing:.02em}
 [data-pg]{display:none}
 [data-pg].on{display:block}
-.row select{font-family:var(--mono);font-size:14px;color:var(--bone);background:var(--ink);
+.row select{font-family:var(--mono);font-size:16px;color:var(--bone);background:var(--ink);
   border:1px solid var(--line);border-radius:9px;padding:9px 11px;width:152px;text-align:right}
 
 /* bugün sekmesi */
@@ -301,7 +304,7 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .tgl span{flex:1;min-width:0}
 .tgl b{display:block;font-size:14px;font-weight:600}
 .tgl small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
-.tgl select{font-family:var(--mono);font-size:13px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:7px 8px}
+.tgl select{font-family:var(--mono);font-size:16px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:7px 8px}
 .pStat{font-size:12px;color:var(--muted);margin-top:12px;font-family:var(--mono)}
 .pErr{font-size:12.5px;color:var(--ember);margin-top:10px;line-height:1.45}
 .pBtn{margin-top:14px;width:100%;padding:13px;border:1px solid var(--air);color:var(--air);border-radius:100px;font-size:14px;font-weight:700}
@@ -328,7 +331,7 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 .pBtn.hot{border-color:var(--ember);color:var(--ember)}
 .frLine{font-size:14px;margin-bottom:4px} .frLine b{font-weight:700}
 .frForm{margin-top:12px;display:flex;gap:8px}
-.frForm input{flex:1;min-width:0;font-family:var(--sans);font-size:15px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+.frForm input{flex:1;min-width:0;font-family:var(--sans);font-size:16px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px}
 .frForm.join input{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase}
 .frForm button{flex:none;border:1px solid var(--air);color:var(--air);border-radius:100px;padding:0 18px;font-weight:700;font-size:13.5px}
 .frNote{margin-top:18px;font-size:13px;color:var(--air);min-height:18px;text-align:center}
@@ -830,7 +833,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v14',t:'Bildirimler: Ayarlar > Bildirimler\'de son gönderimin Apple\'a ulaşıp ulaşmadığı görünüyor. "Uygulama kapalıyken dene" ile kendin test edebilirsin.'};
+const SURUM_NOTU={v:'v15',t:'Simgedeki gün sayısı artık bildirim geldiğinde de güncellenmeli. Arkadaş bildirimine dokununca doğrudan arkadaş kartı açılıyor. Birkaç küçük hata giderildi.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -1034,6 +1037,8 @@ const BADGES=[
 const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,'0');
 const tl=ms=>new Date(ms-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16);
 const T=n=>Math.round(n).toLocaleString('tr-TR');
+// gün sayısı sayaçla aynı dilde: tamamlanan gün. "0. gün" yerine "ilk gün".
+const gunTxt=n=>n<1?'ilk gün':n+' gün',GunTxt=n=>n<1?'İlk gün':n+' gün';
 const TL=n=>{const a=Math.abs(n);if(a>=1e9)return '₺'+(n/1e9).toFixed(a>=1e10?0:1).replace('.',',')+' mr';if(a>=1e6)return '₺'+(n/1e6).toFixed(a>=1e7?0:1).replace('.',',')+' mn';return '₺'+T(n)};
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function dur(s){s=Math.max(0,s);const d=Math.floor(s/D),h=Math.floor(s%D/H),m=Math.floor(s%H/60);
@@ -1090,18 +1095,20 @@ function drawStep(){
       document.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
       const w=+b.dataset.w,n=new Date();
       if(w===0)tmp.quitAt=Date.now();
-      if(w===1){n.setHours(8,0,0,0);tmp.quitAt=n.getTime()}
+      if(w===1){n.setHours(8,0,0,0);tmp.quitAt=Math.min(Date.now(),n.getTime())}
       if(w===2){n.setDate(n.getDate()-1);n.setHours(20,0,0,0);tmp.quitAt=n.getTime()}
-      if(w===3){$('sd').classList.remove('hidden');$('sd').value=tl(Date.now());tmp.quitAt=Date.now();$('sd').onchange=e=>{if(e.target.value)tmp.quitAt=new Date(e.target.value).getTime()}}
+      if(w===3){$('sd').classList.remove('hidden');$('sd').value=tl(Date.now());$('sd').max=tl(Date.now()+60e3);tmp.quitAt=Date.now();
+        $('sd').onchange=e=>{if(!e.target.value)return;const t=new Date(e.target.value).getTime();if(!isFinite(t))return;tmp.quitAt=Math.min(Date.now(),t);if(t>Date.now()){e.target.value=tl(Date.now());toast('İleri bir tarih olamaz, şimdiye ayarlandı')}}}
       else $('sd').classList.add('hidden');
     });
   }
   $('nx').onclick=()=>{
     if(stp===0&&!tmp.quitAt)return;
-    if(stp===1)tmp.perDay=Math.max(1,+$('s2').value||20);
-    if(stp===2)tmp.packPrice=Math.max(1,+$('s3').value||110);
-    if(stp===3)tmp.rate=Math.max(0,+$('s4').value||0);
-    if(stp===4){tmp.goalName=$('s5a').value.slice(0,40);tmp.goalAmount=Math.max(0,+$('s5b').value||0)}
+    const pn=(id,def,min,max)=>{const v=parseFloat(String($(id).value).replace(',','.'));return isFinite(v)?Math.min(max,Math.max(min,v)):def};
+    if(stp===1)tmp.perDay=Math.round(pn('s2',20,1,80));
+    if(stp===2)tmp.packPrice=pn('s3',110,1,5000);
+    if(stp===3)tmp.rate=pn('s4',40,0,200);
+    if(stp===4){tmp.goalName=$('s5a').value.trim().slice(0,40);tmp.goalAmount=pn('s5b',0,0,1e9)}
     if(stp===5){tmp.reasons=[$('r1').value,$('r2').value,$('r3').value].map(v=>v.trim().slice(0,120)).filter(Boolean);finish();return}
     stp++;drawStep();
   };
@@ -1346,7 +1353,7 @@ function renderJourney(ctx){
   });
   svg+='<g class="jMark" style="transform:translateX('+cx.toFixed(1)+'px);--jx0:'+x0+'px">'+
     '<path d="M0,18 l-5,-8 h10 z" fill="var(--air)"/>'+
-    '<text x="0" y="6" text-anchor="middle" style="fill:var(--air)">'+Math.floor(ctx.days)+'. gün</text></g>';
+    '<text x="0" y="6" text-anchor="middle" style="fill:var(--air)">'+gunTxt(Math.floor(ctx.days))+'</text></g>';
   $('journey').innerHTML=svg;
   const nx=T.find(([d])=>ctx.days<d);
   if(nx){
@@ -1556,7 +1563,7 @@ function render(){
     $('nextLeft').textContent=dur(next[0]-sec);
     $('nextBar').style.width=Math.min(100,(sec-from)/(next[0]-from)*100).toFixed(1)+'%';
   }else{$('nextTxt').textContent='Listedeki her eşiği geçtin.';$('nextLeft').textContent='';$('nextBar').style.width='100%'}
-  if(li>S.notifIdx&&last){S.notifIdx=li;DB.set(S);notify(last[1]+' geçti',grp.map(m=>m[3]).join(' '))}
+  if(li>S.notifIdx&&last){S.notifIdx=li;DB.set(S);if(!S.push.on)notify(last[1]+' geçti',grp.map(m=>m[3]).join(' '))}
 
   const rb=$('reasonsBox');
   rb.innerHTML=S.reasons.length
@@ -1644,14 +1651,23 @@ $('undoBtn').onclick=async()=>{
   clearTimeout(undoT);$('undoBar').classList.remove('show');
   const f=undoFn;undoFn=null;if(typeof f==='function'){await f();toast('Geri alındı')}
 };
-$('qd').onchange=async e=>{if(e.target.value){S.quitAt=new Date(e.target.value).getTime();S.notifIdx=-1;await save()}};
-$('pd').onchange=async e=>{S.perDay=Math.max(1,+e.target.value||1);await save()};
-$('pp').onchange=async e=>{S.packPrice=Math.max(1,+e.target.value||1);lockAuto('price');await save()};
-$('ir').onchange=async e=>{S.rate=Math.max(0,+e.target.value||0);lockAuto('deposit');await save()};
-$('ni').onchange=async e=>{S.noInterest=Math.max(0,+e.target.value||0);await save()};
-$('inf').onchange=async e=>{S.infl=Math.max(0,+e.target.value||0);lockAuto('cpi');await save()};
+// Sayı kutuları: boş bırakılırsa ya da anlamsız bir şey yazılırsa eski değer geri gelir.
+// Türkçe klavyedeki virgül de kabul edilir.
+function numIn(e,prev,min,max){
+  const v=parseFloat(String(e.target.value).replace(',','.'));
+  if(!isFinite(v)||v<min){e.target.value=prev;toast(v<min?'En az '+min+' olabilir':'Geçerli bir sayı yaz');return null}
+  const r=Math.min(max,v);if(r!==v)e.target.value=r;return r;
+}
+$('qd').onchange=async e=>{if(!e.target.value)return;let t=new Date(e.target.value).getTime();if(!isFinite(t))return;
+  if(t>Date.now()){t=Date.now();e.target.value=tl(t);toast('Bırakma zamanı ileri bir tarih olamaz, şimdiye ayarlandı')}
+  S.quitAt=t;S.notifIdx=-1;await save()};
+$('pd').onchange=async e=>{const v=numIn(e,S.perDay,1,80);if(v===null)return;S.perDay=Math.round(v);await save()};
+$('pp').onchange=async e=>{const v=numIn(e,S.packPrice,1,5000);if(v===null)return;S.packPrice=v;lockAuto('price');await save()};
+$('ir').onchange=async e=>{const v=numIn(e,S.rate,0,200);if(v===null)return;S.rate=v;lockAuto('deposit');await save()};
+$('ni').onchange=async e=>{const v=numIn(e,S.noInterest,0,1e8);if(v===null)return;S.noInterest=v;await save()};
+$('inf').onchange=async e=>{const v=numIn(e,S.infl,0,200);if(v===null)return;S.infl=v;lockAuto('cpi');await save()};
 $('gn').onchange=async e=>{S.goalName=e.target.value.slice(0,40);await save()};
-$('ga').onchange=async e=>{S.goalAmount=Math.max(0,+e.target.value||0);await save()};
+$('ga').onchange=async e=>{if(String(e.target.value).trim()===''){S.goalAmount=0;await save();return}const v=numIn(e,S.goalAmount,0,1e9);if(v===null)return;S.goalAmount=v;await save()};
 $('edReasons').onclick=async()=>{
   const cur=S.reasons.join('\n');
   const v=prompt('Neden bıraktın? Her satıra bir sebep yaz.\nKriz anında nefes ekranında bunlar çıkacak.',cur);
@@ -1832,7 +1848,7 @@ function renderBody(force){
 let setKey='',showLog=false,toastT;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1400)}
 function fillSettings(){
-  $('qd').value=tl(S.quitAt);$('pd').value=S.perDay;$('pp').value=S.packPrice;
+  $('qd').value=tl(S.quitAt);$('qd').max=tl(Date.now()+60e3);$('pd').value=S.perDay;$('pp').value=S.packPrice;
   $('ir').value=S.rate;$('ni').value=S.noInterest;$('inf').value=S.infl;$('gn').value=S.goalName;$('ga').value=S.goalAmount||'';
   $('af').value=String(S.auto.everyDays);$('ah').value=S.auto.hour;
 }
@@ -1897,8 +1913,8 @@ function buildSchedule(){
       if(at<=now||near(at,45*60e3))continue;
       const days=(at-q)/D/1000;if(days<0.5)continue;
       const nx=MS.find(m=>q+m[0]*1000>at);
-      const fr=S.friend.on&&S.friend.quitAt?' '+S.friend.name+' '+Math.max(0,Math.floor((at-S.friend.quitAt)/D/1000))+'. günde.':'';
-      out.push({at,title:Math.floor(days)+'. gün',tag:'gun',badge:P.badge!==false?Math.floor(days):undefined,
+      const fr=S.friend.on&&S.friend.quitAt?' '+S.friend.name+': '+gunTxt(Math.max(0,Math.floor((at-S.friend.quitAt)/D/1000)))+'.':'';
+      out.push({at,title:GunTxt(Math.floor(days)),tag:'gun',badge:P.badge!==false?Math.floor(days):undefined,
         body:T(days*S.perDay)+' sigara içmedin, '+TL(c*days)+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')+fr});
     }
   }
@@ -1923,17 +1939,25 @@ async function postJSON(path,body){
   if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));
   return j;
 }
+// Telefondaki service worker'ın sürümü (ör. nefes-v14 -> 14). Bilinmiyorsa 0.
+async function swVersion(){
+  try{const c=navigator.serviceWorker&&navigator.serviceWorker.controller;if(!c)return 0;
+    return await new Promise(r=>{const ch=new MessageChannel(),t=setTimeout(()=>r(0),1500);
+      ch.port1.onmessage=e=>{clearTimeout(t);r(+((String(e.data).match(/v(\d+)/)||[])[1])||0)};c.postMessage({q:'ver'},[ch.port2])});
+  }catch(e){return 0}
+}
 // cihaz kaydını worker'a gönder (widget verisi + bildirim takvimi). Değişmediyse 12 saatte bir.
 async function syncDevice(force){
   if(!(S.push.on||S.widget.on||S.friend.on)||!navigator.onLine)return;
-  const hash=JSON.stringify([devState(),S.push.on,S.push.ms,S.push.daily,S.push.risk,S.push.upd,S.push.badge,S.push.friend,S.friend.on,S.friend.myName,S.friend.quitAt,S.push.hour,S.widget.on,new Date().toDateString(),S.log.filter(l=>l.type==='won').length]);
+  const swv=S.push.on?await swVersion():0;
+  const hash=JSON.stringify([swv,devState(),S.push.on,S.push.ms,S.push.daily,S.push.risk,S.push.upd,S.push.badge,S.push.friend,S.friend.on,S.friend.myName,S.friend.quitAt,S.push.hour,S.widget.on,new Date().toDateString(),S.log.filter(l=>l.type==='won').length]);
   if(!force&&hash===S.push.lastHash&&Date.now()-S.push.lastSync<12*3600e3)return;
   let push=null;
   try{
     if(S.push.on){
       const sub=await getSub();
       if(!sub){S.push.on=false;S.push.lastErr='Telefon bildirim aboneliğini silmiş. Bildirimleri yeniden aç.';await DB.set(S);renderSettings(true);return}
-      push={sub:sub.toJSON(),key:S.push.key,upd:S.push.upd!==false,friend:S.push.friend!==false,schedule:buildSchedule()};
+      push={sub:sub.toJSON(),swv,key:S.push.key,upd:S.push.upd!==false,friend:S.push.friend!==false,schedule:buildSchedule()};
     }
     const j=await postJSON('sync',{id:S.devId,state:devState(),push,profile:{name:S.friend.myName||''}});
     S.push.lastSync=Date.now();S.push.lastHash=hash;S.push.lastErr='';S.push.count=j.scheduled||0;
@@ -2013,7 +2037,9 @@ function pushStatHtml(){
 function renderPushBox(){
   const box=$('pushBox');if(!box)return;
   const P=S.push,perm=window.Notification?Notification.permission:'unsupported';
-  const err=P.lastErr?'<div class="pErr">'+esc(P.lastErr)+'</div>':'';
+  let err=P.lastErr?'<div class="pErr">'+esc(P.lastErr)+'</div>':'';
+  // izin telefon ayarlarından kapatıldıysa sunucu gönderse de bildirim görünmez
+  if(P.on&&perm==='denied')err+='<div class="pErr">Telefon ayarlarında Nefes\'in bildirim izni kapalı. Ayarlar › Bildirimler › Nefes\'ten aç.</div>';
   if(!pushSupported()||!isStandalone()){
     box.innerHTML='<div class="psm" style="margin:0">Bildirimler sadece ana ekrana eklenmiş uygulamada çalışır. Safari\'de Paylaş > <b>Ana Ekrana Ekle</b> ile ekle, sonra uygulamayı oradaki simgeden açıp buraya gel.</div>';
     return;
@@ -2319,7 +2345,7 @@ async function widgetLanding(id){
   $('wlBody').innerHTML='<div class="wlDays"><b>'+Math.floor(days)+'</b><span>gün</span></div>'+
     '<div class="wlGrid"><div><b>'+TL(c*days)+'</b><span>cebinde</span></div><div><b>%'+Math.floor(lung*100)+'</b><span>akciğer</span></div><div><b>'+T(days*(st.perDay||20))+'</b><span>sigara içilmedi</span></div></div>'+
     (nx?'<div class="wlNext">Sıradaki: <b>'+nx[1]+'</b>, '+dur(nx[0]-sec)+' sonra. '+esc(nx[3])+'</div>':'')+
-    (fr?'<div class="wlNext">'+esc(fr.name)+': <b>'+Math.floor((Date.now()-fr.quitAt)/D/1000)+'. gün</b></div>':'')+
+    (fr?'<div class="wlNext">'+esc(fr.name)+': <b>'+gunTxt(Math.floor((Date.now()-fr.quitAt)/D/1000))+'</b></div>':'')+
     '<p class="wlHint">Burası Safari. Nefes\'in kendisi ana ekrandaki simgede, krizde "Canım çekiyor" orada. iPhone, widget\'ların ana ekran uygulamalarını doğrudan açmasına izin vermiyor. Widget\'ı Kısayol ile açılacak şekilde de kurabilirsin (Nefes > Ayarlar > Widget).</p>';
 }
 
@@ -2397,7 +2423,7 @@ async function restoreFlow(){
 function renderSecStatus(){
   const set=(id,t,cls)=>{const e=$(id);if(e){e.textContent=t;e.className='sS'+(cls==='ok'?' sOk':cls==='warn'?' sWarn':'')}};
   set('ss-push',S.push.on?'Açık · '+S.push.count+' sırada':(isStandalone()&&pushSupported()?'Kapalı':'Ana ekrandan aç'),S.push.on?'ok':'');
-  set('ss-friend',S.friend.on?S.friend.name+' · '+frDays()+'. gün':(S.friend.invite&&Date.now()<S.friend.inviteUntil)?'Davet bekliyor':'Bağlı değil',S.friend.on?'ok':'');
+  set('ss-friend',S.friend.on?S.friend.name+' · '+gunTxt(frDays()):(S.friend.invite&&Date.now()<S.friend.inviteUntil)?'Davet bekliyor':'Bağlı değil',S.friend.on?'ok':'');
   const C=S.cloud;
   set('ss-cloud',!C.on?'Kapalı':C.err?'Alınamadı':C.code&&!C.saved?'Kodu kaydet':C.lastAt?'Bulutta · '+niceDate(C.lastAt):'Bekliyor',!C.on||C.err||(C.code&&!C.saved)?'warn':'ok');
   set('ss-widget',S.widget.on?'Kuruldu':'Kurulmadı',S.widget.on?'ok':'');
@@ -2436,9 +2462,13 @@ async function friendFetch(force){
   try{
     const r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'});const j=await r.json();
     if(!j.ok)return;
-    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,push:j.friend.push,invite:'',err:''});
+    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,push:j.friend.push,invite:'',err:'',missAt:0});
       if(!was){toast(j.friend.name+' ile bağlandınız');syncDevice(true)}}
-    else if(S.friend.on){S.friend.on=false;S.friend.err='Arkadaşın bağlantıyı kaldırdı.'}
+    else if(S.friend.on){
+      // Sunucu kısa süre eski veri dönebilir. Bağlantıyı tek cevaba bakıp silme, bir dakika sonra tekrar sor.
+      if(!S.friend.missAt){S.friend.missAt=Date.now();setTimeout(()=>friendFetch(true),65e3)}
+      else if(Date.now()-S.friend.missAt>=60e3){S.friend.on=false;S.friend.missAt=0;S.friend.err='Arkadaşın bağlantıyı kaldırdı.'}
+    }
     else if(S.friend.inviteUntil&&Date.now()>S.friend.inviteUntil){S.friend.invite=''}
     await DB.set(S);renderFriendUI();
   }catch(e){}
@@ -2487,7 +2517,7 @@ function renderFriendUI(){
   const chip=$('frChip'),sec=$('frSec');
   if(!S.friend.on){if(chip)chip.hidden=true;if(sec)sec.hidden=true;return}
   const hot=frInCrisis();
-  if(chip){chip.hidden=false;chip.classList.toggle('hot',hot);chip.innerHTML=hot?'<i></i>'+esc(S.friend.name)+' zorlanıyor · destek ver':'<i></i>'+esc(S.friend.name)+' · '+frDays()+'. gün'}
+  if(chip){chip.hidden=false;chip.classList.toggle('hot',hot);chip.innerHTML=hot?'<i></i>'+esc(S.friend.name)+' zorlanıyor · destek ver':'<i></i>'+esc(S.friend.name)+' · '+gunTxt(frDays())}
   if(sec){sec.hidden=false;
     $('frCard').innerHTML='<div class="frTop"><div><div class="frName">'+esc(S.friend.name)+'</div><div class="frSt">'+frStatus()+'</div></div>'+
       '<div class="frDays"><b>'+frDays()+'</b><span>gün</span></div></div>'+
@@ -2502,7 +2532,7 @@ function renderFriendBox(force){
   if(!force&&box.contains(document.activeElement))return; // yazarken silinmesin
   const F=S.friend,err=F.err?'<div class="pErr">'+esc(F.err)+'</div>':'';
   if(F.on){
-    box.innerHTML='<div class="frLine"><b>'+esc(F.name)+'</b> ile bağlısın · '+frDays()+'. gün</div>'+
+    box.innerHTML='<div class="frLine"><b>'+esc(F.name)+'</b> ile bağlısın · '+gunTxt(frDays())+'</div>'+
       '<label class="tgl"><input type="checkbox" id="frNotify"'+(F.notify?' checked':'')+'><span><b>Zorlandığımda haber ver</b><small>"Canım çekiyor"a basınca '+esc(F.name)+'\'e bildirim gider</small></span></label>'+
       '<label class="tgl"><input type="checkbox" id="frRecv"'+(S.push.friend!==false?' checked':'')+'><span><b>O zorlanınca bana haber ver</b><small>'+(S.push.on?'Bildirim olarak gelir':'Önce yukarıdan bildirimleri aç')+'</small></span></label>'+err+
       '<div class="pActs"><button id="frLeave">Bağlantıyı kaldır</button></div>';
@@ -2525,6 +2555,8 @@ function renderFriendBox(force){
   renderSecStatus();
 }
 $('frChip').onclick=()=>{if(frInCrisis())friendSupport();else go('ilerleme')};
+// yeni service worker devreye girince sürümünü sunucuya bildir (yeni bildirim biçimi için)
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('controllerchange',()=>setTimeout(()=>{if(S.onboarded)syncDevice(false)},1500));
 if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.go==='arkadas'){go('ilerleme');friendFetch(true)}});
 
 $('logToggle').onclick=()=>{showLog=!showLog;renderSettings(true)};
@@ -2538,11 +2570,17 @@ $('af').onchange=async e=>{S.auto.everyDays=+e.target.value||0;await save()};
 $('ah').onchange=async e=>{S.auto.hour=Math.min(23,Math.max(0,+e.target.value||0));await save()};
 
 $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı baştan açılacak. Emin misin?')){
+ // Sunucudaki kaydı da temizle: yoksa eski bırakma tarihine göre bildirim gelmeye devam ederdi.
+ try{if(S.friend.on)await postJSON('friend/leave',{id:S.devId})}catch(e){}
+ try{const sub=await getSub();if(sub)await sub.unsubscribe()}catch(e){}
+ try{await postJSON('sync',{id:S.devId,state:devState(),push:null})}catch(e){}
+ try{if('clearAppBadge' in navigator)await navigator.clearAppBadge()}catch(e){}
  S={onboarded:false,quitAt:Date.now(),perDay:20,packPrice:110,rate:40,infl:33,noInterest:0,best:0,goalName:'',goalAmount:0,log:[],notifIdx:-1,reasons:[],transfers:[],auto:{...AUTO_DEFAULTS}};
  await DB.set(S);location.reload()}};
 
 (async()=>{
   const s=await DB.get();if(s)S=Object.assign(S,s);migrate();
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persisted().then(p=>{if(!p)navigator.storage.persist()}).catch(()=>{})}catch(e){}
   {const wid=new URLSearchParams(location.search).get('w');
    if(wid&&/^[a-f0-9]{32}$/.test(wid)&&!isStandalone()&&!S.onboarded){widgetLanding(wid);return}}
   if(!S.onboarded){$('setup').classList.add('open');drawStep()}
