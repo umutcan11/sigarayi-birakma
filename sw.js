@@ -15,7 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v10';
+const SURUM = 'nefes-v12';
+// Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
+// gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
+const NOT = 'Arkadaş modu, otomatik bulut yedeği, simgede gün sayısı ve bugünün parasıyla gerçekçi birikim tahmini geldi. Güncellemeler artık bildirimle geliyor.';
 
 const KABUK = [
   './',
@@ -64,7 +67,23 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Uygulama kabuğu: stale-while-revalidate
+  // Sayfanın kendisi (index.html): önce ağ. Güncelleme bildirimine dokunup
+  // açınca yeni sürüm hemen gelsin. 4 saniyede cevap yoksa ya da internet
+  // yoksa önbellekteki sürüm açılır.
+  if (req.mode === 'navigate') {
+    event.respondWith((async () => {
+      const cache = await caches.open(SURUM);
+      const net = fetch(req).then((res) => { if (res && res.ok) cache.put(req, res.clone()); return res; });
+      const res = await Promise.race([net.catch(() => null), new Promise((r) => setTimeout(() => r(null), 4000))]);
+      if (res && res.ok) return res;
+      const cached = (await cache.match(req, { ignoreSearch: true })) || (await cache.match('./index.html')) || (await cache.match('./'));
+      if (cached) return cached;
+      return net.catch(() => new Response('Çevrimdışısın ve uygulama henüz cihazına inmemiş.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } }));
+    })());
+    return;
+  }
+
+  // Diğer dosyalar (ikonlar, manifest): stale-while-revalidate
   event.respondWith(
     caches.open(SURUM).then(async (cache) => {
       const onbellekteki = await cache.match(req, { ignoreSearch: true });
@@ -101,13 +120,18 @@ self.addEventListener('push', (event) => {
   try { d = event.data ? event.data.json() : {}; }
   catch (e) { d = { title: 'Nefes', body: event.data ? event.data.text() : '' }; }
   const n = d.notification || d;
-  event.waitUntil(self.registration.showNotification(n.title || 'Nefes', {
+  const jobs = [self.registration.showNotification(n.title || 'Nefes', {
     body: n.body || '',
     icon: './icons/icon-192.png',
     badge: './icons/icon-96.png',
-    tag: d.tag || undefined,
+    tag: n.tag || d.tag || undefined,
     data: { url: n.navigate || './' },
-  }));
+  })];
+  // simgedeki gün sayısı (uygulama kapalıyken de güncellensin)
+  if (typeof d.nefes_badge === 'number' && self.navigator && self.navigator.setAppBadge) {
+    jobs.push(self.navigator.setAppBadge(d.nefes_badge).catch(() => {}));
+  }
+  event.waitUntil(Promise.all(jobs));
 });
 
 // Bildirime dokununca: açık uygulama varsa öne getir, yoksa aç
@@ -116,7 +140,10 @@ self.addEventListener('notificationclick', (event) => {
   const url = (event.notification.data && event.notification.data.url) || './';
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
-      for (const c of list) { if ('focus' in c) return c.focus(); }
+      const hash = url.indexOf('#') >= 0 ? url.slice(url.indexOf('#') + 1) : '';
+      for (const c of list) {
+        if ('focus' in c) { if (hash) c.postMessage({ go: hash }); return c.focus(); }
+      }
       return self.clients.openWindow(url);
     })
   );
