@@ -238,65 +238,74 @@ body{padding-bottom:calc(env(safe-area-inset-bottom) + 92px)!important}
 
 /* para sekmesi */
 :root{--cN:#616DBA;--cG:#22A68B}
-.pHero{background:linear-gradient(160deg,#173540 0%,var(--surface) 60%);border-radius:18px;padding:20px 18px 18px;border:1px solid rgba(111,214,192,.14)}
-.phL{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.phV{font-family:var(--sans);font-size:clamp(40px,12vw,52px);font-weight:700;letter-spacing:-.02em;margin-top:6px;line-height:1}
-.heroBar{display:flex;gap:2px;height:8px;margin-top:16px;border-radius:4px;overflow:hidden}
-.heroBar .seg{display:block;height:100%;flex-grow:0;flex-shrink:1;transition:flex-basis .9s cubic-bezier(.3,.7,.2,1)}
-.heroBar .n{background:var(--cN)} .heroBar .g{background:var(--cG)}
-.phKeys{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:12px;color:var(--muted)}
-.phKeys b{color:var(--bone);font-family:var(--mono);font-weight:700;margin-left:3px}
+/* Para: tek büyük sayı, tek grafik, tek aktarım satırı */
+#paraTab section{margin-bottom:14px}
+.mHero{padding:6px 2px 18px}
+.mhTop{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mhDays{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.mhV{font-size:clamp(54px,17vw,72px);font-weight:700;letter-spacing:-.035em;line-height:1;margin-top:12px;font-variant-numeric:tabular-nums}
+.mhV .cur{font-size:.5em;color:var(--air);font-weight:500;margin-right:4px;vertical-align:.55em;letter-spacing:0}
+.mhRate{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
+.mhRate span{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:100px;padding:5px 10px}
+.mhRate b{color:var(--bone);font-weight:700}
+.mhGoal{margin-top:18px}
+.mhGoal:empty{display:none}
+.gTop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:13.5px}
+.gTop b{font-weight:600}
+.gTop span{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+.gBar{height:8px;border-radius:4px;background:var(--line);margin-top:8px;overflow:hidden}
+.gBar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--cG),var(--air));transition:width 1s cubic-bezier(.3,.7,.2,1)}
+.gNote{font-size:12.5px;color:var(--muted);margin-top:7px}
+.gNote b{color:var(--bone);font-weight:600}
+.gAdd{font-size:12.5px;color:var(--air);padding:0}
+.mCard{background:var(--surface);border-radius:18px;padding:16px 14px 14px}
+.mcHead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:0 2px 6px}
+.mcNow{font-family:var(--mono);font-size:15px;color:var(--bone)}
+.mProj{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.mProj button{text-align:left;border:1px solid var(--line);border-radius:12px;padding:9px 10px;min-width:0}
+.mProj button.on{border-color:var(--air);background:rgba(111,214,192,.07)}
+.mProj .py{display:block;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.mProj .pv{display:block;font-family:var(--mono);font-size:15px;font-weight:700;margin-top:3px;white-space:nowrap}
+.mProj .pn{display:block;font-size:11px;color:var(--muted);margin-top:2px;white-space:nowrap}
+.mFoot{font-size:11.5px;color:var(--muted);margin-top:10px;padding:0 2px;line-height:1.45}
+.mXfer{background:var(--surface);border-radius:18px;padding:14px}
+.xfRow{display:flex;align-items:center;gap:12px}
+.xfTx{flex:1;min-width:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+.xfTx b{display:block;font-family:var(--mono);font-size:16px;color:var(--bone)}
+.xfRow button{flex:none;border:1px solid var(--air);color:var(--air);border-radius:100px;padding:9px 14px;font-weight:600;font-size:13px}
+.xfMeter{height:6px;border-radius:3px;overflow:hidden;background:var(--line);margin-top:12px}
+.xfMeter i{display:block;height:100%;background:var(--cG);transition:width 1s cubic-bezier(.3,.7,.2,1)}
+#paraTab.pre .xfMeter i,#paraTab.pre .gBar i{width:0!important}
 .sw{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .sw.n{background:var(--cN)} .sw.g{background:var(--cG)}
-.phR{font-size:12px;color:var(--muted);margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-.phR b{color:var(--bone);font-family:var(--mono)}
-.miniStats{display:grid;gap:8px;margin-top:10px}
-.ms1{background:var(--surface);border-radius:13px;padding:11px 10px}
-.ms1 b{display:block;font-family:var(--mono);font-size:17px;font-weight:700}
-.ms1 span{display:block;font-size:10.5px;color:var(--muted);margin-top:3px}
-.rng{display:flex;gap:4px;background:var(--surface);border-radius:100px;padding:3px}
-.rng button{font-family:var(--mono);font-size:10.5px;color:var(--muted);padding:5px 10px;border-radius:100px;letter-spacing:0!important}
-.rng button.on{background:var(--line);color:var(--bone)}
-.legend2{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--muted);margin-bottom:10px}
-.legend2 i{display:inline-block;vertical-align:middle;margin-right:6px}
-.legend2 .ln{width:14px;height:2px;border-radius:2px} .legend2 .ln.g{background:var(--cG)} .legend2 .ln.n{background:var(--cN)}
-.legend2 .bd{width:10px;height:10px;border-radius:2px;background:rgba(34,166,139,.22)}
 .chartWrap{position:relative;touch-action:pan-y}
 #mChart{width:100%;display:block;overflow:visible}
 #mChart text{font-family:var(--mono);font-size:11.5px;fill:var(--muted)}
-#mChart .lbl{fill:var(--bone);font-size:11.5px;font-weight:700}
-.ctip{position:absolute;top:0;transform:translateX(-50%);background:#0A1518;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11.5px;line-height:1.5;color:var(--muted);white-space:nowrap;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+#mChart .lbl{fill:var(--bone);font-size:13px;font-weight:700}
+.ctip{position:absolute;top:0;transform:translateX(-50%);background:#0A1518;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11.5px;line-height:1.5;color:var(--muted);white-space:nowrap;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.4);z-index:2}
 .ctip b{color:var(--bone);font-family:var(--mono)}
 .ctip .tt{color:var(--bone);font-weight:600;margin-bottom:2px}
-.pjRow{display:flex;align-items:center;gap:10px}
-.pjRow+.pjRow{margin-top:14px}
-.pjY{flex:0 0 38px;font-family:var(--mono);font-size:11px;color:var(--muted)}
-.pjBar{flex:1;display:flex;gap:2px;height:14px;min-width:0}
-.pjBar i{display:block;height:100%;transition:width 1s cubic-bezier(.3,.7,.2,1)}
-.pjBar .n{background:var(--cN);border-radius:0} .pjBar .g{background:var(--cG);border-radius:0 4px 4px 0}
-.pjBar .n:last-child{border-radius:0 4px 4px 0}
-.pjV{flex:0 0 76px;text-align:right;font-family:var(--mono);font-size:12px;font-weight:700}
-.pjV small{display:block;font-size:10px;font-weight:400;color:var(--muted)}
-#paraTab.pre .pjBar i{width:0!important}
-#paraTab.pre .heroBar .seg{flex-basis:0!important}
-.goalRow{display:flex;align-items:center;gap:16px}
-.goalRing{flex:0 0 84px;position:relative}
-.goalRing svg{width:84px;height:84px;display:block;transform:rotate(-90deg)}
-.goalRing .gp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:16px;font-weight:700}
-.goalRing .arc{transition:stroke-dashoffset 1.1s cubic-bezier(.3,.7,.2,1)}
-#paraTab.pre .goalRing .arc{stroke-dashoffset:var(--c)!important}
-.goalTx b{display:block;font-size:16px}
-.goalTx .gv{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:4px}
-.goalTx .gn{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45}
-.goalTx .gn b{display:inline;font-size:12.5px;color:var(--bone)}
-.xfMeter{display:flex;gap:2px;height:10px;border-radius:5px;overflow:hidden;background:var(--line);margin:12px 0 10px}
-.xfMeter i{display:block;height:100%;background:var(--cG);transition:width 1s cubic-bezier(.3,.7,.2,1)}
-#paraTab.pre .xfMeter i{width:0!important}
-.xfNums{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
-.xfNums b{color:var(--bone);font-family:var(--mono);font-size:15px;display:block;margin-top:2px}
-.xfNums div:last-child{text-align:right}
-#xferBox button{margin-top:14px;width:100%;padding:13px;border:1px solid var(--air);color:var(--air);border-radius:100px;font-size:13.5px;font-weight:700}
 
+/* bildirim ve widget */
+.tgl{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.tgl:first-child{padding-top:2px}
+.tgl input{appearance:none;-webkit-appearance:none;flex:none;width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;transition:background .2s;margin:0}
+.tgl input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--bone);transition:transform .2s}
+.tgl input:checked{background:var(--cG)}
+.tgl input:checked::after{transform:translateX(18px)}
+.tgl span{flex:1;min-width:0}
+.tgl b{display:block;font-size:14px;font-weight:600}
+.tgl small{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.tgl select{font-family:var(--mono);font-size:13px;color:var(--bone);background:var(--ink);border:1px solid var(--line);border-radius:9px;padding:7px 8px}
+.pStat{font-size:12px;color:var(--muted);margin-top:12px;font-family:var(--mono)}
+.pErr{font-size:12.5px;color:var(--ember);margin-top:10px;line-height:1.45}
+.pBtn{margin-top:14px;width:100%;padding:13px;border:1px solid var(--air);color:var(--air);border-radius:100px;font-size:14px;font-weight:700}
+.pBtn:disabled{opacity:.5}
+.pActs{display:flex;gap:8px;margin-top:12px}
+.pActs button{flex:1;border:1px solid var(--line);border-radius:100px;padding:11px;font-size:13px;font-weight:600}
+.pActs button:disabled{opacity:.5}
+.wSteps{margin:12px 0 0 18px;font-size:13px;color:var(--muted);line-height:1.5;display:grid;gap:6px}
+.wSteps b{color:var(--bone);font-weight:600}
 /* bugün: tek ekran düzeni */
 .sysStrip[hidden]{display:none!important}
 .sinceSmall[hidden]{display:none!important}
@@ -360,11 +369,6 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .row.stack input{width:100%;text-align:left}
 .log .del{margin-left:auto;color:var(--muted);font-size:18px;line-height:1;padding:2px 6px}
 .log .what small{color:var(--muted);font-size:12px}
-.notifD summary{cursor:pointer;font-size:14px;list-style:none;display:flex;justify-content:space-between;align-items:center}
-.notifD summary::-webkit-details-marker{display:none}
-.notifD summary::after{content:'+';font-family:var(--mono);color:var(--air);font-size:16px}
-.notifD[open] summary::after{content:'−'}
-.notifD .notif{background:none;padding:12px 0 0}
 #settings .danger{padding:4px 0}
 .toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom) + 92px);transform:translate(-50%,10px);background:var(--air);color:#06171A;
   font-size:13px;font-weight:700;padding:9px 16px;border-radius:100px;opacity:0;transition:opacity .25s,transform .25s;z-index:55;pointer-events:none}
@@ -533,47 +537,20 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 <button class="crave" id="craveBtn" data-pg="bugun">Canım çekiyor</button>
 
 <div id="paraTab" data-pg="para">
-<section class="pHeroSec">
-  <div class="pHero">
-    <div class="phL">Cebinde kalan</div>
-    <div class="phV" id="mInt">₺0</div>
-    <div class="heroBar"><i class="seg n" id="mBarN"></i><i class="seg g" id="mBarG"></i></div>
-    <div class="phKeys"><span><i class="sw n"></i>Sigara parası <b id="mNom">₺0</b></span><span><i class="sw g"></i>Faiz <b id="mGain">₺0</b></span></div>
-    <div class="phR" id="mReal"></div>
-  </div>
-  <div class="miniStats" id="miniStats">
-    <div class="ms1"><b id="sticks">0</b><span>sigara içilmedi</span></div>
-    <div class="ms1"><b id="life">0</b><span>ömür kazandın</span></div>
-    <div class="ms1"><b id="won">0</b><span>kriz atlattın</span></div>
-    <div class="ms1"><b id="best">0</b><span>en uzun serin</span></div>
-  </div>
+<section class="mHero">
+  <div class="mhTop"><span class="eyebrow">Harcamadığın para</span><span class="mhDays" id="mDays"></span></div>
+  <div class="mhV" id="mNom">₺0</div>
+  <div class="mhRate" id="mRate"></div>
+  <div class="mhGoal" id="mGoal"></div>
 </section>
-<section>
-  <div class="head"><span class="eyebrow">Birikim</span><span class="rng" id="mRange"><button data-r="365">1 yıl</button><button data-r="1825">5 yıl</button><button data-r="3650">10 yıl</button></span></div>
-  <div class="pcard chartCard">
-    <div class="legend2"><span><i class="ln g"></i>Faizle</span><span><i class="ln n"></i>Yastık altı</span><span><i class="bd"></i>Faizin getirdiği</span></div>
-    <div class="chartWrap"><svg id="mChart" viewBox="0 0 340 190"></svg><div class="ctip" id="mTip" hidden></div></div>
-    <div class="psm" id="mCap"></div>
-  </div>
+<section class="mCard">
+  <div class="mcHead"><span class="eyebrow">Faizde dursaydı</span><b class="mcNow" id="mInt">₺0</b></div>
+  <div class="chartWrap"><svg id="mChart" viewBox="0 0 340 172"></svg><div class="ctip" id="mTip" hidden></div></div>
+  <div class="mProj" id="mProj"></div>
+  <div class="mFoot" id="mFoot"></div>
 </section>
-<section>
-  <div class="head"><span class="eyebrow">İçmemeye devam edersen</span></div>
-  <div class="pcard">
-    <div id="proj"></div>
-    <div class="psm">Bugünkü günlük tasarrufun ve yıllık %<span id="projRate"></span> faizin aynı kaldığı varsayımıyla. Faiz oranları yıllar içinde değişir, bu bir taahhüt değil bir hesap.</div>
-  </div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Hedef</span></div>
-  <div class="pcard" id="goalBox"></div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Gerçekten aktardığın</span></div>
-  <div class="pcard" id="xferBox"></div>
-</section>
+<section class="mXfer" id="xferBox"></section>
 </div>
-
-
 <div id="bodyTab" data-pg="vucut">
 <section>
   <div class="head"><span class="eyebrow">Sistemlerin</span></div>
@@ -643,7 +620,6 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
   <div class="head"><span class="eyebrow">Otomatik veri</span></div>
   <div class="auto" id="autoBox" style="margin-bottom:10px"></div>
   <div class="panel open">
-    <div class="row stack"><label for="du">Veri servisi adresi</label><input type="url" id="du" placeholder="https://....workers.dev" autocapitalize="off" autocorrect="off" spellcheck="false"></div>
     <div class="row"><label for="af">Ne sıklıkla çekilsin</label><select id="af">
       <option value="0">Sadece elle</option><option value="1">Günde bir</option>
       <option value="7">Haftada bir</option><option value="30">Ayda bir</option></select></div>
@@ -666,8 +642,12 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
   <div class="pcard"><div class="psm" id="logSum" style="margin:0"></div><ul class="log" id="log" hidden></ul></div>
 </section>
 <section>
-  <div class="head"><span class="eyebrow">Hatırlatıcı</span></div>
-  <details class="pcard notifD"><summary>Uygulama her gün kendini açsın</summary><div class="notif" id="notifBox"></div></details>
+  <div class="head"><span class="eyebrow">Bildirimler</span></div>
+  <div class="pcard" id="pushBox"></div>
+</section>
+<section>
+  <div class="head"><span class="eyebrow">Widget</span></div>
+  <div class="pcard" id="widgetBox"></div>
 </section>
 <section>
   <button class="danger" id="wipe">Tüm kaydı sil ve baştan başla</button>
@@ -729,8 +709,9 @@ const DB={
   else localStorage.setItem('nefes',JSON.stringify(o))}catch(e){console.error(e)}}
 };
 const D=86400,H=3600,Y=365*D;
+// Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
+const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 const AUTO_DEFAULTS={
-  workerUrl:'',
   everyDays:7,
   hour:9,
   lastCheck:0,
@@ -1022,7 +1003,7 @@ function ring(pct,label){
    '<text x="32" y="37" text-anchor="middle">'+Math.floor(pct)+'</text></svg><div class="rl">'+label+'</div></div>';
 }
 /* ---------- Para sekmesi ---------- */
-let moneyKey='',mRange=null,mGeom=null,heroAnim=null;
+let moneyKey='',mSpanY=null,mGeom=null,heroAnim=null;
 // kısa para: ₺850, ₺12 bin, ₺1,2 mn
 function TLc(v){
   v=Math.max(0,v);
@@ -1031,56 +1012,46 @@ function TLc(v){
   if(v>=1e3)return '₺'+(v/1e3).toFixed(1).replace('.',',').replace(',0','')+' bin';
   return '₺'+Math.round(v);
 }
-function niceStep(max,n){const raw=max/n,p=Math.pow(10,Math.floor(Math.log10(raw)));for(const m of [1,2,2.5,5,10])if(raw<=m*p)return m*p;return 10*p}
-function spanLabel(n){if(n<1)return 'Bugün';if(n<60)return Math.round(n)+'. gün';const y=Math.floor(n/365),mo=Math.round((n%365)/30.4);
+function spanLabel(n){if(n<1)return 'İlk gün';if(n<60)return Math.round(n)+'. gün';const y=Math.floor(n/365),mo=Math.round((n%365)/30.4);
   if(!y)return mo+'. ay';return y+' yıl'+(mo&&mo<12?' '+mo+' ay':'')}
+// büyük sayı: ₺ işareti küçük ve renkli
+function heroMoney(v){return '<span class="cur">₺</span>'+T(v)}
+// projeksiyon sütunları: bugünden ileride kalan ilk üç yıl dönümü
+function projYears(days){const L=[1,2,3,5,10,15,20,30];const f=L.filter(y=>y*365>days*1.04);return (f.length>=3?f:L.slice(-3)).slice(0,3)}
 
-function drawMoneyChart(days,c){
-  const opts=[365,1825,3650];
-  if(mRange==null)mRange=days<300?365:days<1600?1825:3650;
-  let span=mRange;if(days>span*0.92)span=opts.find(o=>o>days*1.1)||Math.ceil(days*1.2/365)*365;
-  document.querySelectorAll('#mRange button').forEach(b=>b.classList.toggle('on',+b.dataset.r===span));
-  const X0=44,X1=330,Y0=14,Y1=158;
+function drawMoneyChart(days,c,span){
+  const X0=8,X1=332,Y0=22,Y1=142;
   const f=n=>fv(c,n,S.rate,S.noInterest),g=n=>c*n;
-  const top=f(span),step=niceStep(top,3),maxY=Math.ceil(top/step)*step||1;
+  const maxY=f(span)*1.04||1;
   const x=n=>X0+(n/span)*(X1-X0),y=v=>Y1-(v/maxY)*(Y1-Y0);
-  const N=90,pts=[...Array(N+1)].map((_,i)=>span*i/N);
+  const N=80,pts=[...Array(N+1)].map((_,i)=>span*i/N);
   const cut=Math.min(days,span);
-  const seg=(fn,a,b)=>pts.filter(n=>n>=a&&n<=b).concat(b).sort((p,q)=>p-q).map(n=>x(n).toFixed(1)+','+y(fn(n)).toFixed(1)).join(' ');
-  const band=(a,b)=>{const up=pts.filter(n=>n>=a&&n<=b).concat([a,b]).sort((p,q)=>p-q);
-    return up.map(n=>x(n).toFixed(1)+','+y(f(n)).toFixed(1)).concat(up.slice().reverse().map(n=>x(n).toFixed(1)+','+y(g(n)).toFixed(1))).join(' ')};
-  let s='';
-  for(let v=0;v<=maxY+1;v+=step){
-    s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+y(v).toFixed(1)+'" y2="'+y(v).toFixed(1)+'" stroke="var(--line)" stroke-width="1"/>'+
-       '<text x="'+(X0-6)+'" y="'+(y(v)+3).toFixed(1)+'" text-anchor="end">'+TLc(v)+'</text>';
-  }
-  const xt=span===365?[[0,'0'],[91,'3 ay'],[182,'6 ay'],[274,'9 ay'],[365,'1 yıl']]
-    :[...Array(span===1825?6:6)].map((_,i)=>{const yy=span/365*i/5;return [yy*365,yy?Math.round(yy)+' yıl':'0']});
-  xt.forEach(([n,l])=>{s+='<text x="'+x(n).toFixed(1)+'" y="'+(Y1+16)+'" text-anchor="middle">'+l+'</text>'});
-  s+='<polygon points="'+band(cut,span)+'" fill="var(--cG)" opacity=".10"/>';
-  if(cut>0)s+='<polygon points="'+band(0,cut)+'" fill="var(--cG)" opacity=".26"/>';
-  s+='<polyline points="'+seg(g,cut,span)+'" fill="none" stroke="var(--cN)" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity=".75"/>';
-  s+='<polyline points="'+seg(f,cut,span)+'" fill="none" stroke="var(--cG)" stroke-width="2" stroke-dasharray="3 4" stroke-linecap="round" opacity=".75"/>';
-  if(cut>0){
-    s+='<polyline class="mLine" points="'+seg(g,0,cut)+'" fill="none" stroke="var(--cN)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-    s+='<polyline class="mLine" points="'+seg(f,0,cut)+'" fill="none" stroke="var(--cG)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
-  }
-  // bitiş etiketleri (çakışırsa sadece faizli)
-  const ef=y(f(span)),eg=y(g(span));
-  s+='<text class="lbl" x="'+X1+'" y="'+(ef-7).toFixed(1)+'" text-anchor="end">'+TLc(f(span))+'</text>';
-  if(eg-ef>=16)s+='<text class="lbl" x="'+X1+'" y="'+(eg+14).toFixed(1)+'" text-anchor="end" style="fill:var(--muted)">'+TLc(g(span))+'</text>';
+  const line=(fn,a,b)=>pts.filter(n=>n>a&&n<b).concat([a,b]).sort((p,q)=>p-q).map(n=>x(n).toFixed(1)+','+y(fn(n)).toFixed(1)).join(' ');
+  const area=(a,b)=>line(f,a,b)+' '+x(b).toFixed(1)+','+Y1+' '+x(a).toFixed(1)+','+Y1;
+  let s='<defs><linearGradient id="mGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--cG)" stop-opacity=".45"/><stop offset="1" stop-color="var(--cG)" stop-opacity="0"/></linearGradient></defs>';
+  s+='<line x1="'+X0+'" x2="'+X1+'" y1="'+Y1+'" y2="'+Y1+'" stroke="var(--line)" stroke-width="1"/>';
+  // gelecek: soluk alan + kesik çizgiler, geçmiş: dolu alan + düz çizgi
+  s+='<polygon points="'+area(cut,span)+'" fill="url(#mGr)" opacity=".35"/>';
+  if(cut>0)s+='<polygon points="'+area(0,cut)+'" fill="url(#mGr)"/>';
+  s+='<polyline points="'+line(g,cut,span)+'" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="2 4" stroke-linecap="round"/>';
+  s+='<polyline points="'+line(f,cut,span)+'" fill="none" stroke="var(--cG)" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/>';
+  if(cut>0)s+='<polyline points="'+line(f,0,cut)+'" fill="none" stroke="var(--air)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+  // uç etiketleri
+  const ef=y(f(span));
+  s+='<text class="lbl" x="'+X1+'" y="'+(ef-8).toFixed(1)+'" text-anchor="end">'+TLc(f(span))+'</text>';
+  // x ekseni: başlangıç ve bitiş
+  s+='<text x="'+X0+'" y="'+(Y1+18)+'" text-anchor="start">bıraktın</text>';
+  s+='<text x="'+X1+'" y="'+(Y1+18)+'" text-anchor="end">'+spanLabel(span)+'</text>';
   // bugün
-  const tx=x(cut);
-  s+='<line x1="'+tx.toFixed(1)+'" x2="'+tx.toFixed(1)+'" y1="'+Y0+'" y2="'+Y1+'" stroke="var(--bone)" stroke-opacity=".35" stroke-width="1"/>'+
-     '<circle cx="'+tx.toFixed(1)+'" cy="'+y(g(cut)).toFixed(1)+'" r="4.5" fill="var(--cN)" stroke="var(--surface)" stroke-width="2"/>'+
-     '<circle cx="'+tx.toFixed(1)+'" cy="'+y(f(cut)).toFixed(1)+'" r="4.5" fill="var(--cG)" stroke="var(--surface)" stroke-width="2"/>'+
-     '<text x="'+tx.toFixed(1)+'" y="'+(Y0-4)+'" text-anchor="'+(tx<X0+30?'start':'middle')+'" style="fill:var(--bone)">bugün</text>';
-  s+='<g id="mCur" style="display:none"><line x1="0" x2="0" y1="'+Y0+'" y2="'+Y1+'" stroke="var(--bone)" stroke-width="1"/>'+
-     '<circle class="cg" r="4.5" fill="var(--cG)" stroke="var(--surface)" stroke-width="2"/><circle class="cn" r="4.5" fill="var(--cN)" stroke="var(--surface)" stroke-width="2"/></g>'+
-     '<rect id="mHit" x="'+X0+'" y="0" width="'+(X1-X0)+'" height="'+(Y1+20)+'" fill="transparent"/>';
+  const tx=x(cut),ty=y(f(cut));
+  s+='<line x1="'+tx.toFixed(1)+'" x2="'+tx.toFixed(1)+'" y1="'+(ty+6).toFixed(1)+'" y2="'+Y1+'" stroke="var(--bone)" stroke-opacity=".3" stroke-width="1"/>'+
+     '<circle cx="'+tx.toFixed(1)+'" cy="'+ty.toFixed(1)+'" r="5" fill="var(--air)" stroke="var(--surface)" stroke-width="2.5"/>';
+  if(tx>X0+40&&tx<X1-40)s+='<text x="'+tx.toFixed(1)+'" y="'+(Y1+18)+'" text-anchor="middle" style="fill:var(--bone)">bugün</text>';
+  s+='<g id="mCur" style="display:none"><line x1="0" x2="0" y1="'+Y0+'" y2="'+Y1+'" stroke="var(--bone)" stroke-opacity=".6" stroke-width="1"/>'+
+     '<circle class="cg" r="4.5" fill="var(--cG)" stroke="var(--surface)" stroke-width="2"/></g>'+
+     '<rect id="mHit" x="'+X0+'" y="0" width="'+(X1-X0)+'" height="'+(Y1+22)+'" fill="transparent"/>';
   $('mChart').innerHTML=s;
   mGeom={X0,X1,span,x,y,f,g};
-  $('mCap').innerHTML='Günde <b style="color:var(--bone)">'+TL(c)+'</b> kenara koyuyorsun. Yıllık %'+String(S.rate).replace('.',',')+' faizle günlük efektif '+pct(dailyRate(S.rate))+'. Kesik çizgi, bugünkü hızla devam edersen.';
 }
 function moneyTip(ev){
   if(!mGeom)return;
@@ -1089,17 +1060,17 @@ function moneyTip(ev){
   const n=Math.max(0,Math.min(span,(vx-X0)/(X1-X0)*span));
   const cx=x(n),cur=$('mCur');cur.style.display='';
   cur.querySelector('line').setAttribute('x1',cx);cur.querySelector('line').setAttribute('x2',cx);
-  const cg=cur.querySelector('.cg'),cn=cur.querySelector('.cn');
-  cg.setAttribute('cx',cx);cg.setAttribute('cy',y(f(n)));cn.setAttribute('cx',cx);cn.setAttribute('cy',y(g(n)));
+  const cg=cur.querySelector('.cg');cg.setAttribute('cx',cx);cg.setAttribute('cy',y(f(n)));
+  const real=f(n)/Math.pow(1+S.infl/100,n/365);
   const tip=$('mTip'),wrap=tip.parentElement.getBoundingClientRect();
   tip.innerHTML='<div class="tt">'+spanLabel(n)+'</div>'+
-    '<div><i class="sw g"></i>Faizle <b>'+TL(f(n))+'</b></div><div><i class="sw n"></i>Yastık altı <b>'+TL(g(n))+'</b></div>'+
-    '<div>Faizin getirdiği <b>+'+TL(f(n)-g(n))+'</b></div>';
+    '<div>Faizle <b>'+TL(f(n))+'</b></div><div>Faizsiz <b>'+TL(g(n))+'</b></div>'+
+    '<div>Bugünün parasıyla <b>'+TL(real)+'</b></div>';
   tip.hidden=false;
   const px=cx/340*wrap.width,tw=tip.offsetWidth;
   tip.style.left=Math.max(tw/2,Math.min(wrap.width-tw/2,px))+'px';
-  tip.style.top=(y(f(n))/190*wrap.height>wrap.height*.45?'0px':'auto');
-  tip.style.bottom=tip.style.top==='auto'?'34px':'auto';
+  const high=y(f(n))/172*wrap.height<wrap.height*.5;
+  tip.style.top=high?'auto':'0px';tip.style.bottom=high?'30px':'auto';
 }
 function moneyTipHide(){const c=$('mCur');if(c)c.style.display='none';$('mTip').hidden=true}
 
@@ -1107,62 +1078,41 @@ function renderMoney(force){
   const root=$('paraTab');if(!root)return;
   if(!force&&!root.classList.contains('on'))return;
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
-  const key=[Math.floor(sec/60),S.quitAt,S.perDay,S.packPrice,S.rate,S.noInterest,S.infl,S.goalAmount,S.goalName,S.transfers.length,mRange,S.log.length,S.best].join('|');
+  const key=[Math.floor(sec/60),S.quitAt,S.perDay,S.packPrice,S.rate,S.noInterest,S.infl,S.goalAmount,S.goalName,S.transfers.length,mSpanY].join('|');
   if(!force&&key===moneyKey)return;moneyKey=key;
-  const c=S.perDay/20*S.packPrice,nom=c*days,wint=fv(c,days,S.rate,S.noInterest),gain=wint-nom;
-  const real=wint/Math.pow(1+S.infl/100,days/365);
-  // kahraman sayı
-  if(force&&wint>0){
+  const c=S.perDay/20*S.packPrice,nom=c*days,wint=fv(c,days,S.rate,S.noInterest);
+  // büyük sayı
+  if(force&&nom>0){
     cancelAnimationFrame(heroAnim);const t0=performance.now();
-    (function step(t){const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);$('mInt').textContent=TL(wint*e);if(k<1)heroAnim=requestAnimationFrame(step)})(t0);
-  }else $('mInt').textContent=TL(wint);
-  $('mBarN').style.flexBasis=(wint?nom/wint*100:0).toFixed(2)+'%';
-  $('mBarG').style.flexBasis=(wint?gain/wint*100:0).toFixed(2)+'%';
-  $('mNom').textContent=TL(nom);$('mGain').textContent=TL(gain);
-  $('mReal').innerHTML='Enflasyondan arındırınca bugünün parasıyla <b>'+TL(real)+'</b>';
-  // toplamlar
-  const sticks=days*S.perDay,lifeMin=sticks*17;
-  $('sticks').textContent=T(sticks);
-  $('life').textContent=lifeMin<1440?Math.floor(lifeMin/60)+' saat':Math.floor(lifeMin/1440)+' gün';
-  $('won').textContent=S.log.filter(l=>l.type==='won').length;
-  $('best').textContent=Math.floor(Math.max(S.best,sec*1000)/D/1000)+' g';
-  $('best').parentElement.hidden=S.best<D*1000;
-  $('miniStats').style.gridTemplateColumns='repeat('+(S.best>=D*1000?4:3)+',1fr)';
-  // grafik
-  drawMoneyChart(days,c);
-  // projeksiyon
-  const Ys=[1,2,3,5],mx=fv(c,365*5,S.rate,S.noInterest);
-  $('projRate').textContent=String(S.rate).replace('.',',');
-  $('proj').innerHTML='<div class="legend2" style="margin-bottom:14px"><span><i class="sw n"></i>Sigara parası</span><span><i class="sw g"></i>Faiz</span></div>'+
-    Ys.map(yy=>{const a=c*365*yy,b=fv(c,365*yy,S.rate,S.noInterest);
-      return '<div class="pjRow"><span class="pjY">'+yy+' yıl</span><span class="pjBar"><i class="n" style="width:'+(a/mx*100).toFixed(2)+'%"></i><i class="g" style="width:'+((b-a)/mx*100).toFixed(2)+'%"></i></span>'+
-        '<span class="pjV">'+TLc(b)+'<small>+'+TLc(b-a)+'</small></span></div>'}).join('');
+    (function step(t){const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3);$('mNom').innerHTML=heroMoney(nom*e);if(k<1)heroAnim=requestAnimationFrame(step)})(t0);
+  }else $('mNom').innerHTML=heroMoney(nom);
+  const packs=days*S.perDay/20;
+  $('mDays').textContent=Math.floor(days)+' gün · '+T(packs)+' paket';
+  $('mRate').innerHTML='<span>günde <b>'+TL(c)+'</b></span><span>ayda <b>'+TLc(c*30.44)+'</b></span><span>yılda <b>'+TLc(c*365)+'</b></span>';
   // hedef
-  const gb=$('goalBox');
+  const gb=$('mGoal');
   if(S.goalAmount>0){
-    const p=Math.min(1,nom/S.goalAmount),R=36,C=2*Math.PI*R;
-    let gn;
-    if(p>=1)gn='Ulaştın. <b>Al gitsin.</b>';
-    else{
-      const d1=Math.ceil((S.goalAmount-nom)/c);
-      let n=days;while(n<days+3650&&fv(c,n,S.rate,S.noInterest)<S.goalAmount)n+=1;
-      const d2=Math.max(0,Math.ceil(n-days));
-      gn='Bu hızla <b>'+d1+' gün</b> sonra.'+(d2<d1?' Faizle değerlendirirsen <b>'+d2+' gün</b>.':'');
-    }
-    gb.innerHTML='<div class="goalRow"><div class="goalRing"><svg viewBox="0 0 84 84">'+
-      '<circle cx="42" cy="42" r="'+R+'" fill="none" stroke="var(--line)" stroke-width="8"/>'+
-      '<circle class="arc" cx="42" cy="42" r="'+R+'" fill="none" stroke="var(--air)" stroke-width="8" stroke-linecap="round" '+
-      'stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+(C*(1-p)).toFixed(1)+'" style="--c:'+C.toFixed(1)+'"/></svg>'+
-      '<div class="gp">%'+Math.floor(p*100)+'</div></div>'+
-      '<div class="goalTx"><b>'+esc(S.goalName||'Hedef')+'</b><div class="gv">'+TL(nom)+' / '+TL(S.goalAmount)+'</div><div class="gn">'+gn+'</div></div></div>';
-  }else gb.innerHTML='<div class="psm" style="margin:0">Ayarlar\'dan bir hedef koy. Biriken parayı somut bir şeye bağlamak soyut bir rakamdan çok daha iyi tutuyor.</div>';
+    const p=Math.min(1,nom/S.goalAmount),left=Math.ceil((S.goalAmount-nom)/c);
+    gb.innerHTML='<div class="gTop"><b>'+esc(S.goalName||'Hedef')+'</b><span>'+TLc(nom)+' / '+TLc(S.goalAmount)+'</span></div>'+
+      '<div class="gBar"><i style="width:'+(p*100).toFixed(1)+'%"></i></div>'+
+      '<div class="gNote">'+(p>=1?'<b>Ulaştın.</b> Al gitsin.':'%'+Math.floor(p*100)+' · bu hızla <b>'+left+' gün</b> sonra')+'</div>';
+  }else gb.innerHTML='<button class="gAdd" id="gAdd">+ Biriktirdiğin bir şey ekle</button>';
+  if($('gAdd'))$('gAdd').onclick=()=>{go('ayarlar');setTimeout(()=>{$('gn').scrollIntoView({block:'center'});$('gn').focus()},80)};
+  // faiz kartı
+  $('mInt').textContent=TL(wint);
+  const Ys=projYears(days);
+  if(!Ys.includes(mSpanY))mSpanY=Ys[0];
+  drawMoneyChart(days,c,mSpanY*365);
+  $('mProj').innerHTML=Ys.map(yy=>{const b=fv(c,365*yy,S.rate,S.noInterest);
+    return '<button data-y="'+yy+'" class="'+(yy===mSpanY?'on':'')+'"><span class="py">'+yy+'. yıl</span><span class="pv">'+TLc(b)+'</span><span class="pn">faizsiz '+TLc(c*365*yy)+'</span></button>'}).join('');
+  document.querySelectorAll('#mProj button').forEach(b=>b.onclick=()=>{mSpanY=+b.dataset.y;moneyTipHide();renderMoney(false)});
+  $('mFoot').textContent='Yıllık %'+String(S.rate).replace('.',',')+' faiz, günlük bileşik. Grafiğe dokununca o güne ait tutarı görürsün.';
   // aktarım
-  const moved=S.transfers.reduce((a,t)=>a+(+t.amount||0),0),bek=Math.max(0,nom-moved),lastX=S.transfers[0];
-  $('xferBox').innerHTML='<div class="xfNums"><div>Aktardığın<b>'+TL(moved)+'</b></div><div>Hesapta bekleyen<b>'+TL(bek)+'</b></div></div>'+
+  const moved=S.transfers.reduce((a,t)=>a+(+t.amount||0),0),bek=Math.max(0,nom-moved);
+  $('xferBox').innerHTML='<div class="xfRow"><div class="xfTx">'+(bek>1?'Hesaba aktarılmayı bekleyen<b>'+TL(bek)+'</b>':'Hepsini aktardın<b>'+TL(moved)+'</b>')+'</div>'+
+    '<button id="xferBtn">'+(bek>1?'Aktardım':'Ekle')+'</button></div>'+
     '<div class="xfMeter"><i style="width:'+(nom>0?Math.min(100,moved/nom*100):0).toFixed(1)+'%"></i></div>'+
-    '<div class="psm" style="margin:0">'+(bek>1?'Faiz hesabı parayı gerçekten kenara koyduğun varsayımına dayanıyor. Aktarmazsan o eğri sadece bir grafik.':'Biriken her kuruşu aktarmışsın. Faiz hesabı artık kurgu değil.')+
-    (lastX?' Son aktarım: '+niceDate(lastX.at)+'.':'')+'</div>'+
-    '<button id="xferBtn">'+(bek>1?TL(bek)+' aktardım':'Elle aktarım ekle')+'</button>';
+    (bek>1?'<div class="mFoot" style="padding:0">Faiz, ancak para gerçekten kenarda durursa işler.</div>':'');
   $('xferBtn').onclick=async()=>{
     const v=prompt('Ne kadar aktardın? (₺)',bek>1?Math.round(bek):0);if(v===null)return;
     const amt=Math.max(0,parseFloat(String(v).replace(',','.'))||0);if(amt<=0)return;
@@ -1170,7 +1120,6 @@ function renderMoney(force){
   };
   if(force){root.classList.add('pre');void root.offsetWidth;requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.remove('pre')))}
 }
-document.querySelectorAll('#mRange button').forEach(b=>b.onclick=()=>{mRange=+b.dataset.r;moneyTipHide();renderMoney(false)});
 {const w=$('mChart');
  w.addEventListener('pointerdown',e=>{moneyTip(e)});
  w.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'||e.buttons)moneyTip(e)});
@@ -1338,30 +1287,41 @@ function migrate(){
  S.auto=Object.assign({},AUTO_DEFAULTS,S.auto||{});
  // kilit sistemi öncesinden kalan kayıt: fiyat ve faiz kaynakları güvenilmez, elle girilen korunsun
  if(!S.auto.locks)S.auto.locks={price:true,deposit:true};
+ // v8: worker adresi sabitlendi, faiz ve TÜFE serileri düzeltildi. Bir kerelik:
+ // faiz ve TÜFE kilidini aç, otomatik çekimi kapalıysa günlüğe al.
+ if(!S.auto.v8){
+  S.auto.v8=true;delete S.auto.workerUrl;
+  S.auto.locks=Object.assign({},S.auto.locks,{deposit:false,cpi:false});
+  if(!(+S.auto.everyDays>0))S.auto.everyDays=1;
+  S.auto.lastCheck=0;
+ }
  S.noInterest=Math.max(0,+S.noInterest||0);
  if(!Array.isArray(S.log))S.log=[];
  if(!Array.isArray(S.reasons))S.reasons=[];
  // 1 günden kısa seriler rekor sayılmaz (eski sürüm saniyelik serileri de kaydediyordu)
  if(!(S.best>=D*1000))S.best=0;
  if(!Array.isArray(S.transfers))S.transfers=[];
+ // bu telefona özel kimlik: bildirim aboneliği ve widget bu kimlikle eşleşir
+ if(!/^[a-f0-9]{32}$/.test(S.devId||''))S.devId=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ S.push=Object.assign({on:false,ms:true,daily:true,risk:true,hour:21,key:'',lastSync:0,lastHash:'',lastErr:'',count:0},S.push||{});
+ S.widget=Object.assign({on:false},S.widget||{});
 }
 function niceDate(ms){return ms?new Date(ms).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'yok'}
 
 /* Tek kaynak: kendi Cloudflare Worker'ın. CORS orada sorun değil çünkü istek
    tarayıcıdan değil, Worker'ın sunucusundan gidiyor — worker.js'i bak. */
 async function fetchFromWorker(){
- const url=(S.auto.workerUrl||'').trim();
- if(!url)return 'Worker URL\'i girilmedi; ayarlardan ekle.';
+ const url=WORKER_URL;
  let data;
  try{
   const r=await fetch(url,{cache:'no-store'});
   if(!r.ok)throw new Error('HTTP '+r.status);
   data=await r.json();
- }catch(e){return 'Worker\'a ulaşılamadı: '+(e.message||'bağlantı hatası')+'. URL doğru mu, worker deploy edildi mi kontrol et.'}
+ }catch(e){return 'Worker\'a ulaşılamadı: '+(e.message||'bağlantı hatası')+'. İnternet bağlantını kontrol et.'}
  const out=[],lk=S.auto.locks||{};
  // Elle girilmiş (kilitli) değerler ezilmez: çekilen değer sadece referans olarak saklanır.
  function apply(key,res,label,setFn,fmt){
-  if(!(res&&res.ok)){out.push(label+' çekilemedi'+(res&&res.error?': '+res.error:'.'));return}
+  if(!(res&&res.ok)){out.push(lk[key]?label+' elle giriliyor.':label+' çekilemedi'+(res&&res.error?': '+res.error:'.'));return}
   const v=+res.value;S.auto[key+'Fetched']=v;S.auto[key+'At']=Date.now();
   if(lk[key])out.push(label+' elle kilitli, kaynakta '+fmt(v)+' görünüyor.');
   else{setFn(v);out.push(label+' '+fmt(v)+' olarak güncellendi.')}
@@ -1382,7 +1342,7 @@ async function autoCheck(){
 }
 function nextCheckAt(){
  const ev=+S.auto.everyDays||0;
- if(!ev||!S.auto.workerUrl)return null;
+ if(!ev)return null;
  if(!S.auto.lastCheck)return Date.now();
  const d=new Date(S.auto.lastCheck+ev*D*1000);
  d.setHours(Math.min(23,Math.max(0,+S.auto.hour||0)),0,0,0);
@@ -1397,12 +1357,10 @@ function renderAutoBox(){
  const dr=dailyRate(S.rate),last=S.auto.lastMsg||'Henüz kontrol edilmedi.';
  const ev=+S.auto.everyDays||0;
  const n=nextCheckAt();
- const plan=!S.auto.workerUrl
-   ? 'Worker URL\'i girilmedi — aşağıda elle girdiğin değerler kullanılıyor.'
-   : (ev===0
-     ? 'Otomatik çekim kapalı; sadece bu butona bastığında güncelleniyor.'
+ const plan=ev===0
+     ? 'Otomatik çekim kapalı. Sadece bu butona bastığında güncelleniyor.'
      : 'Her '+(ev===1?'gün':ev+' günde bir')+', en erken saat '+pad(S.auto.hour)+':00\'da uygulamayı açtığında kontrol ediliyor.'+
-       (n&&n>Date.now()?' Sıradaki: '+niceDate(n)+'.':' Sıradaki açılışta yenilenecek.'));
+       (n&&n>Date.now()?' Sıradaki: '+niceDate(n)+'.':' Sıradaki açılışta yenilenecek.');
  const lk=S.auto.locks||{},anyLock=Object.values(lk).some(Boolean);
  const autoMini=(k,val,label,fmt)=>'<div class="auto-mini"><b>'+val+'</b><span>'+label+' · '+
    (lk[k]?'elle girildi'+(S.auto[k+'Fetched']!=null?', kaynakta '+fmt(+S.auto[k+'Fetched']):''):niceDate(S.auto[k+'At']))+'</span></div>';
@@ -1416,7 +1374,7 @@ function renderAutoBox(){
   (anyLock?'<button id="unlockAuto">Otomatiğe dön</button>':'<button id="openDataSettings">Kaynak ayarları</button>')+'</div>';
  $('autoRun').onclick=autoCheck;
  if($('unlockAuto'))$('unlockAuto').onclick=async()=>{S.auto.locks={};await save();autoCheck()};
- if($('openDataSettings')) $('openDataSettings').onclick=()=>{go('ayarlar');setTimeout(()=>$('du').focus(),50)};
+ if($('openDataSettings')) $('openDataSettings').onclick=()=>{go('ayarlar');setTimeout(()=>$('af').focus(),50)};
 }
 
 /* ---------- render ---------- */
@@ -1487,7 +1445,7 @@ function startCrave(){
   actsT=setTimeout(()=>{if($('veil').classList.contains('open')&&$('breathe').style.display!=='none')$('acts').style.display='flex'},30000);
 }
 function stopCrave(){clearTimeout(timer);clearInterval(tick);clearTimeout(actsT);$('veil').classList.remove('open')}
-async function save(){await DB.set(S);render()}
+async function save(){await DB.set(S);render();scheduleSync()}
 
 $('craveBtn').onclick=startCrave;
 
@@ -1553,7 +1511,6 @@ $('ni').onchange=async e=>{S.noInterest=Math.max(0,+e.target.value||0);await sav
 $('inf').onchange=async e=>{S.infl=Math.max(0,+e.target.value||0);lockAuto('cpi');await save()};
 $('gn').onchange=async e=>{S.goalName=e.target.value.slice(0,40);await save()};
 $('ga').onchange=async e=>{S.goalAmount=Math.max(0,+e.target.value||0);await save()};
-$('du').onchange=async e=>{S.auto.workerUrl=e.target.value.trim();await save()};
 $('edReasons').onclick=async()=>{
   const cur=S.reasons.join('\n');
   const v=prompt('Neden bıraktın? Her satıra bir sebep yaz.\nKriz anında nefes ekranında bunlar çıkacak.',cur);
@@ -1581,7 +1538,9 @@ $('impFile').onchange=e=>{
     if(typeof d!=='object'||d===null||!('quitAt' in d)){alert('Bu bir Nefes yedeği gibi görünmüyor.');return}
     const g=Math.floor((Date.now()-d.quitAt)/D/1000);
     if(!confirm('Yedek yüklenecek ve şu anki kayıt değiştirilecek.\n\nYedekteki seri: '+g+' gün\nKayıt sayısı: '+((d.log||[]).length)+'\n\nDevam edilsin mi?'))return;
-    S=Object.assign({},S,d);migrate();
+    // kimlik, bildirim aboneliği ve widget bu telefona ait: yedekten gelmez
+    const own={devId:S.devId,push:S.push,widget:S.widget};
+    S=Object.assign({},S,d,own);migrate();
     await DB.set(S);location.reload();
   };
   rd.readAsText(f);
@@ -1734,7 +1693,7 @@ function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show')
 function fillSettings(){
   $('qd').value=tl(S.quitAt);$('pd').value=S.perDay;$('pp').value=S.packPrice;
   $('ir').value=S.rate;$('ni').value=S.noInterest;$('inf').value=S.infl;$('gn').value=S.goalName;$('ga').value=S.goalAmount||'';
-  $('du').value=S.auto.workerUrl;$('af').value=String(S.auto.everyDays);$('ah').value=S.auto.hour;
+  $('af').value=String(S.auto.everyDays);$('ah').value=S.auto.hour;
 }
 function renderSettings(force){
   const root=$('settings');if(!root)return;
@@ -1767,13 +1726,260 @@ function renderSettings(force){
     const at=+b.dataset.at;S.log=S.log.filter(l=>!(l.type!=='reset'&&l.at===at));
     await save();toast('Kayıt silindi');
   });
-  // hatırlatıcı
-  $('notifBox').innerHTML=
-   'iPhone, uygulama kapalıyken bildirim göndermeye sadece bir sunucu üzerinden izin veriyor. Daha basit ve daha etkili yol iOS\'un kendi <b>Kısayollar</b> uygulaması:<ol>'+
-   '<li>Kısayollar → Otomasyon → Yeni otomasyon</li><li>Günün Saati → örneğin 09:00 ve 21:00</li>'+
-   '<li>İşlem: <b>Uygulamayı Aç</b> → Nefes</li><li>"Hemen çalıştır"ı seç</li></ol>'+
-   'Uygulama o saatlerde kendiliğinden açılır ve son bakışından beri olanı gösterir.';
+  renderPushBox();renderWidgetBox();
 }
+/* ---------- Bildirimler (Web Push) ---------- */
+// iPhone'da uygulama kapalıyken bildirim ancak sunucudan gelen "push" ile olur.
+// Sunucu kendi worker'ın: önümüzdeki bildirimlerin listesini ona veriyoruz,
+// zamanı gelince Apple'ın push sunucusu üzerinden gönderiyor (worker.js'e bak).
+const isStandalone=()=>navigator.standalone===true||matchMedia('(display-mode: standalone)').matches;
+const pushSupported=()=>'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window;
+function b64uToBytes(str){const t=str.replace(/-/g,'+').replace(/_/g,'/');const b=atob(t+'='.repeat((4-t.length%4)%4));return Uint8Array.from(b,c=>c.charCodeAt(0))}
+let pushBusy=false,syncT=null,swReg=null,pushKeyCache='';
+function riskWindow(){
+  const won=S.log.filter(l=>l.type==='won');if(won.length<3)return null;
+  const hb=Array(12).fill(0);won.forEach(l=>hb[Math.floor(new Date(l.at).getHours()/2)]++);
+  const mx=Math.max(...hb);if(mx<2)return null;
+  const st=hb.indexOf(mx)*2;return {st,rng:pad(st)+'–'+pad((st+2)%24)};
+}
+function devState(){return {quitAt:S.quitAt,perDay:S.perDay,packPrice:S.packPrice,rate:S.rate,noInterest:S.noInterest,goalName:S.goalName,goalAmount:S.goalAmount}}
+// önümüzdeki bildirimler: sağlık eşikleri, günlük özet, zor saatten önce
+function buildSchedule(){
+  const out=[],now=Date.now()+60e3,q=S.quitAt,P=S.push,c=S.perDay/20*S.packPrice;
+  const near=(at,gap)=>out.some(x=>Math.abs(x.at-at)<gap);
+  if(P.ms){
+    const g=new Map();MS.forEach(m=>{const at=q+m[0]*1000;if(at>now){if(!g.has(at))g.set(at,[m[1],[]]);g.get(at)[1].push(m[3])}});
+    g.forEach(([lbl,tx],at)=>out.push({at,title:'Nefes · '+lbl,body:tx.join(' ').slice(0,420),tag:'ms'}));
+  }
+  if(P.daily){
+    for(let k=0;k<45;k++){
+      const d=new Date();d.setDate(d.getDate()+k);d.setHours(P.hour,0,0,0);const at=d.getTime();
+      if(at<=now||near(at,45*60e3))continue;
+      const days=(at-q)/D/1000;if(days<0.5)continue;
+      const nx=MS.find(m=>q+m[0]*1000>at);
+      out.push({at,title:Math.floor(days)+'. gün',tag:'gun',
+        body:T(days*S.perDay)+' sigara içmedin, '+TL(c*days)+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')});
+    }
+  }
+  const rw=P.risk&&riskWindow();
+  if(rw){
+    for(let k=0;k<14;k++){
+      const d=new Date();d.setDate(d.getDate()+k);d.setHours(rw.st,0,0,0);const at=d.getTime()-15*60e3;
+      if(at<=now||near(at,45*60e3))continue;
+      out.push({at,title:'Zor saat yaklaşıyor',tag:'risk',body:'Genelde '+rw.rng+' arası zorlanıyorsun. Gelirse uygulamayı aç, nefes ekranı 3 dakikada geçirir.'});
+    }
+  }
+  return out.sort((a,b)=>a.at-b.at).slice(0,300);
+}
+async function getSub(){
+  if(!pushSupported())return null;
+  const reg=swReg||await navigator.serviceWorker.getRegistration();
+  return reg?reg.pushManager.getSubscription():null;
+}
+async function postJSON(path,body){
+  const r=await fetch(WORKER_URL+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  let j={};try{j=await r.json()}catch(e){}
+  if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));
+  return j;
+}
+// cihaz kaydını worker'a gönder (widget verisi + bildirim takvimi). Değişmediyse 12 saatte bir.
+async function syncDevice(force){
+  if(!(S.push.on||S.widget.on)||!navigator.onLine)return;
+  const hash=JSON.stringify([devState(),S.push.on,S.push.ms,S.push.daily,S.push.risk,S.push.hour,S.widget.on,new Date().toDateString(),S.log.filter(l=>l.type==='won').length]);
+  if(!force&&hash===S.push.lastHash&&Date.now()-S.push.lastSync<12*3600e3)return;
+  let push=null;
+  try{
+    if(S.push.on){
+      const sub=await getSub();
+      if(!sub){S.push.on=false;S.push.lastErr='Telefon bildirim aboneliğini silmiş. Bildirimleri yeniden aç.';await DB.set(S);renderSettings(true);return}
+      push={sub:sub.toJSON(),key:S.push.key,schedule:buildSchedule()};
+    }
+    const j=await postJSON('sync',{id:S.devId,state:devState(),push});
+    S.push.lastSync=Date.now();S.push.lastHash=hash;S.push.lastErr='';S.push.count=j.scheduled||0;
+    // worker'ın anahtarı değiştiyse eski abonelik çalışmaz: yenisiyle abone ol
+    if(S.push.on&&j.publicKey&&j.publicKey!==S.push.key){
+      const old=await getSub();if(old)await old.unsubscribe();
+      const reg=swReg||await navigator.serviceWorker.ready;
+      try{await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64uToBytes(j.publicKey)});S.push.key=j.publicKey;S.push.lastHash='';setTimeout(()=>syncDevice(true),300)}
+      catch(e){S.push.on=false;S.push.lastErr='Sunucu anahtarı yenilendi. Bildirimleri bir kez daha aç.'}
+    }
+  }catch(e){S.push.lastErr='Sunucuya ulaşılamadı: '+(e.message||'bağlantı hatası')}
+  await DB.set(S);renderSettings(true);
+}
+function scheduleSync(){clearTimeout(syncT);syncT=setTimeout(()=>syncDevice(false),1500)}
+function preparePush(){
+  if(!pushSupported())return;
+  navigator.serviceWorker.getRegistration().then(r=>{if(r)swReg=r}).catch(()=>{});
+  if(!pushKeyCache)fetch(WORKER_URL+'push/key').then(r=>r.json()).then(j=>{if(j.ok)pushKeyCache=j.publicKey}).catch(()=>{});
+}
+async function pushEnable(){
+  if(pushBusy)return;pushBusy=true;S.push.lastErr='';
+  try{
+    // iOS izni sadece dokunuşun içinde verir: abone olma çağrısı mümkün olduğunca ilk adım
+    let key=pushKeyCache||S.push.key;
+    const reg=swReg||await navigator.serviceWorker.ready;
+    if(!key){const r=await fetch(WORKER_URL+'push/key');const j=await r.json();if(!j.ok)throw new Error(j.error||'anahtar alınamadı');key=j.publicKey}
+    let sub;
+    try{sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64uToBytes(key)})}
+    catch(e){
+      if(e&&e.name==='InvalidStateError'){const o=await reg.pushManager.getSubscription();if(o)await o.unsubscribe();sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64uToBytes(key)})}
+      else throw e;
+    }
+    S.push.on=true;S.push.key=key;S.push.lastHash='';
+    await DB.set(S);await syncDevice(true);
+    if(!S.push.lastErr)toast('Bildirimler açıldı');
+  }catch(e){
+    S.push.on=false;
+    S.push.lastErr=Notification.permission==='denied'
+      ?'İzin verilmedi. Açmak için iPhone Ayarlar > Uygulamalar > Nefes > Bildirimler.'
+      :'Açılamadı: '+(e.message||e);
+    await DB.set(S);
+  }
+  pushBusy=false;renderSettings(true);
+}
+async function pushDisable(){
+  try{const sub=await getSub();if(sub)await sub.unsubscribe()}catch(e){}
+  S.push.on=false;S.push.count=0;await DB.set(S);renderSettings(true);
+  try{await postJSON('sync',{id:S.devId,state:devState(),push:null})}catch(e){}
+  toast('Bildirimler kapatıldı');
+}
+async function pushTest(){
+  const b=$('pTest');if(b){b.disabled=true;b.textContent='Gönderiliyor...'}
+  try{await syncDevice(true);await postJSON('push/test',{id:S.devId});toast('Gönderildi. Birkaç saniye içinde gelir.')}
+  catch(e){toast('Gönderilemedi: '+(e.message||'hata'))}
+  if(b){b.disabled=false;b.textContent='Test bildirimi'}
+}
+function renderPushBox(){
+  const box=$('pushBox');if(!box)return;
+  const P=S.push,perm=window.Notification?Notification.permission:'unsupported';
+  const err=P.lastErr?'<div class="pErr">'+esc(P.lastErr)+'</div>':'';
+  if(!pushSupported()||!isStandalone()){
+    box.innerHTML='<div class="psm" style="margin:0">Bildirimler sadece ana ekrana eklenmiş uygulamada çalışır. Safari\'de Paylaş > <b>Ana Ekrana Ekle</b> ile ekle, sonra uygulamayı oradaki simgeden açıp buraya gel.</div>';
+    return;
+  }
+  preparePush();
+  if(!P.on){
+    box.innerHTML='<div class="psm" style="margin:0">Uygulama kapalıyken de haber verir: vücudundaki önemli eşikler, günün özeti ve genelde zorlandığın saatten önce kısa bir uyarı. Bu telefona özel açılır.</div>'+err+
+      '<button class="pBtn" id="pOn"'+(pushBusy?' disabled':'')+'>'+(pushBusy?'Açılıyor...':'Bildirimleri aç')+'</button>';
+    $('pOn').onclick=pushEnable;return;
+  }
+  const rw=riskWindow(),hours=[...Array(17)].map((_,i)=>i+7);
+  box.innerHTML=
+    '<label class="tgl"><input type="checkbox" id="pMs"'+(P.ms?' checked':'')+'><span><b>Vücudundaki eşikler</b><small>1 hafta, 6 hafta, 3 ay gibi anlarda</small></span></label>'+
+    '<label class="tgl"><input type="checkbox" id="pDaily"'+(P.daily?' checked':'')+'><span><b>Günün özeti</b><small>Her gün aynı saatte, kısa</small></span>'+
+      '<select id="pHour" aria-label="Özet saati">'+hours.map(h=>'<option value="'+h+'"'+(h===P.hour?' selected':'')+'>'+pad(h)+':00</option>').join('')+'</select></label>'+
+    '<label class="tgl"><input type="checkbox" id="pRisk"'+(P.risk?' checked':'')+'><span><b>Zor saatten önce</b><small>'+(rw?'Senin için '+rw.rng+', 15 dk önce':'Kriz kayıtların biriktikçe saat belirlenir')+'</small></span></label>'+
+    '<div class="pStat">'+(P.lastSync?'Sırada '+P.count+' bildirim · son eşitleme '+niceDate(P.lastSync):'Eşitleniyor...')+'</div>'+err+
+    '<div class="pActs"><button id="pTest">Test bildirimi</button><button id="pOff">Kapat</button></div>';
+  const upd=async(k,v)=>{S.push[k]=v;S.push.lastHash='';await DB.set(S);syncDevice(true)};
+  $('pMs').onchange=e=>upd('ms',e.target.checked);
+  $('pDaily').onchange=e=>upd('daily',e.target.checked);
+  $('pRisk').onchange=e=>upd('risk',e.target.checked);
+  $('pHour').onchange=e=>upd('hour',+e.target.value);
+  $('pTest').onclick=pushTest;$('pOff').onclick=pushDisable;
+}
+
+/* ---------- Widget (Scriptable) ---------- */
+// iOS web uygulamalarına widget izni vermiyor. Ücretsiz Scriptable uygulaması
+// JavaScript ile widget çizebiliyor. Bu fonksiyonun kaynağı olduğu gibi betiğe
+// kopyalanıyor, o yüzden içinde uygulamanın başka hiçbir şeyine dokunmuyor.
+async function nefesWidget(CFG){
+  const C={bg:new Color('#0C1A1E'),line:new Color('#244A54'),air:new Color('#6FD6C0'),bone:new Color('#E7F0EE'),muted:new Color('#93ABB1')};
+  const fm=FileManager.local(),cache=fm.joinPath(fm.documentsDirectory(),'nefes-'+CFG.id+'.json');
+  let S=CFG.snap;
+  try{if(fm.fileExists(cache)){const c=JSON.parse(fm.readString(cache));if(c&&c.v>S.v)S=c}}catch(e){}
+  try{
+    const r=new Request(CFG.api+'state?id='+CFG.id);r.timeoutInterval=6;
+    const j=await r.loadJSON();
+    if(j&&j.ok&&j.state&&j.state.quitAt){S=Object.assign({},j.state,{v:j.seen||Date.now()});fm.writeString(cache,JSON.stringify(S))}
+  }catch(e){}
+  const now=Date.now(),sec=Math.max(0,(now-S.quitAt)/1000),days=sec/86400;
+  const money=(S.perDay||20)/20*(S.packPrice||0)*days;
+  const T=n=>Math.round(n).toLocaleString('tr-TR'),TL=n=>'₺'+T(n);
+  const nx=CFG.ms.find(m=>m[0]>sec),pv=CFG.ms.filter(m=>m[0]<=sec).pop();
+  const p0=pv?pv[0]:0,prog=nx?(sec-p0)/(nx[0]-p0):1;
+  const dur=s=>{const d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d>0?d+' gün'+(d<3&&h?' '+h+' sa':''):h>0?h+' sa '+m+' dk':m+' dk'};
+  let lung=1;for(let i=1;i<CFG.lung.length;i++){const[a,pa]=CFG.lung[i-1],[b,pb]=CFG.lung[i];if(days<=b){lung=days<=0?0:pa+(pb-pa)*(days-a)/(b-a);break}}
+  const fam=config.widgetFamily||'medium';
+  const w=new ListWidget();w.url=CFG.app;w.refreshAfterDate=new Date(now+(days<3?15:60)*60e3);
+  const txt=(st,t,f,col)=>{const x=st.addText(t);x.font=f;x.textColor=col;x.lineLimit=1;x.minimumScaleFactor=.6;return x};
+  const bar=(st,width,p,col)=>{const o=st.addStack();o.size=new Size(width,6);o.cornerRadius=3;o.backgroundColor=C.line;
+    const i=o.addStack();i.size=new Size(Math.max(6,Math.round(width*Math.min(1,Math.max(0,p)))),6);i.cornerRadius=3;i.backgroundColor=col;o.addSpacer();return o};
+  const dayN=Math.floor(days),nextTx=nx?nx[1]+' · '+dur(nx[0]-sec):'Tüm eşikler geçti';
+  if(fam==='accessoryInline'){w.addText('Nefes '+dayN+' gün · '+TL(money))}
+  else if(fam==='accessoryCircular'){
+    w.addAccessoryWidgetBackground=true;
+    const s=w.addStack();s.layoutVertically();s.centerAlignContent();
+    const a=txt(s,String(dayN),Font.boldRoundedSystemFont(dayN>999?16:22),Color.white());a.centerAlignText();
+    const b=txt(s,'gün',Font.mediumSystemFont(10),Color.white());b.centerAlignText();
+  }
+  else if(fam==='accessoryRectangular'){
+    txt(w,dayN+' gün · '+TL(money),Font.boldSystemFont(15),Color.white());
+    w.addSpacer(2);txt(w,'Sıradaki: '+nextTx,Font.systemFont(12),Color.white());
+    w.addSpacer(4);bar(w,140,prog,Color.white());
+  }
+  else{
+    w.backgroundColor=C.bg;w.setPadding(14,14,14,14);
+    const small=fam==='small';
+    const row=w.addStack();row.layoutHorizontally();
+    const L=row.addStack();L.layoutVertically();
+    txt(L,'NEFES',Font.boldMonospacedSystemFont(10),C.muted);
+    L.addSpacer(4);
+    const dn=L.addStack();dn.layoutHorizontally();dn.bottomAlignContent();
+    txt(dn,String(dayN),Font.boldRoundedSystemFont(small?40:46),C.bone);dn.addSpacer(4);
+    txt(dn,'gün',Font.mediumSystemFont(14),C.muted);
+    L.addSpacer(2);txt(L,TL(money),Font.boldMonospacedSystemFont(small?15:17),C.air);
+    if(small){
+      w.addSpacer();
+      txt(w,'Sıradaki: '+(nx?nx[1]:'—'),Font.mediumSystemFont(11),C.muted);
+      w.addSpacer(5);bar(w,128,prog,C.air);
+      w.addSpacer(4);txt(w,nx?dur(nx[0]-sec)+' kaldı':'Hepsi geçti',Font.systemFont(10),C.muted);
+    }else{
+      row.addSpacer();
+      const R=row.addStack();R.layoutVertically();R.size=new Size(fam==='large'?160:148,0);
+      txt(R,'Akciğer %'+Math.floor(lung*100),Font.mediumSystemFont(12),C.bone);R.addSpacer(5);bar(R,148,lung,C.air);
+      R.addSpacer(12);
+      txt(R,'Sıradaki: '+(nx?nx[1]:'—'),Font.mediumSystemFont(12),C.bone);R.addSpacer(5);bar(R,148,prog,C.air);
+      R.addSpacer(5);txt(R,nx?dur(nx[0]-sec)+' kaldı':'Hepsi geçti',Font.systemFont(11),C.muted);
+      w.addSpacer();
+      txt(w,T(days*(S.perDay||20))+' sigara içilmedi',Font.systemFont(11),C.muted);
+      if(fam==='large'){
+        w.addSpacer(12);
+        CFG.ms.filter(m=>m[0]>sec).slice(0,4).forEach(m=>{const r2=w.addStack();txt(r2,m[1],Font.mediumSystemFont(13),C.bone);r2.addSpacer();txt(r2,dur(m[0]-sec),Font.systemFont(12),C.muted);w.addSpacer(6)});
+      }
+    }
+  }
+  if(config.runsInWidget)Script.setWidget(w);else await w.presentMedium();
+  Script.complete();
+}
+function widgetScript(){
+  const ms=[...new Map(MS.map(m=>[m[0],m[1]])).entries()].sort((a,b)=>a[0]-b[0]);
+  const cfg={id:S.devId,api:WORKER_URL,app:'https://umutcan11.github.io/sigarayi-birakma/',ms,lung:LUNG_ANCHORS,snap:Object.assign(devState(),{v:Date.now()})};
+  return '// Nefes widget · Scriptable\n// '+new Date().toLocaleDateString('tr-TR')+' tarihinde Nefes uygulamasından kopyalandı. Bu telefona özel.\n'+
+    '// Veriyi uygulamanın sunucusundan çeker. Sayaç sıfırlanırsa widget kendiliğinden güncellenir.\n'+
+    'const CFG = '+JSON.stringify(cfg)+';\n'+'await ('+nefesWidget.toString()+')(CFG);\n';
+}
+async function widgetCopy(){
+  const text=widgetScript();
+  let ok=false;
+  try{await navigator.clipboard.writeText(text);ok=true}catch(e){}
+  if(!ok){const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{ok=document.execCommand('copy')}catch(e){}ta.remove()}
+  toast(ok?'Betik kopyalandı':'Kopyalanamadı');
+  if(!ok)return;
+  S.widget.on=true;S.push.lastHash='';await DB.set(S);renderSettings(true);syncDevice(true);
+}
+function renderWidgetBox(){
+  const box=$('widgetBox');if(!box)return;
+  box.innerHTML='<div class="psm" style="margin:0">iPhone web uygulamalarına widget izni vermiyor. Ücretsiz <b>Scriptable</b> uygulamasıyla gün sayısı, cebinde kalan para ve sıradaki eşik ana ekranda ve kilit ekranında durur.</div>'+
+    '<ol class="wSteps"><li>App Store\'dan Scriptable\'ı indir.</li><li>Aşağıdaki butona bas, betik panoya kopyalanır.</li>'+
+    '<li>Scriptable\'da sağ üstteki <b>+</b> ile yeni betik aç, yapıştır, adını <b>Nefes</b> yap.</li>'+
+    '<li>Ana ekranda boş bir yere uzun bas, <b>Düzenle › Widget Ekle › Scriptable</b>. Eklenen widget\'a uzun bas, <b>Widget\'ı Düzenle</b>, Script: Nefes.</li>'+
+    '<li>Kilit ekranı için kilit ekranına uzun bas, <b>Özelleştir</b>, widget alanına Scriptable ekle ve aynı betiği seç.</li></ol>'+
+    '<button class="pBtn" id="wCopy">'+(S.widget.on?'Betiği yeniden kopyala':'Widget betiğini kopyala')+'</button>'+
+    (S.widget.on?'<div class="pStat">Bu telefonun widget\'ı açık. Her telefonda betiği o telefondan kopyala.</div>':'');
+  $('wCopy').onclick=widgetCopy;
+}
+
 $('logToggle').onclick=()=>{showLog=!showLog;renderSettings(true)};
 $('tlClear').onclick=()=>{sysFilter=null;renderBody(false)};
 $('tlNextMore').onclick=()=>{showAllNext=!showAllNext;renderBody(false)};
@@ -1798,13 +2004,14 @@ $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı
     pickReason();
     playIntro();
     maybeAutoCheck();
+    syncDevice(false);
   }
   setInterval(()=>{if(S.onboarded)render()},1000);
   // arka plana giderken son bakış anını kaydet, geri gelince aradan beri olanı canlandır
   document.addEventListener('visibilitychange',()=>{
     if(!S.onboarded)return;
     if(document.hidden){S.lastSeenAt=Date.now();DB.set(S);return}
-    pickReason();playIntro();maybeAutoCheck();
+    pickReason();playIntro();maybeAutoCheck();syncDevice(false);
   });
 })();
 
