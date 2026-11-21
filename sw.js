@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v13';
+const SURUM = 'nefes-v14';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Dört widget tasarımı geldi: Sayaç, Para, Sağlık ve Arkadaş. Widget artık dokununca kurulum ekranı yerine günün özetini açıyor.';
+const NOT = 'Simgedeki gün sayısı için düzeltme, arkadaş bildirimi artık doğrudan arkadaş kartını açıyor, birkaç küçük hata giderildi.';
 
 const KABUK = [
   './',
@@ -116,6 +116,16 @@ self.addEventListener('fetch', (event) => {
 // eski biçim ({title, body}) de kabul edilir. iOS her push'ta görünür bir
 // bildirim ister. Göstermezsek birkaç kez sonra aboneliği iptal eder.
 self.addEventListener('push', (event) => {
+  // iOS 18.4+ "mutable" declarative mesaj: tarayıcı bildirimi zaten hazırlamış (event.notification).
+  // Biz sadece simgedeki sayıyı ayarlıyoruz. Bildirim göstermezsek tarayıcı kendisininkini gösterir,
+  // bunun bir cezası yok. data bu yolda null gelir.
+  if (event.notification) {
+    const nd = event.notification.data || {};
+    if (typeof nd.badge === 'number' && self.navigator && self.navigator.setAppBadge) {
+      event.waitUntil((nd.badge > 0 ? self.navigator.setAppBadge(nd.badge) : self.navigator.clearAppBadge()).catch(() => {}));
+    }
+    return;
+  }
   let d = {};
   try { d = event.data ? event.data.json() : {}; }
   catch (e) { d = { title: 'Nefes', body: event.data ? event.data.text() : '' }; }
@@ -125,19 +135,26 @@ self.addEventListener('push', (event) => {
     icon: './icons/icon-192.png',
     badge: './icons/icon-96.png',
     tag: n.tag || d.tag || undefined,
-    data: { url: n.navigate || './' },
+    data: { url: n.navigate || './', badge: typeof d.nefes_badge === 'number' ? d.nefes_badge : undefined },
   })];
   // simgedeki gün sayısı (uygulama kapalıyken de güncellensin)
   if (typeof d.nefes_badge === 'number' && self.navigator && self.navigator.setAppBadge) {
-    jobs.push(self.navigator.setAppBadge(d.nefes_badge).catch(() => {}));
+    jobs.push((d.nefes_badge > 0 ? self.navigator.setAppBadge(d.nefes_badge) : self.navigator.clearAppBadge()).catch(() => {}));
   }
   event.waitUntil(Promise.all(jobs));
+});
+
+// Sayfa, telefondaki service worker sürümünü sorar. Sunucu yeni bildirim biçimini
+// sadece bunu anlayan sürüme gönderir.
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.q === 'ver' && event.ports && event.ports[0]) event.ports[0].postMessage(SURUM);
 });
 
 // Bildirime dokununca: açık uygulama varsa öne getir, yoksa aç
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const url = (event.notification.data && event.notification.data.url) || './';
+  const n = event.notification;
+  const url = (n.data && n.data.url) || n.navigate || './';
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
       const hash = url.indexOf('#') >= 0 ? url.slice(url.indexOf('#') + 1) : '';
