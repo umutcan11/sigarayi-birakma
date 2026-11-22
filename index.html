@@ -619,6 +619,35 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .wrList button:active,.shList button:active{border-color:var(--air)}
 .wrOther{margin-top:14px;font-size:13px;color:var(--air);text-decoration:underline;text-underline-offset:3px}
 .wrHint{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5}
+/* içerik ekrana sığmayınca ortalama üst kısmı kesmesin: boşlukları iki uçtaki esnek öğeler alır */
+.veil{justify-content:flex-start;overscroll-behavior:contain}
+.veil::before,.veil::after{content:"";flex:1 0 0}
+.sheet,.shBox{overscroll-behavior:contain}
+#acts{flex-direction:row;margin-top:20px}
+#acts button{flex:1;padding:14px 8px}
+#cmGame{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.wrCall,.shCall{display:block;margin:14px auto 0;padding:13px 26px;border-radius:100px;border:1px solid var(--air);color:var(--air);font-weight:700;font-size:15px;text-decoration:none;text-align:center;max-width:320px}
+.wrCall[hidden],.shCall[hidden],.tipCard[hidden],.ppAsk[hidden]{display:none}
+.tipCard{margin-top:14px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface);font-size:13.5px;line-height:1.55;color:var(--bone);text-align:left}
+.tipCard b{color:var(--air)}
+.tipCard button{display:block;margin-top:10px;font-size:13px;font-weight:700;color:var(--air)}
+#tipCard{padding:9px 14px;margin-top:10px}
+#tipCard .tipLine{margin:0;width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;font-weight:400;color:var(--bone);text-align:left}
+#tipCard .tipLine b{font-weight:600;color:var(--bone)}
+#tipCard .tipLine span{color:var(--air);font-size:12.5px;white-space:nowrap}
+#tipCard .tipBody{display:none;margin-top:8px;font-size:13px;color:var(--muted)}
+#tipCard.open .tipBody{display:block}
+.ageCard{margin:0 0 18px}
+.ageSrc{margin-top:8px;font-size:11px;color:var(--muted)}
+.ppAsk{font-size:12.5px;line-height:1.5;color:var(--muted);padding:2px 0 12px}
+.ppAsk button{display:block;margin-top:8px;font-size:13px;font-weight:700;color:var(--air)}
+details.msd{margin-top:7px}
+details.msd summary{list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--air);cursor:pointer;-webkit-user-select:none;user-select:none}
+details.msd summary::-webkit-details-marker{display:none}
+details.msd summary::after{content:"+";font-size:14px;line-height:1}
+details.msd[open] summary::after{content:"−"}
+details.msd p{margin-top:7px;font-size:13px;line-height:1.6;color:var(--bone);opacity:.86;font-weight:400}
+details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
 /* destek mesajı penceresi */
 .sheet{position:fixed;inset:0;z-index:80;background:rgba(3,10,12,.62);display:none;align-items:flex-end;justify-content:center}
 .sheet.open{display:flex}
@@ -703,6 +732,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
   </div>
   <div class="todayMoney"><span>Bugün cebinde kalan <b id="tMoney">₺0</b></span><span>toplam <b id="tMoneyAll">₺0</b></span></div>
   <div class="riskLine" id="tRisk" hidden></div>
+  <div class="tipCard" id="tipCard" hidden></div>
 </section>
 <div data-pg="bugun" class="craveSpace"></div>
 <button class="crave" id="craveBtn" data-pg="bugun">Canım çekiyor</button>
@@ -724,6 +754,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 <section class="mXfer" id="xferBox"></section>
 </div>
 <div id="bodyTab" data-pg="vucut">
+<div class="tipCard ageCard"><b>Ne kadar erken, o kadar iyi.</b> 25-34 yaşında bırakanlar, içmeye devam edenlere göre yaklaşık 10 yıl daha uzun yaşıyor. 30 yaşından önce bırakan kadınlar, sigaranın getirdiği fazladan ölüm riskinin %97'sinden fazlasından kurtuluyor.<div class="ageSrc">Jha ve ark., NEJM 2013 · Pirie ve ark., Lancet 2013</div></div>
 <section>
   <div class="head"><span class="eyebrow">Sistemlerin</span></div>
   <div class="sysGrid" id="sysGrid"></div>
@@ -797,6 +828,8 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
     <div class="row stack"><label for="qd">Son sigaranı içtiğin an</label><input type="datetime-local" id="qd"></div>
     <div class="row"><label for="pd">Günde kaç sigara içiyordun</label><input type="number" id="pd" min="1" max="80" inputmode="numeric"></div>
     <div class="row"><label for="pp">Paket fiyatı (₺)</label><input type="number" id="pp" min="1" max="5000" inputmode="decimal"></div>
+    <div class="ppAsk" id="ppAsk" hidden></div>
+    <div class="row"><label for="lk">Ömür hesabı</label><select id="lk"><option value="17">Erkek · sigara başına 17 dk</option><option value="22">Kadın · sigara başına 22 dk</option></select></div>
   </div>
 </div></details>
 <details class="sec" id="sec-para"><summary><span class="sT">Para</span><span class="sS" id="ss-para"></span></summary><div class="sBody">
@@ -829,7 +862,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
   <button class="danger" id="wipe">Tüm kaydı sil ve baştan başla</button>
 </section>
 </div>
-<p class="src" data-pg="ayarlar">Zaman çizelgesi: NHS, CDC ve American Cancer Society yayınları; nikotinik reseptör iyileşmesi için PET/SPECT görüntüleme çalışmaları. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına ortalama 17 dk (erkek). Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
+<p class="src" data-pg="ayarlar">Zaman çizelgesi: her adımın kaynağı Vücut sekmesinde, adımın altındaki “Nasıl oluyor?” kısmında. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına erkeklerde 17, kadınlarda 22 dk. Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
 </div>
 
 <div class="sheet" id="sheet" aria-hidden="true">
@@ -837,6 +870,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
     <div class="shHead"><b id="shT">Destek gönder</b><button id="shX" aria-label="Kapat">×</button></div>
     <div class="shSub" id="shSub"></div>
     <div class="shList" id="shList"></div>
+    <a class="shCall" id="shCall" href="#" hidden>Ara</a>
     <div class="shOwn"><textarea id="shTxt" maxlength="120" rows="2" placeholder="Ya da kendin yaz"></textarea><button id="shSend">Gönder</button></div>
   </div>
 </div>
@@ -883,6 +917,7 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
     <div class="phase" id="wrT">Birine yaz</div>
     <div class="sub" id="wrSub">Bir mesaj seç, WhatsApp açılsın.</div>
     <div class="wrList" id="wrList"></div>
+    <a class="wrCall" id="wrCall" href="#" hidden>Ara</a>
     <button class="wrOther" id="wrOther">Başka bir uygulamayla gönder</button>
     <div class="wrHint" id="wrHint"></div>
   </div>
@@ -927,7 +962,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v17',t:'Yeni: akciğer artık gerçek bir nefes ritmiyle nefes alıp veriyor. 4 saniye al, 6 saniye ver. İstersen onunla birlikte nefes al.'};
+const SURUM_NOTU={v:'v18',t:'Yeni: Vücut sekmesinde her adımın altında bilimsel açıklaması ve kaynağı var. Düzeldi: nefes balonu artık ilk nefesten itibaren büyüyüp küçülüyor ve kriz sırasında ekran kararmıyor. Yeni: Yaz sekmesinde ve destek ekranında arama tuşu, kadınlar için 22 dakikalık ömür hesabı (Ayarlar › Sigara). Zam olunca geçmiş birikim eski fiyatla kalıyor.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -942,48 +977,133 @@ let autoBusy=false;
 const SYS={beyin:'Beyin',akciger:'Akciğer',kalp:'Kalp & damar',duyu:'Tat & koku',cilt:'Cilt & görünüm',enerji:'Enerji & uyku',risk:'Uzun vadeli risk'};
 
 const MS=[
-[20*60,'20 dk','kalp','Nabzın ve tansiyonun normale döndü. Nikotinin daralttığı damarlar gevşedi.'],
-[30*60,'30 dk','beyin','Kandaki nikotin düşmeye başladı. İlk hafif huzursuzluk buradan gelir — tehlike değil, sadece beynin fark etmesi.'],
-[2*H,'2 saat','beyin','Nikotinin yarısı atıldı (yarı ömrü ~2 saat). İlk gerçek kriz genelde bu aralıkta gelir ve 3–5 dakikada geçer.'],
-[2*H,'2 saat','kalp','El ve ayak parmakların ısınmaya başladı — periferik dolaşımın açıldı.'],
-[8*H,'8 saat','kalp','Kandaki karbonmonoksit yarıya indi. Kırmızı kan hücrelerin yeniden oksijen taşıyor.'],
-[10*H,'10 saat','beyin','Reseptörlerin nikotin beklemeye başladı: huzursuzluk, dalgınlık, canın bir şey çekmesi. Hepsi normal ve geçici.'],
-[12*H,'12 saat','kalp','Karbonmonoksit tamamen normale döndü. Nefes darlığı ve yorgunluk azalmaya başladı.'],
-[24*H,'1 gün','akciger','Akciğerlerin gece boyunca mukus temizledi. Sabah öksürüğü kötüye işaret değil — temizliğin sesi.'],
-[24*H,'1 gün','kalp','Kalp krizi riskin düşmeye başladı.'],
-[36*H,'1,5 gün','beyin','Krizler tepe noktasına tırmanıyor. Bu senin zayıfladığın değil, beyninin nikotinsiz çalışmayı yeniden öğrendiği anlamına geliyor. En zor 24 saat şimdi başlıyor ve bittiğinde en kötüsü arkanda kalacak.'],
-[36*H,'1,5 gün','duyu','Tat ve koku sinir uçların onarılmaya başladı.'],
-[48*H,'2 gün','duyu','Tat ve koku belirgin şekilde keskinleşti. Yemekler bir anda farklı gelmeye başlar.'],
-[48*H,'2 gün','akciger','Akciğerdeki tüycükler (siller) yeniden çalışmaya başladı; toz ve mukusu yukarı süpürüyorlar.'],
-[72*H,'3 gün','beyin','Nikotin vücudundan tamamen çıktı. Bundan sonrası kimyasal bağımlılık değil, alışkanlık. En sert gün geride.'],
-[72*H,'3 gün','akciger','Bronşların gevşedi, nefes kapasiten arttı.'],
-[4*D,'4 gün','beyin','Yoksunluğun fiziksel tepesi geçti. Sinirlilik ve iştah artışı bundan sonra azalarak devam eder.'],
-[5*D,'5 gün','enerji','Uyku düzenin toparlanmaya başlıyor. İlk günlerdeki bozulma normaldi.'],
-[7*D,'1 hafta','beyin','En riskli hafta bitti. Bu noktaya gelenlerin bırakma şansı kat kat yüksek.'],
-[7*D,'1 hafta','duyu','Ağız kokusu geçti, dilindeki tabaka inceldi.'],
-[7*D,'1 hafta','cilt','Cildine giden kan akışı arttı; gri ton açılmaya başladı.'],
-[10*D,'10 gün','beyin','Krizler kısaldı — artık dakikalarla değil saniyelerle ölçülüyorlar.'],
-[14*D,'2 hafta','kalp','Dolaşımın düzeldi. Yürümek ve merdiven çıkmak gözle görülür şekilde kolaylaştı.'],
-[14*D,'2 hafta','cilt','Yara iyileşmen ve diş eti sağlığın hızlandı. Ameliyat olacak biri için kritik eşik burasıdır.'],
-[21*D,'3 hafta','akciger','Akciğer fonksiyonun ölçülebilir şekilde arttı. Merdivende farkı hissedersin.'],
-[21*D,'3 hafta','beyin','Beyin sisi kalkıyor: odaklanma ve kısa süreli hafıza toparlanıyor.'],
-[30*D,'1 ay','akciger','Öksürük ve nefes darlığı belirgin azaldı.'],
-[30*D,'1 ay','duyu','Koku alman neredeyse tam. Artık sigara kokusunu başkalarının üstünde fark edersin.'],
-[30*D,'1 ay','cilt','Cilt tonun ve nem dengen düzeldi; kollajen yıkımı yavaşladı.'],
-[42*D,'6 hafta','beyin','Beynindeki nikotinik reseptörlerin sayısı sigara içmeyen birinin seviyesine döndü. Görüntüleme çalışmaları bu eşiği 4–6 hafta olarak veriyor. Sabah sisi ve sebepsiz düşük ruh hali bu dönemde kalkar.'],
-[60*D,'2 ay','enerji','Bağışıklığın toparladı; hastalıklardan daha çabuk kurtuluyorsun.'],
-[90*D,'3 ay','beyin','Dopamin sentezin normale döndü. Sıradan şeylerin yeniden keyif vermeye başlaması tam olarak bu.'],
-[90*D,'3 ay','cilt','Parmak ve diş sararması açılmaya başladı.'],
-[90*D,'3 ay','enerji','Uyku kaliten ve gün içi enerjin oturdu.'],
-[180*D,'6 ay','akciger','Balgam ve kronik öksürük büyük ölçüde geçti.'],
-[180*D,'6 ay','beyin','Stres anındaki ilk refleksin artık sigara değil. Yeni davranış yerleşti.'],
-[270*D,'9 ay','akciger','Siller tamamen yenilendi; akciğer enfeksiyonu riskin düştü, kapasiten %10\'a varan oranda arttı.'],
-[Y,'1 yıl','risk','Koroner kalp hastalığı riskin, içmeye devam eden birinin yarısı.'],
-[2*Y,'2 yıl','risk','Kalp krizi riskin hiç içmeyenlerin seviyesine yaklaştı.'],
-[5*Y,'5 yıl','risk','Ağız, boğaz, yemek borusu ve mesane kanseri riskin yarıya indi. Felç riskin içmeyenlere yaklaştı.'],
-[10*Y,'10 yıl','risk','Akciğer kanserinden ölme riskin, içmeye devam eden birinin yarısı.'],
-[15*Y,'15 yıl','risk','Kalp hastalığı riskin hiç sigara içmemiş biriyle aynı.'],
-[20*Y,'20 yıl','risk','Toplam ölüm riskin, hiç sigara içmemiş birininkine denk.']
+// [süre (sn), etiket, sistem, kısa cümle (bildirim ve kartlar), bilimsel açıklama, kaynak]
+[20*60,"20 dk","kalp","Son sigaranın nabız ve tansiyonda yarattığı yükseliş geçti.",
+ "Nikotin adrenalin ve noradrenalin salgılatarak nabzı ve tansiyonu hemen yükseltir. Bir çalışmada günün ilk sigarası büyük tansiyonu %7, küçük tansiyonu %10, nabzı %25 artırdı. Bu yükseliş yaklaşık 15. dakikada tepe yapıyor ve bir saate kadar sürebiliyor. İçen biri bunu günde onlarca kez yaşar.",
+ "Cryer ve ark., NEJM 1976 · Fundam Clin Pharmacol 1999"],
+[30*60,"30 dk","beyin","Kandaki nikotin düşmeye başladı.",
+ "Nikotinin kandaki yarı ömrü ortalama 2 saat. İçen biri bu düşüşü gün boyu yeni sigarayla telafi eder, bu yüzden beyin belli bir nikotin düzeyine alışmıştır. Düşüş başlayınca hissettiğin ilk hafif huzursuzluk bu alışkanlığın sinyali. Tehlikeli değil, beklenen bir durum.",
+ "Benowitz ve ark., Handb Exp Pharmacol 2009"],
+[2*H,"2 saat","beyin","Nikotinin yarısı atıldı.",
+ "Nikotinin yaklaşık %70-80'i karaciğerde kotinine dönüşür. Kotininin yarı ömrü yaklaşık 16 saat, yani nikotin saatler içinde düşerken kotinin birkaç gün kanda kalır. İlk güçlü istekler çoğu zaman bu saatlerde gelir. Bir isteğin şiddeti kalıcı değil, dalga gibi yükselip iner.",
+ "Benowitz ve ark. 2009 · NCI Monografi 7"],
+[2*H,"2 saat","kalp","El ve ayak parmaklarına giden kan artmaya başladı.",
+ "Nikotin deri damarlarını daraltır. Sigarayla yükselen tansiyonun bir kısmı da damar direncindeki bu artıştan gelir. Nikotin kandan çekildikçe daralma gevşer ve uç kısımlara giden kan artar. Bu sürenin kendisi doğrudan ölçülmüş değil, nikotinin düşüş hızından yapılan bir tahmin.",
+ "Blood Press 1996 derlemesi · Benowitz ve ark. 2009"],
+[8*H,"8 saat","kalp","Kandaki karbonmonoksit üçte bir civarına indi.",
+ "Karbonmonoksit hemoglobine oksijenden yaklaşık 200 kat sıkı bağlanır ve onun yerini kaplar. ABD'deki geniş bir taramada (NHANES II) içenlerde kandaki karboksihemoglobin ortalama %4,3, günde bir paketten fazla içenlerde %5,8, içmeyenlerde %0,8 bulundu. Normal havada yarılanma süresi ortalama 320 dakika. 8 saatte başlangıç değerinin üçte biri kadarı kalır.",
+ "NHANES II · Peterson ve Stewart 1970"],
+[10*H,"10 saat","beyin","Beynindeki nikotin reseptörleri boşalıyor. Huzursuzluk bundan.",
+ "Yıllarca içen birinin beyninde nikotinin bağlandığı α4β2 tipi reseptörlerin sayısı artmıştır. Nikotin çekilince bu fazla reseptör boşta kalır. Huzursuzluk, dalgınlık ve sigara isteği bu dengesizlikten doğar. Görüntüleme çalışmasında fazlalık ilk haftada belirgin, 6-12 haftada içmeyenlerin düzeyine iniyor.",
+ "Cosgrove ve ark., Arch Gen Psychiatry 2009"],
+[12*H,"12 saat","kalp","Karbonmonoksit çoğu kişide içmeyen düzeyine indi.",
+ "320 dakikalık yarılanmayla 12 saatte başlangıç değerinin yaklaşık beşte biri kalır. Ortalama bir içicide bu %4,3'ten %1'in altına, yani içmeyenlerin düzeyine iner. Çok içenlerde ya da uykuda (nefes yavaşken) bu süre bir günü bulabilir. Hemoglobinin oksijen taşıma kapasitesi geri geliyor.",
+ "NHANES II · Peterson ve Stewart 1970"],
+[24*H,"1 gün","akciger","Akciğerlerin kendini temizlemeye başladı. Öksürük artabilir.",
+ "Sigara dumanı solunum yollarındaki tüycüklerin (silyaların) hareketini yavaşlatır ve mukus temizliğini bozar. Duman kesilince temizlik hızlanmaya başlar, bu yüzden bazı kişilerde ilk günlerde öksürük ve balgam artar. Yoksunluk belirtilerini derleyen incelemede öksürük bırakmanın olası etkileri arasında sayılıyor. Haftalarca süren ya da kötüleşen öksürük ise doktora gösterilmeli.",
+ "Hughes, Nicotine Tob Res 2007"],
+[24*H,"1 gün","kalp","Kalbi yoran akut etkiler azaldı.",
+ "Kalp krizini tetikleyen etkilerin bir kısmı doğrudan sigaraya bağlı: tekrarlayan nabız ve tansiyon yükselişleri, kandaki karbonmonoksit ve kanın pıhtılaşma eğilimi. İlk ikisi bir gün içinde büyük ölçüde geçiyor. Bırakmak iltihap ve pıhtılaşma göstergelerini de düşürüyor. Kalp krizi riskindeki keskin düşüş ise 1-2 yıl içinde ölçülüyor.",
+ "CDC, ABD Başhekimlik raporu 2020"],
+[36*H,"1,5 gün","beyin","Yoksunluğun zirvesine giriyorsun. Bu zayıflık değil, beynin nikotinsiz çalışmayı öğreniyor.",
+ "Kanıtlanmış yoksunluk belirtileri öfke, kaygı, keder, odaklanma güçlüğü, sabırsızlık, uykusuzluk ve huzursuzluk. Hepsi ilk hafta içinde zirve yapıyor ve 2-4 hafta sürüyor. İlk günlerin en zor olması başarısızlık işareti değil, bilinen seyir.",
+ "Hughes, Nicotine Tob Res 2007"],
+[36*H,"1,5 gün","duyu","Tat hücrelerin dumansız yenilenmeye başladı.",
+ "Dildeki tat alma hücreleri kısa ömürlüdür ve sürekli yenilenir. Hayvan çalışmalarında bir tat hücresinin ömrü ortalama 10 gün civarında. Bırakmadan sonra oluşan yeni hücreler artık sıcak duman ve kimyasallarla karşılaşmıyor. Ölçülebilir iyileşme birkaç hafta sürüyor, 2. hafta adımına bak.",
+ "Beidler ve Smallman 1965 · Chéruel ve ark. 2017"],
+[72*H,"3 gün","beyin","Nikotin kandan tamamen çıktı. Beyindeki uyum ise haftalarca sürüyor.",
+ "2 saatlik yarı ömürle 72 saat 36 yarı ömür eder, kanda ölçülebilir nikotin kalmaz. Yan ürünü kotinin birkaç gün daha ölçülebilir, idrarda yaklaşık bir hafta içinde kaybolur. Beyindeki reseptör fazlası ise 6-12 hafta sürüyor. Yani bundan sonra gelen istekler sadece alışkanlık değil, beynin yeniden ayarlanması.",
+ "Benowitz ve ark. 2009 · Cosgrove ve ark. 2009"],
+[4*D,"4 gün","beyin","Yoksunluk belirtilerinin zirvesindesin ya da geçtin.",
+ "Belirtilerin çoğu ilk hafta içinde zirve yapıp sonra azalıyor. Zirvenin günü kişiden kişiye değişiyor. İştah artışı daha uzun sürebilir: bırakanların aldığı kilonun çoğu ilk 3 ayda geliyor.",
+ "Hughes 2007 · Aubin ve ark., BMJ 2012"],
+[5*D,"5 gün","enerji","Uyku bozulması zirvede ya da geçmek üzere.",
+ "Uykusuzluk bilinen yoksunluk belirtilerinden biri. Diğerleri gibi ilk haftada zirve yapıp 2-4 haftada düzeliyor. Bu dönemde akşam kafeinini azaltmak işe yarar: sigara kafeini parçalayan enzimi hızlandırıyordu, bırakınca kafein kanda daha uzun kalıyor.",
+ "Hughes 2007 · UCSF Rx for Change"],
+[7*D,"1 hafta","beyin","En riskli hafta bitti. Bırakıp yeniden başlayanların çoğu ilk iki haftada başlıyor, sen yarısını geçtin.",
+ "Nikotin bandı çalışmalarında 6. ayda yeniden içen kişilerin bant grubunda %74'ü, plasebo grubunda %86'sı ilk iki hafta içinde sigaraya dönmüştü. İlk iki haftayı temiz geçirmek uzun vadeli başarının en güçlü işaretlerinden biri.",
+ "Kenford ve ark., JAMA 1994"],
+[7*D,"1 hafta","duyu","Sigaraya bağlı ağız kokusu büyük ölçüde gitti.",
+ "İçenlerdeki ağız kokusunun büyük kısmı dumanın kendisinden ve ağızda kalan kimyasallardan gelir, bu yüzden günler içinde azalır. Bu sürenin kendisi doğrudan ölçülmüş değil. Diş ya da diş eti kaynaklı bir koku varsa o ayrıca tedavi ister.",
+ "Mekanizmaya dayalı tahmin"],
+[7*D,"1 hafta","cilt","Deriye giden kanı kısan nikotin etkisi kalktı.",
+ "Nikotin deri damarlarını daraltır, içenlerde deriye giden kan akışı düşüktür. Nikotin vücuttan çıkınca bu daralma ortadan kalkar. Dokunun daha iyi beslenmesinin klinik karşılığı en net yara iyileşmesinde ölçülmüş, 4. hafta adımına bak.",
+ "Mekanizmaya dayalı · DSÖ 2020"],
+[10*D,"10 gün","beyin","Huzursuzluk, sinirlilik ve uykusuzluk ilk haftada zirve yapıp 2 ile 4 haftada geçer. Yolun ortasındasın.",
+ "Hughes'un 120 çalışmayı kullanan derlemesi geçerli yoksunluk belirtilerini öfke, kaygı, keder, odaklanma güçlüğü, sabırsızlık, uykusuzluk ve huzursuzluk olarak sayıyor. Ortak seyirleri ilk haftada zirve, 2-4 haftada geçiş. Uyuşukluk ve yorgunluk ise yoksunluğa bağlı bulunmadı.",
+ "Hughes, Nicotine Tob Res 2007"],
+[14*D,"2 hafta","kalp","Dolaşımın düzelmeye başladı.",
+ "Amerikan Kanser Derneği'ne göre dolaşımdaki iyileşme 2. hafta ile 3. ay arasında başlıyor. Ölçülmüş en net veri damar iç yüzeyinin (endotel) genişleyebilme yeteneği: 1.504 kişilik bir çalışmada bırakanlarda bu değer bir yılda %6,2'den %7,2'ye çıktı, içmeye devam edenlerde değişmedi. İyileşme kilo alınmasına rağmen gerçekleşti.",
+ "ACS · Johnson ve ark., JACC 2010"],
+[14*D,"2 hafta","duyu","Dilinin ucunda ve kenarlarında tat hassasiyeti düzeldi.",
+ "Bir çalışmada tat hassasiyeti dilin farklı bölgelerinde elektrikle ölçüldü. Bırakmadan 2 hafta sonra dilin ucunda ve kenarlarında içmeyenlerin aralığına doğru iyileşme görüldü. Dilin arka kısmında tam düzelme 9 hafta, üst yüzeyinde 2 aydan fazla sürdü.",
+ "Chéruel ve ark., Tob Induc Dis 2017"],
+[21*D,"3 hafta","akciger","Akciğer fonksiyonun artmaya başladı.",
+ "Amerikan Kanser Derneği bu artışın 2. hafta ile 3. ay arasında başladığını söylüyor. Ölçülmüş sayılar mütevazı ama anlamlı: 3.926 içicinin izlendiği Lung Health Study'de bırakanların FEV1 değeri (ilk saniyede verilen hava) ilk yılda ortalama 47 mL, yani %2 arttı. Kadınlarda artış erkeklerin iki katından fazlaydı.",
+ "ACS · Scanlon ve ark. 2000 · Connett ve ark. 2003"],
+[21*D,"3 hafta","beyin","Beyin sisi kalkıyor, odaklanma toparlanıyor.",
+ "Odaklanma güçlüğü kanıtlanmış yoksunluk belirtilerinden biri ve diğerleri gibi 2-4 haftada geçiyor. Bu aralığın içindesin.",
+ "Hughes, Nicotine Tob Res 2007"],
+[28*D,"4 hafta","beyin","28 gün dayandın. NHS verilerine göre bu noktaya gelen biri kalıcı olarak bırakmaya 5 kat daha yakın.",
+ "İngiltere'de her yıl yapılan Stoptober kampanyası bu bulguya dayanıyor: 28 gün içmeyen biri kalıcı olarak bırakmaya 5 kat daha yakın. Yoksunluk belirtilerinin bilinen süresi de (2-4 hafta) burada bitiyor.",
+ "NHS Stoptober · Hughes 2007"],
+[28*D,"4 hafta","cilt","Ameliyat ve yara iyileşmesi için önemli eşiği geçtin.",
+ "Dünya Sağlık Örgütü'nün 2020 raporuna göre ameliyattan en az 4 hafta önce bırakanlarda komplikasyon riski daha düşük, 6 ay sonraki sonuçlar daha iyi. 4 haftadan sonraki her temiz hafta sonuçları %19 iyileştiriyor. Nedeni dokuya giden kanın ve oksijenin artması. Randomize çalışmaları birleştiren bir analizde bırakmak komplikasyonları %41 azalttı.",
+ "DSÖ 2020 · Mills ve ark., Am J Med 2011"],
+[28*D,"4 hafta","enerji","Uyku düzenin çoğu kişide toparlandı.",
+ "Yoksunluğa bağlı uykusuzluk 2-4 haftada geçiyor. Hâlâ uyuyamıyorsan kafein saatine bak: bırakınca kafein kanda yaklaşık %56 daha yüksek düzeyde kalıyor.",
+ "Hughes 2007 · UCSF Rx for Change"],
+[30*D,"1 ay","akciger","Solunum yollarının temizlik sistemi hızlandı.",
+ "Burundaki mukus temizliğini ölçen bir çalışmada bırakmadan 1 ay sonra katılımcıların %63'ünde, 12 ay sonra %85'inde anlamlı iyileşme görüldü. Başka bir çalışmada temizlik süresi içenlerde 13,2 dakika, eski içicilerde 7,3, hiç içmemişlerde 7,2 dakikaydı. Yani hasar geri dönebiliyor.",
+ "Utiyama ve ark., Clinics 2016 · Emma ve ark., Front Physiol 2020"],
+[42*D,"6 hafta","beyin","Beynindeki fazla nikotin reseptörü normale iniyor.",
+ "Ortalama 21 yıl, günde yaklaşık bir paket içmiş kişilerle yapılan görüntüleme çalışmasında reseptör yoğunluğu bırakmanın 1. haftasında içmeyenlerden belirgin yüksekti (ön kortekste %21). 6-12. haftalarda içmeyenlerin düzeyine indi. Kişiden kişiye fark büyük, bazılarında daha uzun sürebilir.",
+ "Cosgrove ve ark., Arch Gen Psychiatry 2009"],
+[45*D,"45 gün","duyu","Koku ayırt etme ve tanıma ölçülebilir şekilde düzeldi.",
+ "Gazi Üniversitesi'nde 28 kişinin koku testleri bırakmadan hemen önce ve 45 gün sonra yapıldı. Kokuları ayırt etme, tanıma ve toplam puan anlamlı şekilde arttı. İyileşme, sigara içilen süre uzadıkça azalıyordu. Yaşlı yetişkinlerle yapılan bir çalışmada ise koku bozukluğu bıraktıktan sonra 15 yıl kadar sürdü. Genç bırakan için tablo çok daha iyi.",
+ "Dinç ve ark., Laryngoscope 2020"],
+[63*D,"9 hafta","duyu","Dilinin arka kısmında da tat hassasiyeti içmeyenlerin düzeyine geldi.",
+ "Aynı tat çalışmasında dilin arka kısmı 9. haftada tamamen düzeldi. Dilin üst yüzeyi en geç toparlanan bölge oldu, 2 aydan uzun sürdü. Yani tadın bütünüyle dönmesi yaklaşık 2-3 ay.",
+ "Chéruel ve ark., Tob Induc Dis 2017"],
+[90*D,"3 ay","beyin","Dopamin üretim kapasiten normale döndü.",
+ "Bir PET çalışmasında içenlerde beynin ödül devresinin parçası olan kaudat çekirdekte dopamin üretim kapasitesi içmeyenlerden %15-20 düşüktü. Bırakan 15 erkek 3 ay sonra yeniden tarandığında bu fark kapanmıştı. Sıradan şeylerden yeniden keyif almanın biyolojik karşılığı bu. Çalışma sadece erkeklerle yapıldı.",
+ "Rademacher ve ark., Biol Psychiatry 2016"],
+[90*D,"3 ay","cilt","Parmaklardaki sararma deri yenilendikçe kayboldu.",
+ "Derinin yüzey tabakası yaklaşık 4-6 haftada bir yenilenir, bu yüzden parmaklardaki katran lekesi birkaç ay içinde kendiliğinden gider. Dişlerdeki lekeler ise kendiliğinden geçmez, diş hekiminde temizlik gerekir.",
+ "Mekanizmaya dayalı tahmin"],
+[90*D,"3 ay","enerji","Kilo değişiminin büyük kısmı bu dönemde olur.",
+ "62 çalışmayı birleştiren bir analizde bırakanlar 3 ayda ortalama 2,9 kg, 12 ayda 4-5 kg aldı. Kilonun çoğu ilk 3 ayda geliyor. Fark çok büyük: bırakanların %16'sı kilo verirken %13'ü 10 kg'dan fazla aldı. Hareket bu dönemde hem kiloyu hem sigara isteğini düşürüyor.",
+ "Aubin ve ark., BMJ 2012 · Taylor ve ark., Addiction 2007"],
+[180*D,"6 ay","akciger","Kronik öksürük ve balgam büyük ölçüde azaldı.",
+ "Lung Health Study'de bırakmayı sürdürenler öksürük, balgam, hırıltı ve nefes darlığının en az görüldüğü grup oldu. Belirtilerdeki değişimin büyük kısmı ilk yıl içinde gerçekleşti. 7 yıllık daha eski bir izlemde öksürüğü süren eski içicilerin %72'si, balgamı sürenlerin %64'ü bu belirtilerden kurtuldu.",
+ "Kanner ve ark., Am J Med 1999 · ABD Başhekimlik raporu 1990"],
+[180*D,"6 ay","beyin","Stres anındaki ilk refleksin artık sigara değil.",
+ "Yeni bir davranışın otomatikleşmesini izleyen bir çalışmada bu süre ortalama 66 gün, kişiye göre 18 ile 254 gün arasında değişti. 6 ay bu aralığın içinde. Yine de stresli ya da alkollü bir anda isteğin geri gelmesi normal, yeniden başladığın anlamına gelmez.",
+ "Lally ve ark., Eur J Soc Psychol 2010"],
+[Y,"1 yıl","akciger","Akciğer kapasiten arttı, yıllık kayıp hızın yarıya indi.",
+ "Lung Health Study'de bırakanların FEV1 değeri ilk yıl ortalama %2 arttı. Sonraki yıllarda yaşa bağlı kayıp yılda 31 mL'ye indi, içmeye devam edenlerde 62 mL'ydi. Yani kayıp hızı yarıya, hiç içmemişlerin düzeyine indi.",
+ "Scanlon ve ark., Am J Respir Crit Care Med 2000"],
+[Y,"1 yıl","risk","Kalp krizi riskin keskin şekilde düşüyor.",
+ "ABD Başhekimlik raporuna dayanan CDC özetine göre kalp krizi riski bırakmadan 1-2 yıl sonra keskin şekilde düşüyor. Bunda damar iç yüzeyinin iyileşmesi (1 yılda ölçülebilir) ve kanın pıhtılaşma eğiliminin azalması rol oynuyor. HDL (iyi) kolesterol de hızla yükseliyor.",
+ "CDC, ABD Başhekimlik raporu 2020 · Johnson ve ark. 2010"],
+[2*Y,"2 yıl","risk","Kalp damar hastalığı riskin, içmeye devam eden birine göre belirgin düştü. Hiç içmeyenlerin seviyesine inmesi daha uzun sürer, ama yön değişmedi.",
+ "Framingham verisinde (en az 20 paket-yıl içmiş kişiler) kalp damar hastalığı riski bırakmadan sonraki 5 yıl içinde içmeye devam edenlere göre %39 daha düşüktü. Hiç içmeyenlere göre ise en az 5-10 yıl, belki 25 yıl yüksek kaldı. Daha az ve daha kısa süre içmiş biri için normale dönüş daha hızlı olabilir.",
+ "Duncan ve ark., JAMA 2019"],
+[3*Y,"3 yıl","risk","Koroner kalp hastalığından gelen ek riskin yarıya iniyor.",
+ "CDC özetine göre koroner kalp hastalığından gelen ek risk bırakmadan 3-6 yıl sonra yarıya iniyor. Eski kaynaklar bunu 1 yıl olarak verirdi. 2020 Başhekimlik raporu daha uzun bir süre gösteriyor.",
+ "CDC, ABD Başhekimlik raporu 2020"],
+[5*Y,"5 yıl","risk","Ağız, boğaz ve gırtlak kanseri riskin yarıya iniyor, felç riskin düşüyor.",
+ "Amerikan Kanser Derneği'ne göre bu iki değişim bırakmadan 5-10 yıl sonra görülüyor. CDC'ye göre felç riski zamanla hiç içmeyenlerin düzeyine yaklaşıyor.",
+ "ACS · CDC"],
+[10*Y,"10 yıl","risk","Akciğer kanseri riskin içmeye devam eden birinin yarısına indi.",
+ "Amerikan Kanser Derneği'ne göre 10 yıl sonra akciğer kanseri riski içmeye devam eden birinin yaklaşık yarısı. Mesane, yemek borusu ve böbrek kanseri riskleri de düşüyor.",
+ "ACS"],
+[15*Y,"15 yıl","risk","Koroner kalp hastalığı riskin hiç içmemiş birine yakın.",
+ "CDC ve Amerikan Kanser Derneği'ne göre 15 yıl sonra koroner kalp hastalığı riski hiç içmemiş birinin riskine yakın. Aynı değil, yakın: ağır içicilerde küçük bir fark daha uzun sürebiliyor.",
+ "CDC · ACS · Duncan ve ark. 2019"],
+[20*Y,"20 yıl","risk","Ağız, boğaz, gırtlak ve pankreas kanseri riskin içmeyenlere yaklaştı.",
+ "Amerikan Kanser Derneği'ne göre 20 yıl sonra bu kanserlerin riski hiç içmemiş birine yakın, rahim ağzı kanserindeki ek risk yarıya iniyor. Genç bırakmanın toplam karşılığı daha da büyük: 25-34 yaşında bırakanlar devam edenlere göre yaklaşık 10 yıl daha uzun yaşıyor, 40 yaşından önce bırakmak sigaraya bağlı ölüm riskini yaklaşık %90 azaltıyor.",
+ "ACS · Jha ve ark., NEJM 2013"]
 ];
 
 const RINGS=[[Y,'Kalp &<br>damar'],[270*D,'Akciğer'],[42*D,'Beyin'],[14*D,'Tat &<br>koku']];
@@ -1148,6 +1268,19 @@ function pct(n,d=3){return '%'+(n*100).toFixed(d).replace('.',',')}
 const pc1=v=>'%'+(+v).toFixed(1).replace('.',',').replace(',0','');
 
 /* bileşik faiz: her gün c kadar yatırılıyor; taban tutara faiz işletilmiyor */
+/* Gerçekleşen tutar. Paket fiyatı değişince (zam) geçmiş günler eski fiyatla kalır.
+   S.priceHist: [{at,p}] "at anından itibaren fiyat p". "Bir tane içtim" kayıtları da düşülür. */
+function slipN(from){const f=from||S.quitAt;return S.log.filter(l=>l.type==='slip'&&l.at>=f).length}
+function spentNom(){
+  const now=Date.now(),t0=S.quitAt;if(now<=t0)return 0;
+  const H=(S.priceHist||[]).filter(h=>h&&h.at<now).sort((a,b)=>a.at-b.at),per=S.perDay/20/(D*1000);let tot=0;
+  if(!H.length)tot=per*S.packPrice*(now-t0);
+  else H.forEach((h,i)=>{const lo=Math.max(i===0?Math.min(t0,h.at):h.at,t0),hi=Math.min(i+1<H.length?H[i+1].at:now,now);if(hi>lo)tot+=per*h.p*(hi-lo)});
+  return Math.max(0,tot-slipN()*S.packPrice/20);
+}
+function setPrice(v){if(!(v>0)||v===S.packPrice)return;const now=Date.now();
+  if(!S.priceHist.length)S.priceHist.push({at:S.quitAt,p:S.packPrice});
+  S.priceHist.push({at:now,p:v});S.packPrice=v}
 function fv(c,days,annual,noInterest=0,start=0){
  const i=dailyRate(annual),whole=Math.floor(Math.max(0,days)),part=Math.max(0,days)-whole;
  let bal=start;
@@ -1316,7 +1449,7 @@ function renderMoney(force){
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
   const key=[Math.floor(sec/60),S.quitAt,S.perDay,S.packPrice,S.rate,S.noInterest,S.infl,S.goalAmount,S.goalName,S.transfers.length,mSpanY,S.moneyNominal].join('|');
   if(!force&&key===moneyKey)return;moneyKey=key;
-  const c=S.perDay/20*S.packPrice,nom=c*days,wint=fv(c,days,S.rate,S.noInterest);
+  const c0=S.perDay/20*S.packPrice,nom=spentNom(),c=days>0?nom/days:c0,wint=fv(c,days,S.rate,S.noInterest);
   // büyük sayı
   if(force&&nom>0){
     cancelAnimationFrame(heroAnim);const t0=performance.now();
@@ -1371,8 +1504,8 @@ let progKey='',showAllBadges=false;
 const WEEK=7*D*1000;
 function progCtx(){
   const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D;
-  const c=S.perDay/20*S.packPrice, nom=c*days, gain=fv(c,days,S.rate,S.noInterest)-nom;
-  return {sec,days,nom,gain,lifeMin:days*S.perDay*17,
+  const nom=spentNom(),ca=days>0?nom/days:0, gain=fv(ca,days,S.rate,S.noInterest)-nom;
+  return {sec,days,nom,gain,lifeMin:Math.max(0,days*S.perDay-slipN())*S.lifeK,
     wins:S.log.filter(l=>l.type==='won').length,resets:S.log.filter(l=>l.type==='reset').length,
     best:S.best,goalAmount:S.goalAmount,pp:S.packPrice};
 }
@@ -1502,10 +1635,12 @@ function renderCrisisMap(ctx){
   const topT=Object.entries(tc).sort((a,b)=>b[1]-a[1])[0];
   const hb=Array(12).fill(0);won.forEach(l=>hb[Math.floor(new Date(l.at).getHours()/2)]++);
   const hi=hb.indexOf(Math.max(...hb));
+  const mc={};won.filter(l=>l.method).forEach(l=>mc[l.method]=(mc[l.method]||0)+1);
+  const topM=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0],MN={nefes:'Nefes',hareket:'Hareket',oyun:'Oyun',yaz:'Yazmak'};
   $('crisisMap').innerHTML='<svg class="cmBars" viewBox="0 -10 340 92">'+svg+'</svg>'+
     '<div class="psm">Boy kriz sayısı, renk şiddet. Turuncudan yeşile doğru hafifliyor.</div>'+
     '<div class="cmChips"><div class="cmChip"><b>'+(topT?esc(topT[0]):'—')+'</b><span>'+(topT?'en sık tetikleyici · '+topT[1]+' kez':'tetikleyici etiketlenmemiş')+'</span></div>'+
-    '<div class="cmChip"><b>'+pad(hi*2)+'–'+pad((hi*2+2)%24)+'</b><span>en riskli saat aralığı</span></div></div>';
+    '<div class="cmChip"><b>'+pad(hi*2)+'–'+pad((hi*2+2)%24)+'</b><span>en riskli saat aralığı</span></div>'+(topM&&MN[topM[0]]?'<div class="cmChip"><b>'+MN[topM[0]]+'</b><span>en çok atlattığın yöntem · '+topM[1]+' kez</span></div>':'')+'</div>';
 }
 
 function renderProgress(force){
@@ -1543,6 +1678,10 @@ function migrate(){
  if(!Array.isArray(S.transfers))S.transfers=[];
  // bu telefona özel kimlik: bildirim aboneliği ve widget bu kimlikle eşleşir
  if(!/^[a-f0-9]{32}$/.test(S.devId||''))S.devId=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ if(!/^[a-f0-9]{32}$/.test(S.sk||''))S.sk=[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
+ if(S.lifeK!==22)S.lifeK=17;
+ // v18: kilometre taşı listesi değişti, yerel bildirim sırası yeni listeye göre hizalansın
+ if(S.msv!==2){S.msv=2;const sc=(Date.now()-S.quitAt)/1000;let li=-1;MS.forEach((m,i)=>{if(sc>=m[0])li=i});S.notifIdx=li}if(!Array.isArray(S.priceHist))S.priceHist=[];if(!S.tips||typeof S.tips!=='object')S.tips={};
  S.push=Object.assign({on:false,ms:true,daily:true,risk:true,upd:true,hour:21,key:'',lastSync:0,lastHash:'',lastErr:'',count:0},S.push||{});
  S.widget=Object.assign({on:false,style:'sayac',tap:'safari'},S.widget||{});
  S.push.badge=S.push.badge!==false;S.push.friend=S.push.friend!==false;
@@ -1569,7 +1708,7 @@ async function fetchFromWorker(){
   if(lk[key])out.push(label+' elle kilitli, kaynakta '+fmt(v)+' görünüyor.');
   else{setFn(v);out.push(label+' '+fmt(v)+' olarak güncellendi.')}
  }
- apply('price',data.price,'Fiyat',v=>{S.packPrice=Math.max(1,v||S.packPrice)},v=>TL(v));
+ apply('price',data.price,'Fiyat',v=>{setPrice(Math.max(1,v||S.packPrice))},v=>TL(v));
  apply('cpi',data.cpi,'TÜFE',v=>{S.infl=Math.max(0,v||S.infl)},v=>'%'+v.toFixed(1).replace('.',','));
  apply('deposit',data.deposit,'Faiz',v=>{S.rate=Math.max(0,v||S.rate)},v=>'%'+v.toFixed(1).replace('.',','));
  return out.join(' ');
@@ -1629,9 +1768,9 @@ function render(){
   {const q=new Date(S.quitAt);$('quitLabel').textContent=q.toLocaleString('tr-TR',Object.assign({day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'},q.getFullYear()!==new Date().getFullYear()?{year:'numeric'}:{}))}
 
   const c=S.perDay/20*S.packPrice;
-  const nom=c*days, wint=fv(c,days,S.rate,S.noInterest), gain=wint-nom;
+  const nom=spentNom(), ca=days>0?nom/days:c, wint=fv(ca,days,S.rate,S.noInterest), gain=wint-nom;
   const real=wint/Math.pow(1+S.infl/100,days/365);
-  const sticks=days*S.perDay, lifeMin=sticks*17;
+  const sticks=Math.max(0,days*S.perDay-slipN()), lifeMin=sticks*S.lifeK;
   const wins=S.log.filter(l=>l.type==='won').length, resets=S.log.filter(l=>l.type==='reset').length;
 
   renderToday(sec,days,nom);
@@ -1678,11 +1817,21 @@ let timer,tick,endAt,actsT,breathI=0;
 // Nefes varsayılan. Hareket: kısa egzersiz sigara isteğini hızla düşürüyor (Taylor, Ussher, Faulkner 2007).
 // Oyun: görsel-uzamsal bir oyun, isteği besleyen zihinsel canlandırmayla yarışıyor (Skorka-Brown ve ark. 2015).
 let cmMode='nefes',crisisAt0=0,cmPollT=null;
-function breathStart(){clearTimeout(timer);if(endAt&&Date.now()>=endAt)return;
+let breathRaf=0;
+function breathStart(){clearTimeout(timer);cancelAnimationFrame(breathRaf);if(endAt&&Date.now()>=endAt)return;
+  // Kriz ekranı yeni açıldıysa ya da başka sekmeden dönüldüyse balon o ana kadar gizliydi. Tarayıcı gizli bir
+  // öğede geçiş başlatmaz, balon ilk "al"da büyümek yerine bir anda büyük görünürdü. Başlangıç boyutunu
+  // geçişsiz ayarla, iki kare bekle, sonra evreyi başlat.
+  const o=$('orb');o.style.transitionDuration='0s';o.style.transform='scale('+(breathI%3===0?.45:1)+')';void o.offsetWidth;
   const step=()=>{const a=PH[breathI%3];$('phase').textContent=a[0];
-    $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';breathI++;timer=setTimeout(step,a[1]*1000)};
-  step()}
-function breathStop(){clearTimeout(timer)}
+    o.style.transitionDuration=a[1]+'s';o.style.transform='scale('+a[2]+')';breathI++;timer=setTimeout(step,a[1]*1000)};
+  breathRaf=requestAnimationFrame(()=>{breathRaf=requestAnimationFrame(step)})}
+function breathStop(){clearTimeout(timer);cancelAnimationFrame(breathRaf)}
+/* Kriz sırasında ekran kararmasın (Screen Wake Lock, ana ekran uygulamalarında iOS 18.4 ve sonrası) */
+let wakeL=null;
+async function wakeOn(){try{if('wakeLock' in navigator&&!wakeL&&document.visibilityState==='visible'){wakeL=await navigator.wakeLock.request('screen');wakeL.addEventListener('release',()=>{wakeL=null})}}catch(e){wakeL=null}}
+function wakeOff(){try{if(wakeL)wakeL.release()}catch(e){}wakeL=null}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&$('veil').classList.contains('open'))wakeOn()});
 function startTick(){clearInterval(tick);
   tick=setInterval(()=>{const r=Math.max(0,endAt-Date.now());
     $('left').textContent=r>0?pad(Math.floor(r/60000))+':'+pad(Math.floor(r%60000/1000)):'Dört dakika geçti. Krizin tepesi arkanda.';
@@ -1713,19 +1862,28 @@ function startCrave(){
   $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
   $('frNote').textContent='';$('frNote').classList.remove('msg');
   crisisAt0=Date.now();
-  friendPing('crisis').then(j=>{if(j&&j.sent&&!$('frNote').classList.contains('msg'))$('frNote').textContent=S.friend.name+' biliyor. Yalnız değilsin.'});
+  friendPing('crisis').then(pingNote);wakeOn();
   // Arkadaşın kriz sırasında mesaj gönderirse burada görünsün
   clearInterval(cmPollT);cmPollT=S.friend.on?setInterval(()=>friendFetch(true).then(showFriendMsg),15000):null;
   endAt=Date.now()+240000;breathI=0;moveReset();
   setCrisisMode('nefes');startTick();
   actsT=setTimeout(()=>{if($('veil').classList.contains('open')&&!$('veil').classList.contains('step'))$('acts').style.display='flex'},30000);
 }
+// Arkadaşa haber gitti mi? Gitmediyse nedenini söyle, sessizce kaybolmasın.
+function pingNote(j){const F=S.friend,el=$('frNote');if(!F.on||!F.notify||el.classList.contains('msg'))return;
+  const r=j&&j.reason||'';
+  el.textContent=j&&j.sent?F.name+' biliyor. Yalnız değilsin.':
+    r==='sık'?F.name+' birkaç dakika önce haber aldı. Yalnız değilsin.':
+    r==='bağlantı yok'?F.name+' ile bağlantınız kopmuş. Ayarlar › Arkadaş kısmından yeniden bağlanın.':
+    r==='arkadaşın bildirimleri kapalı'?F.name+' bildirimleri kapattığı için haber gitmedi. Yaz sekmesinden ulaşabilirsin.':
+    !navigator.onLine?'İnternet yok, haber gitmedi. Yaz sekmesinden ulaşabilirsin.':
+    'Haber gönderilemedi. Yaz sekmesinden ulaşabilirsin.'}
 function showFriendMsg(){
   const F=S.friend;if(!F.on||!$('veil').classList.contains('open'))return;
   if(F.supportAt>crisisAt0&&F.supportText){const el=$('frNote');el.classList.add('msg');
     el.innerHTML='<b>'+esc(F.name)+'</b> “'+esc(F.supportText)+'”'}
 }
-function stopCrave(){breathStop();clearInterval(tick);clearTimeout(actsT);clearInterval(cmPollT);cmPollT=null;moveStop();gamePause();$('veil').classList.remove('open','compact','step')}
+function stopCrave(){wakeOff();breathStop();clearInterval(tick);clearTimeout(actsT);clearInterval(cmPollT);cmPollT=null;moveStop();gamePause();$('veil').classList.remove('open','compact','step')}
 
 /* Hareket: 3 dakikalık rehber. Zaman Date.now() ile tutuluyor, telefon kilitlenip açılınca da doğru. */
 const MOVES=[
@@ -1833,7 +1991,13 @@ function drawWrite(){const F=S.friend,has=F.on&&F.name,ph=waNum(F.wa);
   $('wrList').querySelectorAll('button').forEach(b=>b.onclick=()=>openWA(WA_MSGS[+b.dataset.i]));
   $('wrHint').textContent=ph?'Mesaj doğrudan '+(has?F.name+' ile':'kayıtlı numarayla')+' sohbete gider.':
     (has?F.name+' için WhatsApp numarasını Ayarlar › Arkadaş kısmına eklersen mesaj doğrudan onun sohbetine gider. Şimdilik kişiyi WhatsApp\'ta seçeceksin.':'Kişiyi WhatsApp\'ta seçeceksin.');
+  callBtn($('wrCall'));
 }
+// Kayıtlı numara varsa tek dokunuşla arama (bildirim "hemen ara" diyor, tuşu da olmalı)
+function callBtn(el){const F=S.friend,ph=waNum(F.wa);
+  if(ph){el.href='tel:+'+ph;el.textContent=F.on&&F.name?acc(F.name)+' ara':'Ara';el.hidden=false}else el.hidden=true}
+function acc(n){n=String(n||'');const m=n.toLocaleLowerCase('tr').match(/[aeıioöuü](?=[^aeıioöuü]*$)/),v=m?m[0]:'e';
+  return n+"'"+(/[aeıioöuü]$/.test(n.toLocaleLowerCase('tr'))?'y':'')+({a:'ı',ı:'ı',o:'u',u:'u',e:'i',i:'i',ö:'ü',ü:'ü'}[v])}
 const waUrl=t=>{const ph=waNum(S.friend.wa);return 'whatsapp://send?'+(ph?'phone='+ph+'&':'')+'text='+encodeURIComponent(t)};
 function openWA(t){location.href=waUrl(t);
   setTimeout(()=>{if(!document.hidden)toast('WhatsApp açılmadıysa "Başka bir uygulamayla gönder"i dene')},1800)}
@@ -1873,7 +2037,7 @@ $('smoked').onclick=()=>{
 };
 $('slipBack').onclick=()=>{$('slipStep').style.display='none';setCrisisMode(cmMode);startTick();$('acts').style.display='flex'};
 $('slipOne').onclick=async()=>{
-  const entry={at:Date.now(),type:'slip'};S.log.unshift(entry);
+  const entry={at:Date.now(),type:'slip',method:cmMode};S.log.unshift(entry);
   stopCrave();await save();
   const n=S.log.filter(l=>l.type==='slip'&&l.at>=S.quitAt).length;
   showUndo('Kaydedildi. Sayaç devam ediyor'+(n>1?' ('+n+'. kayma)':'')+'.',async()=>{
@@ -1909,7 +2073,15 @@ $('qd').onchange=async e=>{if(!e.target.value)return;let t=new Date(e.target.val
   if(t>Date.now()){t=Date.now();e.target.value=tl(t);toast('Bırakma zamanı ileri bir tarih olamaz, şimdiye ayarlandı')}
   S.quitAt=t;S.notifIdx=-1;await save()};
 $('pd').onchange=async e=>{const v=numIn(e,S.perDay,1,80);if(v===null)return;S.perDay=Math.round(v);await save()};
-$('pp').onchange=async e=>{const v=numIn(e,S.packPrice,1,5000);if(v===null)return;S.packPrice=v;lockAuto('price');await save()};
+$('pp').onchange=async e=>{const v=numIn(e,S.packPrice,1,5000);if(v===null||v===S.packPrice)return;const old=S.packPrice;
+  // Bırakalı 2 günden azsa büyük ihtimalle düzeltmedir. Değilse zam say, istenirse tek dokunuşla düzeltmeye çevrilsin.
+  if((Date.now()-S.quitAt)/864e5<2&&!S.priceHist.length)S.packPrice=v;else{setPrice(v);askPrice(old,v)}
+  lockAuto('price');await save()};
+function askPrice(old,v){const el=$('ppAsk');
+  el.innerHTML='Zam olarak kaydettim. Geçmiş günler '+TL(old)+', bugünden sonrası '+TL(v)+' ile hesaplanıyor.<button id="ppFix">Düzeltmeydi, geçmişi de '+TL(v)+' say</button>';
+  el.hidden=false;
+  $('ppFix').onclick=async()=>{const H=S.priceHist;H.pop();if(H.length)H[H.length-1].p=v;if(H.length<=1)S.priceHist=[];S.packPrice=v;el.hidden=true;await save();toast('Geçmiş de '+TL(v)+' ile hesaplanıyor')}}
+$('lk').onchange=async e=>{S.lifeK=+e.target.value===22?22:17;await save()};
 $('ir').onchange=async e=>{const v=numIn(e,S.rate,0,200);if(v===null)return;S.rate=v;lockAuto('deposit');await save()};
 $('ni').onchange=async e=>{const v=numIn(e,S.noInterest,0,1e8);if(v===null)return;S.noInterest=v;await save()};
 $('inf').onchange=async e=>{const v=numIn(e,S.infl,0,200);if(v===null)return;S.infl=v;lockAuto('cpi');await save()};
@@ -2029,13 +2201,19 @@ function renderToday(sec,days,nom){
   const t0=new Date();t0.setHours(0,0,0,0);
   const from=Math.max(S.quitAt,t0.getTime()),hrs=Math.max(0,(Date.now()-from)/3600000);
   // önce sağlık
-  $('tNot').textContent=Math.floor(S.perDay*hrs/24);
+  const slT=slipN(from);
+  $('tNot').textContent=Math.max(0,Math.floor(S.perDay*hrs/24)-slT);
   const pNow=lungProgress(days),pFrom=lungProgress((from-S.quitAt)/D/1000);
   if(pNow>=1){$('tLung').textContent='temiz';$('tLungK').textContent='akciğerin tamamen temiz'}
   else{$('tLung').textContent='+'+((pNow-pFrom)*100).toFixed(1).replace('.',',');$('tLungK').textContent='akciğer bugün'}
   $('tCrave').textContent=S.log.filter(l=>l.type==='won'&&l.at>=t0.getTime()).length;
+  {const tc=$('tipCard'),show=(Date.now()-S.quitAt)/864e5<21&&!S.tips.kahve;
+   if(show&&tc.hidden){tc.innerHTML='<button class="tipLine" id="tipMore"><b>İlk haftalarda kahveyi yarıya indir</b><span>neden?</span></button>'+
+     '<div class="tipBody">Sigara, kafeini parçalayan enzimi hızlandırıyordu. Bıraktıktan sonra aynı kahve kanda yaklaşık %56 daha yüksek düzeye çıkıyor ve huzursuzluğu, uykusuzluğu artırabiliyor. İlk haftalarda yarıya indir, öğleden sonra kes.<button id="tipOk">Anladım</button></div>';
+     tc.hidden=false;$('tipMore').onclick=()=>tc.classList.toggle('open');$('tipOk').onclick=async()=>{S.tips.kahve=Date.now();tc.hidden=true;await DB.set(S)}}
+   else if(!show)tc.hidden=true}
   // sonra para
-  $('tMoney').textContent=TL(S.perDay/20*S.packPrice*hrs/24);
+  $('tMoney').textContent=TL(Math.max(0,S.perDay/20*S.packPrice*(hrs/24)-slT*S.packPrice/20));
   $('tMoneyAll').textContent=TL(nom);
   // riskli saat: en az 3 kayıt ve aynı 2 saatlik aralıkta en az 2 kriz varsa
   const won=S.log.filter(l=>l.type==='won'),box=$('tRisk');
@@ -2064,7 +2242,7 @@ const SYS_ORDER=['kalp','akciger','beyin','duyu','cilt','enerji','risk'];
 // Akciğer görseldeki temizlik eğrisini kullanır ki iki ekran hep aynı yüzdeyi göstersin.
 // Kalbin uzun vadeli toparlanması "Risk" maddelerinde duruyor (1 yıl koroner, 2 yıl kalp krizi, 15 yıl kalp hastalığı).
 // Bunlar kalp kartına da sayılır, yoksa kalp 2 haftada %100 görünür, bu yanıltıcı olur.
-const KALP_RISK=[Y,2*Y,15*Y];
+const KALP_RISK=[Y,2*Y,3*Y,15*Y];
 const sysMs=key=>MS.filter(m=>m[2]===key||(key==='kalp'&&m[2]==='risk'&&KALP_RISK.includes(m[0])));
 function sysProgress(key,sec){
   if(key==='akciger')return lungProgress(sec/D);
@@ -2081,9 +2259,16 @@ function durS(sec){
   if(d>=1)return Math.ceil(d)+' gün';
   return dur(sec);
 }
+// Her adımın altında açılıp kapanan bilimsel açıklama ve kaynak. Liste dakikada bir yeniden
+// çizildiği için açık olanlar hatırlanıyor, okurken kapanmıyor.
+const msOpen=new Set();
+document.addEventListener('toggle',e=>{const d=e.target;if(d&&d.matches&&d.matches('details.msd'))d.open?msOpen.add(d.dataset.k):msOpen.delete(d.dataset.k)},true);
+function msDet(m){if(!m[4])return '';const k=m[0]+'|'+m[2];
+  return '<details class="msd" data-k="'+k+'"'+(msOpen.has(k)?' open':'')+'><summary>Nasıl oluyor?</summary><p>'+esc(m[4])+'</p>'+
+    (m[5]?'<p class="msSrc">Kaynak: '+esc(m[5])+'</p>':'')+'</details>'}
 function msItem(m,extra){
   return '<li class="'+extra.cls+'"><span class="dot"></span><span class="t">'+m[1]+'</span>'+
-    '<span class="d"><span class="sys">'+SYS[m[2]]+(extra.when?' · '+extra.when:'')+'</span>'+esc(m[3])+'</span></li>';
+    '<span class="d"><span class="sys">'+SYS[m[2]]+(extra.when?' · '+extra.when:'')+'</span>'+esc(m[3])+msDet(m)+'</span></li>';
 }
 function renderBody(force){
   const root=$('bodyTab');if(!root)return;
@@ -2114,7 +2299,7 @@ function renderBody(force){
   $('tlTitle').textContent=sysFilter?SYS[sysFilter]:'Vücudunda olanlar';
   $('tlClear').hidden=!sysFilter;
   $('tlNow').innerHTML=nowG.length
-    ?'<div class="tlLbl">Şu an · '+nowG[0][1]+' geçti</div>'+nowG.map(m=>'<div class="tlItem">'+(sysFilter?'':'<span class="nowSys">'+SYS[m[2]]+'</span>')+esc(m[3])+'</div>').join('')
+    ?'<div class="tlLbl">Şu an · '+nowG[0][1]+' geçti</div>'+nowG.map(m=>'<div class="tlItem">'+(sysFilter?'':'<span class="nowSys">'+SYS[m[2]]+'</span>')+esc(m[3])+msDet(m)+'</div>').join('')
     :'<div class="tlLbl">Henüz değil</div><div class="tlItem">'+(up.length?'Bu sistemde ilk değişim '+up[0][1]+' sonunda: '+esc(up[0][3]):'Sayaç işliyor.')+'</div>';
   const shownUp=showAllNext?up:up.slice(0,3);
   $('tlNext').innerHTML=shownUp.length?shownUp.map(m=>msItem(m,{cls:m[0]===up[0][0]?'nx':'',when:durS(m[0]-sec)+' sonra'})).join('')
@@ -2132,7 +2317,7 @@ function renderBody(force){
 let setKey='',showLog=false,toastT;
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),1400)}
 function fillSettings(){
-  $('qd').value=tl(S.quitAt);$('qd').max=tl(Date.now()+60e3);$('pd').value=S.perDay;$('pp').value=S.packPrice;
+  $('qd').value=tl(S.quitAt);$('qd').max=tl(Date.now()+60e3);$('pd').value=S.perDay;$('pp').value=S.packPrice;$('lk').value=String(S.lifeK);
   $('ir').value=S.rate;$('ni').value=S.noInterest;$('inf').value=S.infl;$('gn').value=S.goalName;$('ga').value=S.goalAmount||'';
   $('af').value=String(S.auto.everyDays);$('ah').value=S.auto.hour;
 }
@@ -2185,7 +2370,7 @@ function riskWindow(){
 function devState(){return {quitAt:S.quitAt,perDay:S.perDay,packPrice:S.packPrice,rate:S.rate,infl:S.infl,noInterest:S.noInterest,goalName:S.goalName,goalAmount:S.goalAmount}}
 // önümüzdeki bildirimler: sağlık eşikleri, günlük özet, zor saatten önce
 function buildSchedule(){
-  const out=[],now=Date.now()+60e3,q=S.quitAt,P=S.push,c=S.perDay/20*S.packPrice;
+  const out=[],now=Date.now()+60e3,q=S.quitAt,P=S.push,c=S.perDay/20*S.packPrice,mOff=spentNom()-c*Math.max(0,(Date.now()-q)/864e5),sN=slipN();
   const near=(at,gap)=>out.some(x=>Math.abs(x.at-at)<gap);
   if(P.ms){
     const g=new Map();MS.forEach(m=>{const at=q+m[0]*1000;if(at>now){if(!g.has(at))g.set(at,[m[1],[]]);g.get(at)[1].push(m[3])}});
@@ -2199,7 +2384,7 @@ function buildSchedule(){
       const nx=MS.find(m=>q+m[0]*1000>at);
       const fr=S.friend.on&&S.friend.quitAt?' '+S.friend.name+': '+gunTxt(Math.max(0,Math.floor((at-S.friend.quitAt)/D/1000)))+'.':'';
       out.push({at,title:GunTxt(Math.floor(days)),tag:'gun',badge:P.badge!==false?Math.floor(days):undefined,
-        body:T(days*S.perDay)+' sigara içmedin, '+TL(c*days)+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')+fr});
+        body:T(Math.max(0,days*S.perDay-sN))+' sigara içmedin, '+TL(Math.max(0,c*days+mOff))+' cebinde.'+(nx?' Sıradaki: '+nx[1]+', '+dur((q+nx[0]*1000-at)/1000)+' sonra.':'')+fr});
     }
   }
   const rw=P.risk&&riskWindow();
@@ -2218,7 +2403,7 @@ async function getSub(){
   return reg?reg.pushManager.getSubscription():null;
 }
 async function postJSON(path,body){
-  const r=await fetch(WORKER_URL+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  const r=await fetch(WORKER_URL+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(path==='backup'?body:Object.assign({sk:S.sk},body))});
   let j={};try{j=await r.json()}catch(e){}
   if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));
   return j;
@@ -2551,7 +2736,7 @@ async function widgetCopy(){
 }
 // Önizleme: Scriptable'ın çizeceği widget'ın HTML taklidi, gerçek verinle
 function widgetPreview(style){
-  const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D,dayN=Math.floor(days),c=S.perDay/20*S.packPrice,money=c*days;
+  const sec=Math.max(0,(Date.now()-S.quitAt)/1000),days=sec/D,dayN=Math.floor(days),c=S.perDay/20*S.packPrice,money=spentNom();
   const nx=MS.find(m=>m[0]>sec),pv=MS.filter(m=>m[0]<=sec).pop(),p0=pv?pv[0]:0,prog=nx?(sec-p0)/(nx[0]-p0):1;
   const lung=lungProgress(days),goal=S.goalAmount>0?Math.min(1,money/S.goalAmount):null;
   const F=S.friend.on?S.friend:null,fd=F&&F.quitAt?Math.floor((Date.now()-F.quitAt)/D/1000):null;
@@ -2744,7 +2929,10 @@ async function friendFetch(force){
   if(!force&&Date.now()-S.friend.lastFetch<gap)return;
   S.friend.lastFetch=Date.now();
   try{
-    const r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'});const j=await r.json();
+    // Yeni worker mesaj metinlerini anahtarla veriyor. Eski worker bu başlığa CORS izni vermediği için istek
+    // ağ hatasıyla düşer: o durumda başlıksız tekrar dene. Böylece uygulama ve worker hangi sırayla yüklenirse yüklensin çalışır.
+    let r;try{r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store',headers:{'X-Nefes-Key':S.sk}})}
+    catch(e){r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'})}const j=await r.json();
     if(!j.ok)return;
     if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,
         supportText:j.friend.supportText||'',cheerAt:j.friend.cheerAt||0,cheerText:j.friend.cheerText||'',daily:+j.friend.daily||0,push:j.friend.push,invite:'',err:'',missAt:0});
@@ -2817,7 +3005,7 @@ function openSupport(kind){
     (F.push?'':' '+F.name+' bildirimleri açmamış, mesajı uygulamayı açınca görür.');
   $('shList').innerHTML=supportMsgs(kind).map((t,i)=>'<button data-i="'+i+'">'+esc(t)+'</button>').join('');
   $('shList').querySelectorAll('button').forEach(b=>b.onclick=()=>sendSupport(supportMsgs(kind)[+b.dataset.i],b));
-  $('shTxt').value='';$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
+  callBtn($('shCall'));$('shTxt').value='';$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
 }
 function closeSheet(){$('sheet').classList.remove('open');$('sheet').style.paddingBottom='';$('sheet').setAttribute('aria-hidden','true');$('shTxt').blur()}
 async function sendSupport(text,btn){
