@@ -582,6 +582,61 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 @keyframes sysRisk{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
 @media (prefers-reduced-motion:reduce){.nfLungs,.sysIcon.on svg{animation:none!important}.lobe,.tar,.sinceCard{transition:none!important}}
 
+/* kriz ekranı: yöntemler */
+.veil{padding:calc(env(safe-area-inset-top) + 66px) 20px calc(env(safe-area-inset-bottom) + 24px)}
+.cmTabs{position:absolute;top:calc(env(safe-area-inset-top) + 12px);left:14px;right:62px;display:flex;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:100px;padding:3px;z-index:2}
+.cmTabs button{flex:1;padding:9px 0;border-radius:100px;font-size:13px;font-weight:600;color:var(--muted)}
+.cmTabs button.on{background:var(--air);color:#06171A}
+.veil.step .cmTabs{display:none}
+.cmPane{display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px}
+.cmPane[hidden],.cmFoot[hidden]{display:none!important}
+.cmFoot{display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px}
+.veil.compact .left{margin-top:12px}
+.veil.compact .acts{flex-direction:row;margin-top:14px}
+.veil.compact .acts button{flex:1;padding:13px 8px;font-size:14px}
+.frNote.msg{font-size:15px;line-height:1.45;color:var(--bone);background:var(--surface);border:1px solid rgba(111,214,192,.35);border-radius:14px;padding:10px 14px;margin-top:14px}
+.frNote.msg b{color:var(--air)}
+.mvTop{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.mvName{font-size:24px;font-weight:700;margin-top:28px;line-height:1.2}
+.mvHow{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.5;min-height:42px;max-width:300px}
+.mvClock{font-family:var(--mono);font-size:64px;font-weight:700;margin-top:20px;font-variant-numeric:tabular-nums;color:var(--air);line-height:1}
+.mvBar{width:100%;height:6px;border-radius:3px;background:var(--line);margin-top:22px;overflow:hidden}
+.mvBar i{display:block;height:100%;width:0;background:var(--air);transition:width .25s linear}
+.mvNext{font-size:13px;color:var(--muted);margin-top:12px;min-height:18px}
+.mvGo{margin-top:22px;padding:14px 36px;border-radius:100px;background:var(--air);color:#06171A;font-weight:700;font-size:15px}
+.mvNote{font-size:11.5px;color:var(--muted);margin-top:14px;opacity:.8;line-height:1.4}
+.gTop{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
+.gTop b{color:var(--bone)}
+#gCv{display:block;touch-action:none;border-radius:14px;background:#0B1B1F;border:1px solid var(--line)}
+.gCtl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-top:10px}
+.gCtl button{padding:12px 0;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--bone);display:flex;align-items:center;justify-content:center}
+.gCtl svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.gCtl button:active{background:var(--line)}
+.wrList{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:20px}
+.wrList button,.shList button{text-align:left;padding:13px 15px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--bone)}
+.wrList button:active,.shList button:active{border-color:var(--air)}
+.wrOther{margin-top:14px;font-size:13px;color:var(--air);text-decoration:underline;text-underline-offset:3px}
+.wrHint{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5}
+/* destek mesajı penceresi */
+.sheet{position:fixed;inset:0;z-index:80;background:rgba(3,10,12,.62);display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.shBox{width:100%;max-width:520px;max-height:86vh;overflow-y:auto;background:var(--ink);border-top:1px solid var(--line);border-radius:22px 22px 0 0;padding:14px 16px calc(env(safe-area-inset-bottom) + 16px)}
+.shHead{display:flex;align-items:center;justify-content:space-between}
+.shHead b{font-size:17px}
+.shHead button{width:40px;height:40px;font-size:24px;color:var(--muted)}
+.shSub{font-size:12.5px;color:var(--muted);margin:0 0 12px;line-height:1.45}
+.shList{display:flex;flex-direction:column;gap:8px}
+.shOwn{display:flex;gap:8px;margin-top:12px;align-items:flex-end}
+.shOwn textarea{flex:1;min-width:0;font-family:var(--sans);font-size:16px;background:var(--surface);color:var(--bone);border:1px solid var(--line);border-radius:14px;padding:10px 12px;resize:none}
+.shOwn button{flex:none;padding:12px 16px;border-radius:100px;background:var(--air);color:#06171A;font-weight:700}
+.frMsg{font-size:14px;line-height:1.45;color:var(--bone);background:var(--ink);border-left:2px solid var(--air);border-radius:0 10px 10px 0;padding:8px 12px;margin:12px 0 2px}
+.frMsg span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:4px}
+.pBtn.sec{background:transparent;border:1px solid var(--air);color:var(--air);margin-top:8px}
+/* kriz ekranı kısa ekranlarda sığsın (sebepler, arkadaş mesajı ve düğmeler birlikteyken) */
+@media (max-height:800px){.ring2{width:168px;height:168px;margin-bottom:24px}.orb{width:132px;height:132px}.veil .acts{margin-top:22px}.veilReasons{margin-top:14px}}
+@media (max-height:720px){.ring2{width:146px;height:146px;margin-bottom:16px}.orb{width:114px;height:114px}.veil .acts{margin-top:16px}.veil .left{margin-top:12px}.veilReasons div{padding:6px 0 6px 12px;margin-bottom:5px}}
+/* bildirim baloncukları destek penceresinin de üstünde görünsün */
+.toast,.undoBar{z-index:90}
 </style>
 </head>
 <body>
@@ -775,6 +830,14 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 <p class="src" data-pg="ayarlar">Zaman çizelgesi: NHS, CDC ve American Cancer Society yayınları; nikotinik reseptör iyileşmesi için PET/SPECT görüntüleme çalışmaları. Ömür hesabı: Jackson, Jarvis &amp; West (2024), <i>Addiction</i> — sigara başına ortalama 17 dk (erkek). Faiz bölümü senin girdiğin varsayımlarla çalışan bir hesap makinesidir, getiri taahhüdü değil.</p>
 </div>
 
+<div class="sheet" id="sheet" aria-hidden="true">
+  <div class="shBox" role="dialog" aria-labelledby="shT">
+    <div class="shHead"><b id="shT">Destek gönder</b><button id="shX" aria-label="Kapat">×</button></div>
+    <div class="shSub" id="shSub"></div>
+    <div class="shList" id="shList"></div>
+    <div class="shOwn"><textarea id="shTxt" maxlength="120" rows="2" placeholder="Ya da kendin yaz"></textarea><button id="shSend">Gönder</button></div>
+  </div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 <div class="wLand" id="wLand"><div class="step">Nefes · widget özeti</div><div id="wlBody"><p class="qs">Yükleniyor...</p></div></div>
 <div class="undoBar" id="undoBar" role="status"><span id="undoTxt"></span><button id="undoBtn">Geri al</button></div>
@@ -788,11 +851,40 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 
 <div class="veil" id="veil">
   <button class="veilX" id="veilX" aria-label="Kapat">×</button>
-  <div id="breathe">
+  <div class="cmTabs" id="cmTabs" role="tablist">
+    <button data-m="nefes" class="on">Nefes</button><button data-m="hareket">Hareket</button><button data-m="oyun">Oyun</button><button data-m="yaz">Yaz</button>
+  </div>
+  <div id="breathe" class="cmPane">
     <div class="ring2"><div class="orb" id="orb"></div></div>
     <div class="phase" id="phase">Hazır ol</div>
     <div class="sub" id="sub">Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.</div>
     <div class="veilReasons" id="veilReasons"></div>
+  </div>
+  <div id="cmMove" class="cmPane" hidden>
+    <div class="mvTop"><span id="mvIdx">1 / 6</span><span id="mvTot">3:00</span></div>
+    <div class="mvName" id="mvName">Yerinde tempolu yürü</div>
+    <div class="mvHow" id="mvHow"></div>
+    <div class="mvClock" id="mvClock">0:40</div>
+    <div class="mvBar"><i id="mvBar"></i></div>
+    <div class="mvNext" id="mvNext"></div>
+    <button class="mvGo" id="mvGo">Başla</button>
+    <div class="mvNote">Göğüs ağrısı, baş dönmesi ya da nefes darlığı olursa dur.</div>
+  </div>
+  <div id="cmGame" class="cmPane" hidden>
+    <div class="gTop"><span>Satır <b id="gLines">0</b></span><span>En iyi <b id="gBest">0</b></span></div>
+    <canvas id="gCv" aria-label="Blok oyunu"></canvas>
+    <div class="gCtl">
+      <button data-g="L" aria-label="Sola"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button data-g="R" aria-label="Döndür"><svg viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.05-4.95"/><path d="M19 4v4h-4"/></svg></button><button data-g="D" aria-label="Düşür"><svg viewBox="0 0 24 24"><path d="M12 5v13"/><path d="M6 12l6 6 6-6"/></svg></button><button data-g="Rt" aria-label="Sağa"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+  <div id="cmWrite" class="cmPane" hidden>
+    <div class="phase" id="wrT">Birine yaz</div>
+    <div class="sub" id="wrSub">Bir mesaj seç, WhatsApp açılsın.</div>
+    <div class="wrList" id="wrList"></div>
+    <button class="wrOther" id="wrOther">Başka bir uygulamayla gönder</button>
+    <div class="wrHint" id="wrHint"></div>
+  </div>
+  <div class="cmFoot">
     <div class="left" id="left"></div>
     <div class="frNote" id="frNote"></div>
   </div>
@@ -833,7 +925,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v15',t:'Simgedeki gün sayısı artık bildirim geldiğinde de güncellenmeli. Arkadaş bildirimine dokununca doğrudan arkadaş kartı açılıyor. Birkaç küçük hata giderildi.'};
+const SURUM_NOTU={v:'v16',t:'Yeni: Canım çekiyor ekranında Hareket, Oyun ve Yaz sekmeleri. Destek gönderirken hazır mesaj seçebilir ya da kendin yazabilirsin, krizi atlatınca tebrik edebilirsin.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -1039,6 +1131,10 @@ const tl=ms=>new Date(ms-new Date().getTimezoneOffset()*60000).toISOString().sli
 const T=n=>Math.round(n).toLocaleString('tr-TR');
 // gün sayısı sayaçla aynı dilde: tamamlanan gün. "0. gün" yerine "ilk gün".
 const gunTxt=n=>n<1?'ilk gün':n+' gün',GunTxt=n=>n<1?'İlk gün':n+' gün';
+// Türkçe yönelme eki: Coda'ya, Umutcan'a, Ece'ye, Mert'e
+function dat(name){const n=String(name||'').trim();if(!n)return n;const l=n.toLocaleLowerCase('tr');
+  const v=(l.match(/[aeıioöuü](?=[^aeıioöuü]*$)/)||['e'])[0],back='aıou'.includes(v),endV=/[aeıioöuü]$/.test(l);
+  return n+"'"+(endV?'y':'')+(back?'a':'e')}
 const TL=n=>{const a=Math.abs(n);if(a>=1e9)return '₺'+(n/1e9).toFixed(a>=1e10?0:1).replace('.',',')+' mr';if(a>=1e6)return '₺'+(n/1e6).toFixed(a>=1e7?0:1).replace('.',',')+' mn';return '₺'+T(n)};
 const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function dur(s){s=Math.max(0,s);const d=Math.floor(s/D),h=Math.floor(s%D/H),m=Math.floor(s%H/60);
@@ -1575,24 +1671,173 @@ function render(){
 }
 
 const PH=[['Burnundan al',4,1],['Tut',7,1],['Ağzından ver',8,.45]];
-let timer,tick,endAt,actsT;
+let timer,tick,endAt,actsT,breathI=0;
+/* ---------- Kriz ekranı: yöntemler ---------- */
+// Nefes varsayılan. Hareket: kısa egzersiz sigara isteğini hızla düşürüyor (Taylor, Ussher, Faulkner 2007).
+// Oyun: görsel-uzamsal bir oyun, isteği besleyen zihinsel canlandırmayla yarışıyor (Skorka-Brown ve ark. 2015).
+let cmMode='nefes',crisisAt0=0,cmPollT=null;
+function breathStart(){clearTimeout(timer);if(endAt&&Date.now()>=endAt)return;
+  const step=()=>{const a=PH[breathI%3];$('phase').textContent=a[0];
+    $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';breathI++;timer=setTimeout(step,a[1]*1000)};
+  step()}
+function breathStop(){clearTimeout(timer)}
+function startTick(){clearInterval(tick);
+  tick=setInterval(()=>{const r=Math.max(0,endAt-Date.now());
+    $('left').textContent=r>0?pad(Math.floor(r/60000))+':'+pad(Math.floor(r%60000/1000)):'Dört dakika geçti. Krizin tepesi arkanda.';
+    if(r<=0){clearInterval(tick);
+      if(cmMode==='nefes'){breathStop();$('phase').textContent='Dört dakika geçti';$('sub').textContent='Krizin tepesi arkanda kaldı.';$('left').textContent=''}
+      $('acts').style.display='flex'}},250)}
+function cmPanes(show){
+  ['breathe','cmMove','cmGame','cmWrite'].forEach(id=>$(id).hidden=!show||id!==({nefes:'breathe',hareket:'cmMove',oyun:'cmGame',yaz:'cmWrite'})[cmMode]);
+  $('veil').classList.toggle('step',!show);
+  document.querySelector('.cmFoot').hidden=!show;
+}
+function setCrisisMode(m){
+  if(cmMode==='hareket'&&m!=='hareket')moveStop();
+  cmMode=m;
+  document.querySelectorAll('#cmTabs button').forEach(b=>{b.classList.toggle('on',b.dataset.m===m);b.setAttribute('aria-selected',b.dataset.m===m)});
+  cmPanes(true);
+  $('veil').classList.toggle('compact',m!=='nefes');
+  if(m==='nefes')breathStart();else breathStop();
+  if(m==='oyun')gameStart();else gamePause();
+  if(m==='hareket')moveDraw(mvEl);
+  if(m==='yaz')drawWrite();
+  $('veil').scrollTop=0;
+}
+document.querySelectorAll('#cmTabs button').forEach(b=>b.onclick=()=>setCrisisMode(b.dataset.m));
 function startCrave(){
   $('veil').classList.add('open');$('acts').style.display='none';
-  $('tagStep').style.display='none';$('slipStep').style.display='none';$('breathe').style.display='';
+  $('tagStep').style.display='none';$('slipStep').style.display='none';
   $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
-  $('frNote').textContent='';
-  friendPing('crisis').then(j=>{if(j&&j.sent)$('frNote').textContent=S.friend.name+' biliyor. Yalnız değilsin.'});
-  endAt=Date.now()+240000;let i=0;
-  const step=()=>{const a=PH[i%3];$('phase').textContent=a[0];
-    $('orb').style.transitionDuration=a[1]+'s';$('orb').style.transform='scale('+a[2]+')';i++;timer=setTimeout(step,a[1]*1000)};
-  step();
-  tick=setInterval(()=>{const r=Math.max(0,endAt-Date.now());
-    $('left').textContent=pad(Math.floor(r/60000))+':'+pad(Math.floor(r%60000/1000));
-    if(r<=0){clearInterval(tick);clearTimeout(timer);$('phase').textContent='Dört dakika geçti';
-      $('sub').textContent='Krizin tepesi arkanda kaldı.';$('left').textContent='';$('acts').style.display='flex'}},250);
-  actsT=setTimeout(()=>{if($('veil').classList.contains('open')&&$('breathe').style.display!=='none')$('acts').style.display='flex'},30000);
+  $('frNote').textContent='';$('frNote').classList.remove('msg');
+  crisisAt0=Date.now();
+  friendPing('crisis').then(j=>{if(j&&j.sent&&!$('frNote').classList.contains('msg'))$('frNote').textContent=S.friend.name+' biliyor. Yalnız değilsin.'});
+  // Arkadaşın kriz sırasında mesaj gönderirse burada görünsün
+  clearInterval(cmPollT);cmPollT=S.friend.on?setInterval(()=>friendFetch(true).then(showFriendMsg),15000):null;
+  endAt=Date.now()+240000;breathI=0;moveReset();
+  setCrisisMode('nefes');startTick();
+  actsT=setTimeout(()=>{if($('veil').classList.contains('open')&&!$('veil').classList.contains('step'))$('acts').style.display='flex'},30000);
 }
-function stopCrave(){clearTimeout(timer);clearInterval(tick);clearTimeout(actsT);$('veil').classList.remove('open')}
+function showFriendMsg(){
+  const F=S.friend;if(!F.on||!$('veil').classList.contains('open'))return;
+  if(F.supportAt>crisisAt0&&F.supportText){const el=$('frNote');el.classList.add('msg');
+    el.innerHTML='<b>'+esc(F.name)+'</b> “'+esc(F.supportText)+'”'}
+}
+function stopCrave(){breathStop();clearInterval(tick);clearTimeout(actsT);clearInterval(cmPollT);cmPollT=null;moveStop();gamePause();$('veil').classList.remove('open','compact','step')}
+
+/* Hareket: 3 dakikalık rehber. Zaman Date.now() ile tutuluyor, telefon kilitlenip açılınca da doğru. */
+const MOVES=[
+  ['Yerinde tempolu yürü',40,'Kollarını salla, dizlerini kalçana doğru kaldır.'],
+  ['Squat',30,'Ayaklar omuz genişliğinde. Sandalyeye oturur gibi çömel ve kalk. Acele etme.'],
+  ['Duvar şınavı',30,'Ellerini omuz hizasında duvara daya. Göğsünü duvara yaklaştır, geri it.'],
+  ['Diz çekerek yerinde koş',30,'Tempoyu biraz artır. Nefesin hızlanabilir, bu normal.'],
+  ['Merdiven ya da hızlı yürüyüş',30,'Merdiven varsa in çık. Yoksa odada hızlı adımlarla yürü.'],
+  ['Yavaşla, omuzlarını çevir',20,'Omuzlarını geriye doğru çevir. Burnundan derin nefes al, yavaşça ver.']];
+const MOVE_TOTAL=MOVES.reduce((a,m)=>a+m[1],0);
+let mvAt=0,mvEl=0,mvT=null;
+const mmss=s=>Math.floor(s/60)+':'+pad(Math.floor(s%60));
+function moveDraw(el){
+  let acc=0,i=0;while(i<MOVES.length-1&&el>=acc+MOVES[i][1]){acc+=MOVES[i][1];i++}
+  const m=MOVES[i],left=Math.max(0,m[1]-(el-acc));
+  $('mvIdx').textContent=(i+1)+' / '+MOVES.length;$('mvTot').textContent=mmss(Math.max(0,MOVE_TOTAL-el));
+  $('mvName').textContent=m[0];$('mvHow').textContent=m[2];$('mvClock').textContent=mmss(Math.ceil(left));
+  $('mvBar').style.width=Math.min(100,el/MOVE_TOTAL*100).toFixed(1)+'%';
+  $('mvNext').textContent=MOVES[i+1]?'Sıradaki: '+MOVES[i+1][0]:'Son adım';
+}
+function moveTick(){const el=(Date.now()-mvAt)/1000;if(el>=MOVE_TOTAL){moveDone();return}moveDraw(el)}
+function moveStart(){mvAt=Date.now()-mvEl*1000;clearInterval(mvT);mvT=setInterval(moveTick,250);moveTick();$('mvGo').textContent='Durdur'}
+function moveStop(){if(!mvT)return;clearInterval(mvT);mvT=null;mvEl=(Date.now()-mvAt)/1000;$('mvGo').textContent='Devam et'}
+function moveDone(){clearInterval(mvT);mvT=null;mvEl=0;
+  $('mvName').textContent='Bitti';$('mvHow').textContent='3 dakika hareket ettin. İstek şimdi nasıl?';
+  $('mvClock').textContent='0:00';$('mvBar').style.width='100%';$('mvNext').textContent='';$('mvTot').textContent='0:00';$('mvGo').textContent='Bir tur daha';$('mvGo').dataset.done='1'}
+function moveReset(){clearInterval(mvT);mvT=null;mvEl=0;mvAt=0;$('mvGo').textContent='Başla';delete $('mvGo').dataset.done;moveDraw(0)}
+$('mvGo').onclick=()=>{if(mvT)moveStop();else{if($('mvGo').dataset.done){delete $('mvGo').dataset.done;mvEl=0}moveStart()}};
+
+/* Blok oyunu: kendi tasarımımız. 8x14 alan, tek renk ailesi, boncuk görünümlü taşlar. */
+const G={W:8,H:14,cell:28,dpr:1,b:null,p:null,bag:[],lines:0,run:false,last:0,acc:0,speed:650,over:0,raf:0};
+const GS=[[[0,1],[1,1],[2,1],[3,1]],[[0,0],[1,0],[0,1],[1,1]],[[1,0],[0,1],[1,1],[2,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]],[[0,0],[0,1],[1,1],[2,1]],[[2,0],[0,1],[1,1],[2,1]]];
+const GN=[4,2,3,3,3,3,3];
+const GC=['#6FD6C0','#9BE5D5','#4FB3A1','#C3F1E6','#3C9585','#82D9C9','#2E7C6F'];
+function gNew(){if(!G.bag.length){G.bag=[0,1,2,3,4,5,6];for(let i=6;i>0;i--){const j=Math.floor(Math.random()*(i+1));[G.bag[i],G.bag[j]]=[G.bag[j],G.bag[i]]}}
+  const k=G.bag.pop(),n=GN[k];return {k,n,c:GS[k].map(a=>a.slice()),x:Math.floor((G.W-n)/2),y:k===0?-1:0}}
+function gHit(c,x,y){return c.some(([a,b])=>{const X=a+x,Y=b+y;return X<0||X>=G.W||Y>=G.H||(Y>=0&&G.b[Y][X]>=0)})}
+function gReset(){G.b=Array.from({length:G.H},()=>Array(G.W).fill(-1));G.lines=0;G.speed=650;G.acc=0;G.over=0;G.bag=[];G.p=gNew();$('gLines').textContent='0'}
+function gLock(){
+  const p=G.p;let top=false;
+  p.c.forEach(([a,b])=>{const X=a+p.x,Y=b+p.y;if(Y<0)top=true;else G.b[Y][X]=p.k});
+  if(top){gOver();return}
+  let n=0;for(let y=G.H-1;y>=0;y--){if(G.b[y].every(v=>v>=0)){G.b.splice(y,1);G.b.unshift(Array(G.W).fill(-1));n++;y++}}
+  if(n){G.lines+=n;$('gLines').textContent=G.lines;G.speed=Math.max(220,650-Math.floor(G.lines/4)*35)}
+  G.p=gNew();if(gHit(G.p.c,G.p.x,G.p.y))gOver();
+}
+function gOver(){G.over=performance.now();
+  if(G.lines>(S.gameBest||0)){S.gameBest=G.lines;$('gBest').textContent=G.lines;DB.set(S)}}
+function gMove(dx){if(!G.p||G.over)return;if(!gHit(G.p.c,G.p.x+dx,G.p.y)){G.p.x+=dx;gDraw()}}
+function gRot(){const p=G.p;if(!p||G.over||p.k===1)return;
+  const r=p.c.map(([a,b])=>[p.n-1-b,a]);
+  for(const k of [0,-1,1,-2,2])if(!gHit(r,p.x+k,p.y)){p.c=r;p.x+=k;gDraw();return}}
+function gDown(){if(!G.p||G.over)return;if(!gHit(G.p.c,G.p.x,G.p.y+1))G.p.y++;else gLock()}
+function gDrop(){if(!G.p||G.over)return;while(!gHit(G.p.c,G.p.x,G.p.y+1))G.p.y++;gLock();G.acc=0;gDraw()}
+function gSize(){const cv=$('gCv'),vw=innerWidth,vh=innerHeight;
+  G.cell=Math.max(18,Math.min(34,Math.floor(Math.min((Math.min(vw,420)-48)/G.W,(vh-(S.friend.on?380:330))/G.H))));
+  G.dpr=Math.min(3,window.devicePixelRatio||1);
+  cv.width=G.W*G.cell*G.dpr;cv.height=G.H*G.cell*G.dpr;cv.style.width=G.W*G.cell+'px';cv.style.height=G.H*G.cell+'px'}
+function gBead(x,y,k,a){const ctx=$('gCv').getContext('2d'),c=G.cell,pd=Math.max(2,c*.08),r=c*.32;
+  const X=x*c+pd,Y=y*c+pd,w=c-2*pd;ctx.globalAlpha=a||1;ctx.fillStyle=GC[k];ctx.beginPath();
+  if(ctx.roundRect)ctx.roundRect(X,Y,w,w,r);else{ctx.moveTo(X+r,Y);ctx.arcTo(X+w,Y,X+w,Y+w,r);ctx.arcTo(X+w,Y+w,X,Y+w,r);ctx.arcTo(X,Y+w,X,Y,r);ctx.arcTo(X,Y,X+w,Y,r);ctx.closePath()}
+  ctx.fill();ctx.fillStyle='rgba(255,255,255,.28)';ctx.beginPath();ctx.arc(X+w*.32,Y+w*.3,w*.13,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
+function gDraw(){const cv=$('gCv'),ctx=cv.getContext('2d'),c=G.cell;
+  ctx.setTransform(G.dpr,0,0,G.dpr,0,0);ctx.clearRect(0,0,G.W*c,G.H*c);
+  ctx.fillStyle='rgba(147,171,177,.13)';
+  for(let y=0;y<G.H;y++)for(let x=0;x<G.W;x++){ctx.beginPath();ctx.arc(x*c+c/2,y*c+c/2,1.4,0,Math.PI*2);ctx.fill()}
+  for(let y=0;y<G.H;y++)for(let x=0;x<G.W;x++)if(G.b[y][x]>=0)gBead(x,y,G.b[y][x],G.over?.35:1);
+  if(G.p&&!G.over)G.p.c.forEach(([a,b])=>{if(b+G.p.y>=0)gBead(a+G.p.x,b+G.p.y,G.p.k)});
+  if(G.over){ctx.fillStyle='#E7F0EE';ctx.font='700 '+Math.round(c*.62)+'px "Space Grotesk",system-ui,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Yeniden',G.W*c/2,G.H*c/2)}}
+function gFrame(t){if(!G.run)return;G.raf=requestAnimationFrame(gFrame);
+  const dt=Math.min(250,t-(G.last||t));G.last=t;if(document.hidden)return;
+  if(G.over){if(t-G.over>900)gReset();gDraw();return}
+  G.acc+=dt;let ch=false;while(G.acc>=G.speed&&!G.over){G.acc-=G.speed;gDown();ch=true}
+  if(ch)gDraw()}
+function gameStart(){gSize();if(!G.b)gReset();$('gBest').textContent=S.gameBest||0;gDraw();
+  if(!G.run){G.run=true;G.last=0;cancelAnimationFrame(G.raf);G.raf=requestAnimationFrame(gFrame)}}
+function gamePause(){G.run=false;cancelAnimationFrame(G.raf)}
+// dokunmatik: düğmeler (basılı tutunca tekrar eder) ve alan üzerinde kaydırma
+document.querySelectorAll('.gCtl button').forEach(b=>{let rt=0,ri=0;
+  const act={L:()=>gMove(-1),Rt:()=>gMove(1),R:gRot,D:gDrop}[b.dataset.g];
+  const stop=()=>{clearTimeout(rt);clearInterval(ri)};
+  b.addEventListener('pointerdown',e=>{e.preventDefault();act();stop();
+    if(b.dataset.g==='L'||b.dataset.g==='Rt')rt=setTimeout(()=>{ri=setInterval(act,70)},200)});
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,stop));
+  b.onclick=e=>e.preventDefault()});
+(()=>{const cv=$('gCv');let sx=0,sy=0,st=0,mx=0,moved=false;
+  cv.addEventListener('pointerdown',e=>{e.preventDefault();sx=e.clientX;sy=e.clientY;st=performance.now();mx=0;moved=false;try{cv.setPointerCapture(e.pointerId)}catch(_){}});
+  cv.addEventListener('pointermove',e=>{if(!st)return;const dx=e.clientX-sx-mx*G.cell;
+    if(Math.abs(dx)>=G.cell*.8){const s=Math.sign(dx);gMove(s);mx+=s;moved=true}});
+  cv.addEventListener('pointerup',e=>{if(!st)return;const dy=e.clientY-sy,dt=performance.now()-st;st=0;
+    if(dy>G.cell*2&&dy>Math.abs(e.clientX-sx))gDrop();else if(!moved&&dt<300&&Math.abs(dy)<12)gRot()});
+  cv.addEventListener('pointercancel',()=>{st=0});})();
+addEventListener('resize',()=>{if(G.run){gSize();gDraw()}});
+
+/* Yaz: sevgiliye/arkadaşa WhatsApp'tan hazır mesaj */
+function waNum(v){let d=String(v||'').replace(/\D/g,'');if(!d)return '';
+  if(d.startsWith('00'))d=d.slice(2);if(d.length===11&&d[0]==='0')d='9'+d;if(d.length===10&&d[0]==='5')d='90'+d;
+  return d.length>=11&&d.length<=15?d:''}
+const WA_MSGS=['Şu an canım çok sigara çekiyor. Bana bir şey yaz ya da ara, iyi gelir.','Zorlanıyorum. Sesini duymak istiyorum, müsait misin?','Kriz geldi ama dayanıyorum. Bir kalp atsan yeter.'];
+function drawWrite(){const F=S.friend,has=F.on&&F.name,ph=waNum(F.wa);
+  $('wrT').textContent=has?dat(F.name)+' yaz':'Birine yaz';
+  $('wrSub').textContent='Bir mesaj seç, WhatsApp açılsın.';
+  $('wrList').innerHTML=WA_MSGS.map((t,i)=>'<button data-i="'+i+'">'+esc(t)+'</button>').join('');
+  $('wrList').querySelectorAll('button').forEach(b=>b.onclick=()=>openWA(WA_MSGS[+b.dataset.i]));
+  $('wrHint').textContent=ph?'Mesaj doğrudan '+(has?F.name+' ile':'kayıtlı numarayla')+' sohbete gider.':
+    (has?F.name+' için WhatsApp numarasını Ayarlar › Arkadaş kısmına eklersen mesaj doğrudan onun sohbetine gider. Şimdilik kişiyi WhatsApp\'ta seçeceksin.':'Kişiyi WhatsApp\'ta seçeceksin.');
+}
+const waUrl=t=>{const ph=waNum(S.friend.wa);return 'whatsapp://send?'+(ph?'phone='+ph+'&':'')+'text='+encodeURIComponent(t)};
+function openWA(t){location.href=waUrl(t);
+  setTimeout(()=>{if(!document.hidden)toast('WhatsApp açılmadıysa "Başka bir uygulamayla gönder"i dene')},1800)}
+$('wrOther').onclick=async()=>{const t=WA_MSGS[0];
+  try{if(navigator.share){await navigator.share({text:t});return}}catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(t);toast('Mesaj kopyalandı, istediğin yere yapıştır')}catch(e){toast('Paylaşılamadı')}};
 async function save(){await DB.set(S);render();scheduleSync()}
 
 $('craveBtn').onclick=startCrave;
@@ -1605,26 +1850,26 @@ function drawTagStep(){
   document.querySelectorAll('#intList button').forEach(b=>b.onclick=()=>{pickInt=+b.dataset.i;drawTagStep()});
 }
 $('passed').onclick=()=>{
-  clearTimeout(timer);clearInterval(tick);
+  breathStop();clearInterval(tick);moveStop();gamePause();
   pickTrigger=null;pickInt=null;
-  $('breathe').style.display='none';$('acts').style.display='none';
+  cmPanes(false);$('acts').style.display='none';
   $('tagStep').style.display='block';drawTagStep();
 };
 $('tagSave').onclick=async()=>{
-  const e={at:Date.now(),type:'won'};
+  const e={at:Date.now(),type:'won',method:cmMode};
   if(pickTrigger)e.trigger=pickTrigger;
   if(pickInt)e.intensity=pickInt;
   S.log.unshift(e);friendPing('won');
-  $('tagStep').style.display='none';$('breathe').style.display='';
+  $('tagStep').style.display='none';
   stopCrave();await save();
 };
 $('veilX').onclick=stopCrave;
 // "İçtim": önce ne olduğunu sor. Tek sigara seriyi silmez, sadece kayda geçer.
 $('smoked').onclick=()=>{
-  clearTimeout(timer);clearInterval(tick);
-  $('breathe').style.display='none';$('acts').style.display='none';$('slipStep').style.display='block';
+  breathStop();clearInterval(tick);moveStop();gamePause();
+  cmPanes(false);$('acts').style.display='none';$('slipStep').style.display='block';
 };
-$('slipBack').onclick=()=>{$('slipStep').style.display='none';$('breathe').style.display='';$('acts').style.display='flex'};
+$('slipBack').onclick=()=>{$('slipStep').style.display='none';setCrisisMode(cmMode);startTick();$('acts').style.display='flex'};
 $('slipOne').onclick=async()=>{
   const entry={at:Date.now(),type:'slip'};S.log.unshift(entry);
   stopCrave();await save();
@@ -2462,7 +2707,8 @@ async function friendFetch(force){
   try{
     const r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'});const j=await r.json();
     if(!j.ok)return;
-    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,push:j.friend.push,invite:'',err:'',missAt:0});
+    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,
+        supportText:j.friend.supportText||'',cheerAt:j.friend.cheerAt||0,cheerText:j.friend.cheerText||'',daily:+j.friend.daily||0,push:j.friend.push,invite:'',err:'',missAt:0});
       if(!was){toast(j.friend.name+' ile bağlandınız');syncDevice(true)}}
     else if(S.friend.on){
       // Sunucu kısa süre eski veri dönebilir. Bağlantıyı tek cevaba bakıp silme, bir dakika sonra tekrar sor.
@@ -2497,15 +2743,71 @@ async function friendLeave(){
   Object.assign(S.friend,{on:false,name:'',quitAt:0,crisisAt:0,wonAt:0,supportAt:0,invite:'',err:''});
   await DB.set(S);renderFriendUI();renderFriendBox(true);
 }
-async function friendPing(kind){
+async function friendPing(kind,text){
   if(!S.friend.on||!navigator.onLine)return null;
-  if(kind!=='support'&&!S.friend.notify)return null;
-  try{return await postJSON('friend/ping',{id:S.devId,kind})}catch(e){return null}
+  if((kind==='crisis'||kind==='won')&&!S.friend.notify)return null;
+  try{return await postJSON('friend/ping',{id:S.devId,kind,text:text||undefined})}catch(e){return null}
 }
-async function friendSupport(){
-  const j=await friendPing('support');
-  toast(!j?'Gönderilemedi':j.sent?'Destek gönderildi':j.reason==='sık'?'Az önce gönderdin':S.friend.name+' bildirimleri açmamış');
+/* ---------- Destek ve tebrik mesajları ---------- */
+// Sevgiliye/arkadaşa gidecek hazır mesajlar. Kişisel olanlar onun gün sayısını ve birikimini kullanır.
+function supportMsgs(kind){
+  const F=S.friend,d=frDays(),money=F.daily>0&&F.quitAt?F.daily*Math.max(0,Date.now()-F.quitAt)/D/1000:0;
+  if(kind==='cheer')return [
+    'Helal olsun! Bir krizi daha yendin.',
+    'Seninle çok gurur duyuyorum.',
+    'Gördün mü, geçti. Sen bundan güçlüsün.',
+    d>=1?d+' gündür içmiyorsun. Harikasın.':'İlk gününde krizi yendin. Harikasın.',
+    'Bu akşam kutlamayı hak ettin.',
+    'Bir sigara daha içilmedi. Seni seviyorum.'];
+  return [
+    'Dayan sevgilim, birkaç dakika sonra geçmiş olacak.',
+    'Seninle gurur duyuyorum. Bunu da atlatacaksın.',
+    'Şu an sana sarılmak isterdim. Derin bir nefes al, buradayım.',
+    d>=1?d+' gündür içmiyorsun. Bir sigaraya değmez.':'Daha ilk günündesin. Onu bir sigaraya verme.',
+    money>=50?TL(money)+' biriktirdin bile. Onu birlikte harcayacağız.':null,
+    'Su iç, biraz yürü, sonra bana yaz. Bekliyorum.',
+    'Bu istek geçici, sen kalıcısın.',
+    'Seni seviyorum. Sigarasız hâlini daha da çok.',
+    'Akşam ödülün benden. Yeter ki şimdi dayan.'].filter(Boolean);
 }
+let shKind='support';
+function openSupport(kind){
+  const F=S.friend;if(!F.on)return;shKind=kind;
+  $('shT').textContent=dat(F.name)+(kind==='cheer'?' tebrik gönder':' destek gönder');
+  $('shSub').textContent=(kind==='cheer'?F.name+' krizi atlattı. ':frInCrisis()?F.name+' şu an zorlanıyor. ':'')+'Dokunduğun mesaj hemen gider.'+
+    (F.push?'':' '+F.name+' bildirimleri açmamış, mesajı uygulamayı açınca görür.');
+  $('shList').innerHTML=supportMsgs(kind).map((t,i)=>'<button data-i="'+i+'">'+esc(t)+'</button>').join('');
+  $('shList').querySelectorAll('button').forEach(b=>b.onclick=()=>sendSupport(supportMsgs(kind)[+b.dataset.i],b));
+  $('shTxt').value='';$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
+}
+function closeSheet(){$('sheet').classList.remove('open');$('sheet').style.paddingBottom='';$('sheet').setAttribute('aria-hidden','true');$('shTxt').blur()}
+async function sendSupport(text,btn){
+  text=String(text||'').replace(/\s+/g,' ').trim().slice(0,120);if(!text){toast('Bir şey yaz');return}
+  if(btn)btn.disabled=true;
+  const j=await friendPing(shKind,text);if(btn)btn.disabled=false;
+  if(j&&(j.saved||j.sent)){if(shKind==='cheer'){S.friend.cheeredAt=Date.now();await DB.set(S)}
+    closeSheet();toast(j.sent?'Gönderildi':S.friend.name+' bildirimleri kapalı, uygulamayı açınca görecek');renderFriendUI()}
+  else toast(!j?'Gönderilemedi, internetini kontrol et':j.reason==='sık'?'Az önce gönderdin, biraz bekle':'Gönderilemedi');
+}
+function friendSupport(){openSupport('support')}
+$('shX').onclick=closeSheet;
+if(window.visualViewport){const vv=visualViewport,fit=()=>{if(!$('sheet').classList.contains('open'))return;
+  $('sheet').style.paddingBottom=Math.max(0,Math.round(innerHeight-vv.height-vv.offsetTop))+'px'};
+  vv.addEventListener('resize',fit);vv.addEventListener('scroll',fit)}
+$('sheet').onclick=e=>{if(e.target===$('sheet'))closeSheet()};
+$('shSend').onclick=()=>sendSupport($('shTxt').value,$('shSend'));
+// Bildirimden gelince: zorlanıyorsa destek, atlattıysa tebrik penceresi açılsın
+function goFriend(kind){go('ilerleme');
+  friendFetch(true).then(()=>{if(!S.friend.on)return;
+    if(kind==='destek'&&frInCrisis())openSupport('support');
+    else if(kind==='tebrik'&&S.friend.wonAt&&Date.now()-S.friend.wonAt<6*3600e3)openSupport('cheer')})}
+// arkadaş son 6 saatte bir krizi atlattıysa ve henüz tebrik etmediysek
+function frCanCheer(){const F=S.friend;return F.on&&F.wonAt>F.crisisAt&&Date.now()-F.wonAt<6*3600e3&&(F.cheeredAt||0)<F.wonAt}
+// ondan bana gelen son mesaj (24 saat içinde)
+function frLastMsg(){const F=S.friend,c=[];
+  if(F.supportText&&F.supportAt)c.push([F.supportAt,F.supportText]);if(F.cheerText&&F.cheerAt)c.push([F.cheerAt,F.cheerText]);
+  c.sort((a,b)=>b[0]-a[0]);if(!c.length||Date.now()-c[0][0]>864e5)return '';
+  return '<div class="frMsg">“'+esc(c[0][1])+'”<span>'+niceDate(c[0][0])+'</span></div>'}
 function frStatus(){
   const F=S.friend;
   if(frInCrisis())return '<b class="hot">Şu an zorlanıyor</b> · '+niceDate(F.crisisAt).split(' ')[1];
@@ -2521,10 +2823,12 @@ function renderFriendUI(){
   if(sec){sec.hidden=false;
     $('frCard').innerHTML='<div class="frTop"><div><div class="frName">'+esc(S.friend.name)+'</div><div class="frSt">'+frStatus()+'</div></div>'+
       '<div class="frDays"><b>'+frDays()+'</b><span>gün</span></div></div>'+
+      frLastMsg()+
       '<button class="pBtn'+(hot?' hot':'')+'" id="frSup">Destek gönder</button>'+
+      (frCanCheer()?'<button class="pBtn sec" id="frCheer">Tebrik et</button>':'')+
       (!S.friend.push?'<div class="pStat">'+esc(S.friend.name)+' bildirimleri açmamış. Destek gönderirsen ona ulaşmaz.</div>':'')+
       (!S.push.on?'<div class="pStat">Onun zor anlarından haber almak için Ayarlar\'dan bildirimleri aç.</div>':'');
-    $('frSup').onclick=friendSupport;
+    $('frSup').onclick=friendSupport;if($('frCheer'))$('frCheer').onclick=()=>openSupport('cheer');
   }
 }
 function renderFriendBox(force){
@@ -2533,11 +2837,16 @@ function renderFriendBox(force){
   const F=S.friend,err=F.err?'<div class="pErr">'+esc(F.err)+'</div>':'';
   if(F.on){
     box.innerHTML='<div class="frLine"><b>'+esc(F.name)+'</b> ile bağlısın · '+gunTxt(frDays())+'</div>'+
-      '<label class="tgl"><input type="checkbox" id="frNotify"'+(F.notify?' checked':'')+'><span><b>Zorlandığımda haber ver</b><small>"Canım çekiyor"a basınca '+esc(F.name)+'\'e bildirim gider</small></span></label>'+
-      '<label class="tgl"><input type="checkbox" id="frRecv"'+(S.push.friend!==false?' checked':'')+'><span><b>O zorlanınca bana haber ver</b><small>'+(S.push.on?'Bildirim olarak gelir':'Önce yukarıdan bildirimleri aç')+'</small></span></label>'+err+
+      '<label class="tgl"><input type="checkbox" id="frNotify"'+(F.notify?' checked':'')+'><span><b>Zorlandığımda haber ver</b><small>"Canım çekiyor"a basınca '+esc(dat(F.name))+' bildirim gider</small></span></label>'+
+      '<label class="tgl"><input type="checkbox" id="frRecv"'+(S.push.friend!==false?' checked':'')+'><span><b>O zorlanınca bana haber ver</b><small>'+(S.push.on?'Bildirim olarak gelir':'Önce yukarıdan bildirimleri aç')+'</small></span></label>'+
+      '<div class="frForm"><input type="tel" id="frWa" inputmode="tel" autocomplete="off" maxlength="20" placeholder="'+esc(F.name)+' WhatsApp numarası (isteğe bağlı)" value="'+esc(F.wa||'')+'"></div>'+
+      '<div class="pStat">Sadece bu telefonda saklanır. Kriz ekranındaki "Yaz" mesajı doğrudan onun sohbetine gider.</div>'+err+
       '<div class="pActs"><button id="frLeave">Bağlantıyı kaldır</button></div>';
     $('frNotify').onchange=async e=>{S.friend.notify=e.target.checked;await DB.set(S)};
     $('frRecv').onchange=async e=>{S.push.friend=e.target.checked;S.push.lastHash='';await DB.set(S);syncDevice(true)};
+    $('frWa').onchange=async e=>{const v=e.target.value.trim();
+      if(v&&!waNum(v)){toast('Numarayı 05xx xxx xx xx ya da +90 ile yaz');return}
+      S.friend.wa=v;await DB.set(S);toast(v?'Numara kaydedildi':'Numara silindi')};
     $('frLeave').onclick=friendLeave;renderSecStatus();return;
   }
   const live=F.invite&&Date.now()<F.inviteUntil;
@@ -2557,7 +2866,10 @@ function renderFriendBox(force){
 $('frChip').onclick=()=>{if(frInCrisis())friendSupport();else go('ilerleme')};
 // yeni service worker devreye girince sürümünü sunucuya bildir (yeni bildirim biçimi için)
 if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('controllerchange',()=>setTimeout(()=>{if(S.onboarded)syncDevice(false)},1500));
-if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{if(e.data&&e.data.go==='arkadas'){go('ilerleme');friendFetch(true)}});
+addEventListener('hashchange',()=>{const g=location.hash.slice(1);if(!S.onboarded||!['arkadas','destek','tebrik'].includes(g))return;
+  history.replaceState(null,'',location.pathname);if(g==='arkadas'){go('ilerleme');friendFetch(true)}else goFriend(g)});
+if('serviceWorker' in navigator)navigator.serviceWorker.addEventListener('message',e=>{const g=e.data&&e.data.go;
+  if(g==='arkadas'){go('ilerleme');friendFetch(true)}else if(g==='destek'||g==='tebrik')goFriend(g)});
 
 $('logToggle').onclick=()=>{showLog=!showLog;renderSettings(true)};
 $('tlClear').onclick=()=>{sysFilter=null;renderBody(false)};
@@ -2594,6 +2906,7 @@ $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı
     syncDevice(false);
     cloudBackup(false);friendFetch(true);renderFriendUI();
     if(location.hash==='#arkadas'){go('ilerleme');history.replaceState(null,'',location.pathname)}
+    else if(location.hash==='#destek'||location.hash==='#tebrik'){const g=location.hash.slice(1);history.replaceState(null,'',location.pathname);goFriend(g)}
     // kurulumu bitmiş biri bu notu görmediyse güncelleme gelmiş demektir (yeni kurulum finish() içinde işaretlenir)
     if(S.seenVer!==SURUM_NOTU.v){S.seenVer=SURUM_NOTU.v;DB.set(S);setTimeout(()=>showUndo(SURUM_NOTU.t,null,'Tamam'),1800)}
   }
