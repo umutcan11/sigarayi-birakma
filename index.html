@@ -538,8 +538,10 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .no{border:1px solid var(--line);color:var(--muted);font-weight:500!important}
 @media (prefers-reduced-motion:reduce){.orb{transition:none!important;transform:scale(.75)!important}}/* akciğer + sistem şeridi */
 .lungWrap{max-width:236px;margin:0 auto}
-.nfLungs{transform-origin:100px 100px;animation:lungBreathe 3.6s ease-in-out infinite}
-@keyframes lungBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.03)}}
+/* nefes: akciğer yukarıdan asılı gibi aşağı doğru genişler (JS, aşağıda lungRig) */
+#lungSvg{overflow:visible}
+.lungDia{fill:none;stroke:#2E5A63;stroke-width:2;stroke-linecap:round}
+.lungAir{fill:#DFF7F1}
 .lobe{fill:var(--lung,#6b625c);transition:fill 2.4s ease}
 .airway{fill:#1F3F48}
 .cart path{fill:none;stroke:#2B5561;stroke-width:1.1}
@@ -925,7 +927,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v16',t:'Yeni: Canım çekiyor ekranında Hareket, Oyun ve Yaz sekmeleri. Destek gönderirken hazır mesaj seçebilir ya da kendin yazabilirsin, krizi atlatınca tebrik edebilirsin.'};
+const SURUM_NOTU={v:'v17',t:'Yeni: akciğer artık gerçek bir nefes ritmiyle nefes alıp veriyor. 4 saniye al, 6 saniye ver. İstersen onunla birlikte nefes al.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -1949,6 +1951,42 @@ $('impFile').onchange=e=>{
   e.target.value='';
 };
 
+/* ---------- Akciğer nefesi ----------
+   Gerçek bir nefes ritmi: 4 sn al, 6 sn ver (dakikada 6 nefes, sakin nefes hızı).
+   Akciğer soluk borusunun ucundan asılı gibi aşağı doğru daha çok genişler, altta diyafram iner.
+   Nefes alırken hava taneleri soluk borusundan bronşlara, oradan akciğerin içine dağılır,
+   verirken geri çıkar. Sadece Bugün sekmesi açık ve ekran görünürken çalışır. */
+const lungRig=(()=>{
+  const svg=$('lungSvg');if(!svg)return null;
+  const NS='http://www.w3.org/2000/svg',mk=(n,a,par)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(par)par.appendChild(e);return e};
+  const g=svg.querySelector('.nfLungs');
+  const body=[...g.querySelectorAll('.lobe'),...g.querySelectorAll('.vein'),...g.querySelectorAll('[fill^="url"]'),g.querySelector('.tarG')].filter(Boolean);
+  const lg=mk('g',{id:'lungBody'});g.insertBefore(lg,g.querySelector('.airway'));body.forEach(x=>lg.appendChild(x));
+  const hl=mk('g',{opacity:0},lg);
+  g.querySelectorAll('.lobe').forEach(l=>mk('path',{d:l.getAttribute('d'),fill:'#fff'},hl));
+  g.querySelectorAll('.bronch').forEach(x=>g.appendChild(x));
+  const dia=mk('path',{class:'lungDia'},svg);
+  const parts=[];for(let k=0;k<14;k++)parts.push({c:mk('circle',{r:1.3,class:'lungAir',opacity:0},svg),side:k%2,del:k/14*.5,jx:((k*7)%5-2)*.9,
+    tx:k%2?120+((k*37)%45):38+((k*53)%45),ty:60+((k*29)%85)});
+  const set=(e,k,v)=>e.setAttribute(k,v);
+  function frame(t){
+    const ph=(t/1000)%10,inh=ph<4,b=inh?.5-.5*Math.cos(Math.PI*ph/4):.5+.5*Math.cos(Math.PI*(ph-4)/6);
+    set(lg,'transform','translate(100 30) scale('+(1+.035*b).toFixed(4)+' '+(1+.075*b).toFixed(4)+') translate(-100 -30)');
+    set(hl,'opacity',(.07*b).toFixed(3));
+    const y=168+8*b;set(dia,'d','M18,'+(y-2).toFixed(1)+' Q100,'+(y+12).toFixed(1)+' 182,'+(y-2).toFixed(1));
+    for(const q of parts){let u=inh?(ph/4-q.del)/.5:1-((ph-4)/6-q.del*.6)/.7;u=u<0?0:u>1?1:u;
+      const bx=q.side?112:89,by=q.side?94:91;let x,yy;
+      if(u<.45){const v=u/.45;x=100+q.jx;yy=4+66*v}else if(u<.65){const v=(u-.45)/.2;x=100+(bx-100)*v;yy=70+(by-70)*v}else{const v=(u-.65)/.35;x=bx+(q.tx-bx)*v;yy=by+(q.ty-by)*v}
+      set(q.c,'cx',x.toFixed(1));set(q.c,'cy',yy.toFixed(1));set(q.c,'opacity',(u<=0||u>=1?0:(u>.85?(1-u)/.15:1)*(inh?.9:.55)).toFixed(2))}
+  }
+  let raf=0;
+  const active=()=>!document.hidden&&S.onboarded&&!$('app').classList.contains('hidden')&&document.querySelector('.hero[data-pg="bugun"]').classList.contains('on')&&!$('veil').classList.contains('open');
+  function loop(t){raf=0;if(!active())return;frame(t);raf=requestAnimationFrame(loop)}
+  function kick(){if(reduceMotion()){frame(0);parts.forEach(q=>set(q.c,'opacity',0));return}if(!raf&&active())raf=requestAnimationFrame(loop)}
+  frame(0);
+  document.addEventListener('visibilitychange',kick);
+  return {kick};
+})();
 function go(pg){
   document.querySelectorAll('[data-pg]').forEach(el=>el.classList.toggle('on',el.dataset.pg===pg));
   document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('on',b.dataset.go===pg));
@@ -1957,6 +1995,7 @@ function go(pg){
   if(pg==='vucut')renderBody(true);
   if(pg==='para')renderMoney(true);
   if(pg==='ayarlar'){fillSettings();renderSettings(true)}
+  if(lungRig)lungRig.kick();
 }
 document.querySelectorAll('.tabbar button').forEach(b=>b.onclick=()=>go(b.dataset.go));
 document.querySelector('.now-card').onclick=()=>go('vucut');
@@ -2910,7 +2949,7 @@ $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı
     // kurulumu bitmiş biri bu notu görmediyse güncelleme gelmiş demektir (yeni kurulum finish() içinde işaretlenir)
     if(S.seenVer!==SURUM_NOTU.v){S.seenVer=SURUM_NOTU.v;DB.set(S);setTimeout(()=>showUndo(SURUM_NOTU.t,null,'Tamam'),1800)}
   }
-  setInterval(()=>{if(!S.onboarded)return;render();if(S.friend.on||S.friend.invite){friendFetch(false);renderFriendUI()}},1000);
+  setInterval(()=>{if(!S.onboarded)return;render();if(lungRig)lungRig.kick();if(S.friend.on||S.friend.invite){friendFetch(false);renderFriendUI()}},1000);
   // arka plana giderken son bakış anını kaydet, geri gelince aradan beri olanı canlandır
   document.addEventListener('visibilitychange',()=>{
     if(!S.onboarded)return;
