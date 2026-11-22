@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v15';
+const SURUM = 'nefes-v16';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Canım çekiyor ekranında artık nefesin yanında hareket rehberi, blok oyunu ve WhatsApp ile yazma var. Destek mesajlarını seçebilir ya da kendin yazabilirsin.';
+const NOT = 'Akciğer artık gerçek bir nefes ritmiyle nefes alıp veriyor: 4 saniye al, 6 saniye ver.';
 
 const KABUK = [
   './',
