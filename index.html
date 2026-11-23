@@ -113,13 +113,6 @@ section{margin-bottom:32px}
 
 .bgroup{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:20px 0 10px}
 .bgroup:first-child{margin-top:0}
-.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.badge{background:var(--surface);border-radius:12px;padding:11px 5px;text-align:center;opacity:.3}
-.badge.got{opacity:1;background:rgba(111,214,192,.11)}
-.badge .bn{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--muted)}
-.badge.got .bn{color:var(--air)}
-.badge .bl{font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.25}
-.badge.got .bl{color:var(--bone)}
 
 .chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:14px;margin:0 -20px 4px;padding-left:20px;padding-right:20px;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
@@ -494,10 +487,6 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .sumBig em{font-style:normal;color:var(--air)}
 .psm{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.5}
 .newB{display:inline-block;margin-top:12px;padding:6px 11px;border-radius:100px;background:rgba(111,214,192,.12);color:var(--air);font-size:12px;font-family:var(--mono)}
-#journey{width:100%;display:block;overflow:visible}
-#journey text{font-family:var(--mono);font-size:11.5px;fill:var(--muted)}
-#journey .jFill{transition:stroke-dashoffset 1.3s cubic-bezier(.3,.7,.2,1)}
-#journey .jMark{transition:transform 1.3s cubic-bezier(.3,.7,.2,1)}
 .nbRow{display:flex;align-items:center;gap:10px}
 .nbRow+.nbRow{margin-top:13px}
 .nbCode{flex:0 0 40px;height:40px;border-radius:11px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11.5px;font-weight:700;color:var(--air)}
@@ -513,11 +502,8 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .cmChip{flex:1;background:var(--ink);border-radius:11px;padding:11px 12px}
 .cmChip b{display:block;font-family:var(--mono);font-size:15px;color:var(--air)}
 .cmChip span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px}
-#prog.pre .jFill{stroke-dashoffset:var(--jl)!important}
-#prog.pre .jMark{transform:translateX(var(--jx0))!important}
 #prog.pre .nbBar i{width:0!important}
 #prog.pre .cbar{transform:scaleY(0)!important}
-.badge .bd{font-size:9px;color:var(--muted);margin-top:4px;font-family:var(--mono)}
 @media (prefers-reduced-motion:reduce){#prog *{transition:none!important}}
 
 .veil{position:fixed;inset:0;background:var(--ink);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;overflow-y:auto}
@@ -609,11 +595,6 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .mvNote{font-size:11.5px;color:var(--muted);margin-top:14px;opacity:.8;line-height:1.4}
 .gTop{display:flex;justify-content:space-between;width:100%;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:8px}
 .gTop b{color:var(--bone)}
-#gCv{display:block;touch-action:none;border-radius:14px;background:#0B1B1F;border:1px solid var(--line)}
-.gCtl{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-top:10px}
-.gCtl button{padding:12px 0;border-radius:14px;background:var(--surface);border:1px solid var(--line);color:var(--bone);display:flex;align-items:center;justify-content:center}
-.gCtl svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
-.gCtl button:active{background:var(--line)}
 .wrList{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:20px}
 .wrList button,.shList button{text-align:left;padding:13px 15px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:14.5px;line-height:1.4;color:var(--bone)}
 .wrList button:active,.shList button:active{border-color:var(--air)}
@@ -641,6 +622,82 @@ body{padding-top:calc(env(safe-area-inset-top) + 12px)!important}
 .ageSrc{margin-top:8px;font-size:11px;color:var(--muted)}
 .ppAsk{font-size:12.5px;line-height:1.5;color:var(--muted);padding:2px 0 12px}
 .ppAsk button{display:block;margin-top:8px;font-size:13px;font-weight:700;color:var(--air)}
+.medal{display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35))}
+.medal.lock{filter:none}
+.mCard{padding-bottom:14px}
+.mLevel{font-size:13.5px;color:var(--muted);line-height:1.5}
+.mLevel b{color:var(--bone)}
+.mRoad{display:flex;align-items:flex-end;gap:4px;overflow-x:auto;padding:14px 2px 4px;margin:0 -6px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.mRoad::-webkit-scrollbar{display:none}
+.mStop{flex:none;width:62px;display:flex;flex-direction:column;align-items:center;text-align:center;scroll-snap-align:center}
+.mStop .mL{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.25}
+.mStop.got .mL{color:var(--bone)}
+.mStop.nx .mL{color:var(--air);font-weight:600}
+.mStop .mS{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:2px;white-space:nowrap;opacity:.75}
+.mStop.got .mS{opacity:1}
+.mCount{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.mHere{flex:none;align-self:center;display:flex;flex-direction:column;align-items:center;padding:6px 9px;border-radius:12px;background:rgba(111,214,192,.12);border:1px solid var(--air);margin:0 3px 30px;scroll-snap-align:center}
+.mHere span{font-size:10px;color:var(--air);letter-spacing:.04em}
+.mHere b{font-size:13px;color:var(--bone);white-space:nowrap}
+.mNext{margin-top:10px}
+.mBody{font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:9px}
+.mBody b{color:var(--bone);font-weight:600}
+.nbMed{flex:none;width:34px}
+.mGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px}
+.mCell{display:flex;flex-direction:column;align-items:center;text-align:center}
+.mCell .bl{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.25}
+.mCell.got .bl{color:var(--bone)}
+.mCell .bd{font-family:var(--mono);font-size:9.5px;color:var(--muted)}
+.mPop{position:fixed;inset:0;z-index:85;display:none;align-items:center;justify-content:center;background:rgba(6,16,19,.8);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);padding:24px}
+.mPop.on{display:flex}
+.mBox{width:100%;max-width:320px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px 20px 16px;animation:mIn .5s cubic-bezier(.2,.9,.3,1.2)}
+.mBox .medal{margin:0 auto 12px;animation:mSpin .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes mSpin{from{transform:perspective(400px) rotateY(100deg) scale(.6);opacity:0}}
+@keyframes mIn{from{transform:scale(.6);opacity:0}}
+.mPopT{font-size:20px;font-weight:700}
+.mPopS{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.mPopB{display:block;width:100%;margin-top:18px;padding:13px;border-radius:100px;background:var(--air);color:#06171A;font-weight:700}
+.mPopB[hidden]{display:none}
+.mPopX{display:block;width:100%;margin-top:8px;padding:11px;font-weight:600;color:var(--muted)}
+.frMed{display:flex;align-items:center;gap:10px;margin:12px 0 2px;font-size:13px;color:var(--muted)}
+.frMed b{color:var(--bone)}
+.frMed span{flex:1}
+.frMed button{flex:none;padding:8px 13px;border-radius:100px;background:var(--air);color:#06171A;font-weight:700;font-size:12.5px}
+.toFr{margin-top:14px;font-size:13px;font-weight:600;color:var(--air)}
+.toFr[hidden]{display:none}
+.cmTabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tWrap{position:relative;margin:0 auto}
+#tBoard{position:relative;background:#0B1B1F;border:1px solid var(--line);border-radius:16px;touch-action:none}
+#tBoard .bg{position:absolute;border-radius:12px;background:rgba(147,171,177,.07)}
+.tile{position:absolute;left:0;top:0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;transition:transform .12s ease-out;will-change:transform}
+.tile span{display:block}
+.tile.pop span{animation:tPop .2s ease-out}
+.tile.new span{animation:tGrow .18s ease-out}
+@keyframes tPop{50%{transform:scale(1.18)}}
+@keyframes tGrow{from{transform:scale(.2);opacity:.2}}
+.tOver{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(12,26,30,.86);border-radius:16px;z-index:3}
+.tOver.on{display:flex}
+.tOver b{font-size:18px}
+.tOver span{font-size:13px;color:var(--muted)}
+.tOver button{padding:11px 26px;border-radius:100px;background:var(--air);color:#06171A;font-weight:700}
+.tReset{display:block;margin:10px auto 0;font-size:12.5px;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.shSt{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:2px 0 10px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.shSt div{display:flex;flex-direction:column;font-size:12.5px;color:var(--muted);line-height:1.4}
+.shSt div>b{font-size:14px;color:var(--bone)}
+.shSt .hot{color:var(--ember);font-weight:600}
+.shSt .good{color:var(--air);font-weight:600}
+.shQuick{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.shQuick button{padding:8px 12px;border-radius:100px;border:1px solid var(--air);color:var(--air);font-size:13px;font-weight:600}
+.shActs{display:flex;gap:8px;margin:10px 0 12px}
+.shActs:not(:has(a:not([hidden]))){display:none}
+.shActs .shCall{flex:1;margin:0;max-width:none}
+.shWa{flex:1;display:block;padding:13px 0;border-radius:100px;border:1px solid var(--line);color:var(--bone);font-weight:700;font-size:15px;text-decoration:none;text-align:center}
+.shWa[hidden]{display:none}
+.shHist{margin-top:14px}
+.shHT{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.shM{font-size:13px;line-height:1.45;padding:8px 11px;border-radius:12px;background:var(--surface);margin-bottom:6px;max-width:88%}
+.shM.out{margin-left:auto;background:rgba(111,214,192,.12)}
+.shM span{display:block;font-size:10.5px;color:var(--muted);margin-bottom:2px}
 details.msd{margin-top:7px}
 details.msd summary{list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:var(--air);cursor:pointer;-webkit-user-select:none;user-select:none}
 details.msd summary::-webkit-details-marker{display:none}
@@ -772,6 +829,10 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
 </div>
 
 <div id="prog" data-pg="ilerleme">
+<section>
+  <div class="head"><span class="eyebrow">Madalya yolun</span><span class="mCount" id="mCount"></span></div>
+  <div class="pcard mCard"><div class="mLevel" id="mLevel"></div><div class="mRoad" id="mRoad"></div><div class="mNext" id="mNext"></div></div>
+</section>
 <section id="frSec" hidden>
   <div class="head"><span class="eyebrow">Arkadaşın</span></div>
   <div class="pcard" id="frCard"></div>
@@ -781,12 +842,7 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
   <div class="pcard" id="sumCard"></div>
 </section>
 <section>
-  <div class="head"><span class="eyebrow">Yolculuk</span></div>
-  <div class="pcard"><svg id="journey" viewBox="0 0 340 64" role="img" aria-label="Bırakma yolculuğunda neredesin"></svg>
-  <div class="psm" id="journeyNote"></div></div>
-</section>
-<section>
-  <div class="head"><span class="eyebrow">Sıradaki rozetler</span><button id="allBadgesBtn">Tümü</button></div>
+  <div class="head"><span class="eyebrow">Diğer rozetler</span><button id="allBadgesBtn">Tümü</button></div>
   <div class="pcard" id="nextBadges"></div>
   <div id="badges" hidden></div>
 </section>
@@ -868,12 +924,16 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
 <div class="sheet" id="sheet" aria-hidden="true">
   <div class="shBox" role="dialog" aria-labelledby="shT">
     <div class="shHead"><b id="shT">Destek gönder</b><button id="shX" aria-label="Kapat">×</button></div>
+    <div class="shSt" id="shSt"></div>
     <div class="shSub" id="shSub"></div>
+    <div class="shQuick" id="shQuick"></div>
+    <div class="shActs"><a class="shCall" id="shCall" href="#" hidden>Ara</a><a class="shWa" id="shWa" href="#" hidden>WhatsApp</a></div>
     <div class="shList" id="shList"></div>
-    <a class="shCall" id="shCall" href="#" hidden>Ara</a>
     <div class="shOwn"><textarea id="shTxt" maxlength="120" rows="2" placeholder="Ya da kendin yaz"></textarea><button id="shSend">Gönder</button></div>
+    <div class="shHist" id="shHist"></div>
   </div>
 </div>
+<div class="mPop" id="mPop" aria-hidden="true"><div class="mBox" role="dialog" aria-labelledby="mPopT"><div id="mPopMed"></div><div class="mPopT" id="mPopT"></div><div class="mPopS" id="mPopS"></div><button class="mPopB" id="mPopShare" hidden></button><button class="mPopX" id="mPopX">Harika</button></div></div>
 <div class="toast" id="toast" role="status"></div>
 <div class="wLand" id="wLand"><div class="step">Nefes · widget özeti</div><div id="wlBody"><p class="qs">Yükleniyor...</p></div></div>
 <div class="undoBar" id="undoBar" role="status"><span id="undoTxt"></span><button id="undoBtn">Geri al</button></div>
@@ -888,13 +948,14 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
 <div class="veil" id="veil">
   <button class="veilX" id="veilX" aria-label="Kapat">×</button>
   <div class="cmTabs" id="cmTabs" role="tablist">
-    <button data-m="nefes" class="on">Nefes</button><button data-m="hareket">Hareket</button><button data-m="oyun">Oyun</button><button data-m="yaz">Yaz</button>
+    <button data-m="nefes" class="on">Nefes</button><button data-m="yaz" id="tabYaz">Yaz</button><button data-m="hareket">Hareket</button><button data-m="oyun">Oyun</button>
   </div>
   <div id="breathe" class="cmPane">
     <div class="ring2"><div class="orb" id="orb"></div></div>
     <div class="phase" id="phase">Hazır ol</div>
     <div class="sub" id="sub">Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.</div>
     <div class="veilReasons" id="veilReasons"></div>
+    <button class="toFr" id="toFr" hidden></button>
   </div>
   <div id="cmMove" class="cmPane" hidden>
     <div class="mvTop"><span id="mvIdx">1 / 6</span><span id="mvTot">3:00</span></div>
@@ -907,11 +968,9 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
     <div class="mvNote">Göğüs ağrısı, baş dönmesi ya da nefes darlığı olursa dur.</div>
   </div>
   <div id="cmGame" class="cmPane" hidden>
-    <div class="gTop"><span>Satır <b id="gLines">0</b></span><span>En iyi <b id="gBest">0</b></span></div>
-    <canvas id="gCv" aria-label="Blok oyunu"></canvas>
-    <div class="gCtl">
-      <button data-g="L" aria-label="Sola"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><button data-g="R" aria-label="Döndür"><svg viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.05-4.95"/><path d="M19 4v4h-4"/></svg></button><button data-g="D" aria-label="Düşür"><svg viewBox="0 0 24 24"><path d="M12 5v13"/><path d="M6 12l6 6 6-6"/></svg></button><button data-g="Rt" aria-label="Sağa"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-    </div>
+    <div class="gTop"><span>Puan <b id="gScore">0</b></span><span>En iyi <b id="gBest">0</b></span></div>
+    <div class="tWrap" id="tWrap"><div id="tBoard" aria-label="2048 oyunu"></div><div class="tOver" id="tOver"><b>Hamle kalmadı</b><span id="tOverT"></span><button id="tAgain">Yeniden</button></div></div>
+    <button class="tReset" id="tReset">Baştan başla</button>
   </div>
   <div id="cmWrite" class="cmPane" hidden>
     <div class="phase" id="wrT">Birine yaz</div>
@@ -962,7 +1021,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v18',t:'Yeni: Vücut sekmesinde her adımın altında bilimsel açıklaması ve kaynağı var. Düzeldi: nefes balonu artık ilk nefesten itibaren büyüyüp küçülüyor ve kriz sırasında ekran kararmıyor. Yeni: Yaz sekmesinde ve destek ekranında arama tuşu, kadınlar için 22 dakikalık ömür hesabı (Ayarlar › Sigara). Zam olunca geçmiş birikim eski fiyatla kalıyor.'};
+const SURUM_NOTU={v:'v19',t:'Yeni: rozetler artık renkli madalyalar. İlerleme sekmesinin en üstünde madalya yolun var. Kriz ekranında oyun 2048 oldu, destek paneli yenilendi.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -1222,14 +1281,15 @@ function playIntro(){
 /* Rozetler: her biri [kod, ad, grup, ilerleme(ctx)->[şu an, hedef] ya da null, kalan(fark)->metin]
    null dönen rozet o an kazanılabilir değildir (ör. hiç sıfırlamadıysan "Geri döndün"). */
 const kSure=d=>dur(d),kKriz=d=>Math.ceil(d)+' kriz',kPara=d=>TL(d),kOmur=d=>dur(d*60);
+// Süre madalyaları: [süre (sn), kod, ad, seviye 0 bronz, 1 gümüş, 2 altın, 3 platin, 4 elmas]
+const TIME_MEDALS=[[H,'1sa','İlk saat',0],[8*H,'8sa','İlk gece',0],[12*H,'12sa','Yarım gün',0],[D,'1G','İlk gün',0],[3*D,'3G','Nikotinsiz',0],
+ [7*D,'1H','İlk hafta',1],[14*D,'2H','İki hafta',1],[21*D,'3H','Üç hafta',1],[30*D,'1A','Bir ay',1],
+ [42*D,'6H','Altı hafta',2],[50*D,'50','50 gün',2],[60*D,'2A','İki ay',2],[90*D,'3A','Üç ay',2],[100*D,'100','100 gün',2],
+ [120*D,'4A','Dört ay',3],[180*D,'6A','Altı ay',3],[270*D,'9A','Dokuz ay',3],
+ [Y,'1Y','Bir yıl',4],[1.5*Y,'18A','18 ay',4],[2*Y,'2Y','İki yıl',4],[3*Y,'3Y','Üç yıl',4],[5*Y,'5Y','Beş yıl',4],[10*Y,'10Y','On yıl',4],[15*Y,'15Y','On beş yıl',4],[20*Y,'20Y','Yirmi yıl',4]];
+const TIERS=['Bronz','Gümüş','Altın','Platin','Elmas'];
 const BADGES=[
- ['1sa','İlk saat','Süre',c=>[c.sec,H],kSure],['8sa','İlk gece','Süre',c=>[c.sec,8*H],kSure],
- ['12sa','Yarım gün','Süre',c=>[c.sec,12*H],kSure],['1G','İlk gün','Süre',c=>[c.sec,D],kSure],
- ['3G','Nikotinsiz','Süre',c=>[c.sec,3*D],kSure],['1H','İlk hafta','Süre',c=>[c.sec,7*D],kSure],
- ['2H','İki hafta','Süre',c=>[c.sec,14*D],kSure],['1A','Bir ay','Süre',c=>[c.sec,30*D],kSure],
- ['50','50 gün','Süre',c=>[c.sec,50*D],kSure],['100','100 gün','Süre',c=>[c.sec,100*D],kSure],
- ['6A','Altı ay','Süre',c=>[c.sec,180*D],kSure],['1Y','Bir yıl','Süre',c=>[c.sec,Y],kSure],
- ['2Y','İki yıl','Süre',c=>[c.sec,2*Y],kSure],
+ ...TIME_MEDALS.map(([sn,code,label])=>[code,label,'Süre',c=>[c.sec,sn],kSure]),
  ['1','İlk kriz','Krizler',c=>[c.wins,1],kKriz],['5','Beş kriz','Krizler',c=>[c.wins,5],kKriz],
  ['10','On kriz','Krizler',c=>[c.wins,10],kKriz],['25','25 kriz','Krizler',c=>[c.wins,25],kKriz],
  ['50','50 kriz','Krizler',c=>[c.wins,50],kKriz],['100','100 kriz','Krizler',c=>[c.wins,100],kKriz],
@@ -1239,7 +1299,7 @@ const BADGES=[
  ['25K','₺25.000','Para',c=>[c.nom,25000],kPara],['100K','₺100.000','Para',c=>[c.nom,100000],kPara],
  ['%','İlk faiz','Para',c=>[c.gain,c.pp],kPara],
  ['◎','Hedefe ulaştın','Para',c=>c.goalAmount>0?[c.nom,c.goalAmount]:null,kPara],
- ['KOKU','Duyular geri','Vücut',c=>[c.sec,2*D],kSure],
+ ['TAT','Tat dönüyor','Vücut',c=>[c.sec,14*D],kSure],
  ['%50','Akciğer %50','Vücut',c=>[lungProgress(c.sec/D),.5],d=>Math.ceil(d*100)+' puan'],
  ['BEYİN','Reseptörler normal','Vücut',c=>[c.sec,42*D],kSure],
  ['+1G','1 gün ömür','Vücut',c=>[c.lifeMin,1440],kOmur],['+1H','1 hafta ömür','Vücut',c=>[c.lifeMin,10080],kOmur],
@@ -1511,14 +1571,20 @@ function progCtx(){
 }
 function badgeState(ctx){
   // Kazanılma anlarını kaydet. İlk çalışmada mevcut kazanılmışları "eski" (0) say ki hepsi yeni görünmesin.
-  const first=!S.badgeAt;if(first)S.badgeAt={};
-  let changed=false;
+  // Rozet listesi değiştiğinde de (v19) zaten kazanılmış olanlar "yeni" sayılmasın.
+  if(!S.badgeAt)S.badgeAt={};
+  const quiet=S.badgeV!==2;let changed=quiet;
   const list=BADGES.map(([code,label,group,fn,left],idx)=>{
-    const r=fn(ctx);if(!r)return {code,label,group,idx,avail:false,ok:false,p:0};
-    const [cur,tgt]=r,ok=cur>=tgt;
-    if(ok&&S.badgeAt[label]==null){S.badgeAt[label]=first?0:Date.now();changed=true}
-    return {code,label,group,idx,avail:true,ok,p:Math.max(0,Math.min(1,cur/tgt)),left:ok?'':left(tgt-cur),at:S.badgeAt[label]};
+    const tm=group==='Süre'?TIME_MEDALS.find(t=>t[1]===code):null,tier=tm?tm[3]:null;
+    const r=fn(ctx);if(!r)return {code,label,group,idx,tier,avail:false,ok:false,p:0};
+    const [cur,tgt]=r,ok=cur>=tgt;let at=null,p=Math.max(0,Math.min(1,cur/tgt));
+    if(tm){const i=TIME_MEDALS.indexOf(tm),s0=i>0?TIME_MEDALS[i-1][0]:0;p=Math.max(0,Math.min(1,(cur-s0)/(tgt-s0)))}
+    // Süreye bağlı rozetin kazanılma anı hesaplanır: bırakma anı + eşik. Sayaç sıfırlanırsa yeniden kazanılır ve tarih güncel seriyi gösterir.
+    if(ok&&cur===ctx.sec)at=S.quitAt+tgt*1000;
+    else if(ok){if(S.badgeAt[label]==null){S.badgeAt[label]=quiet?0:Date.now();changed=true}at=S.badgeAt[label]}
+    return {code,label,group,idx,tier,avail:true,ok,p,left:ok?'':left(tgt-cur),at};
   });
+  if(quiet)S.badgeV=2;
   if(changed)DB.set(S);
   return list;
 }
@@ -1564,41 +1630,54 @@ function renderSummary(ctx,badges){
     (fresh.length?'<span class="newB">Yeni rozet: '+fresh.slice(0,2).map(b=>esc(b.label)).join(', ')+'</span>':'');
 }
 
-function renderJourney(ctx){
-  const T1=[[1,'1g'],[3,'3g'],[7,'1h'],[14,'2h'],[30,'1a'],[90,'3a'],[180,'6a'],[365,'1y']];
-  const T2=[[30,'1a'],[90,'3a'],[180,'6a'],[365,'1y'],[730,'2y'],[1825,'5y'],[3650,'10y'],[5475,'15y']];
-  const T=ctx.days<365?T1:T2;
-  const pts=[[0,'']].concat(T),x0=10,x1=330,step=(x1-x0)/(pts.length-1);
-  let cx=x1;
-  for(let i=1;i<pts.length;i++){
-    if(ctx.days<=pts[i][0]){const f=(ctx.days-pts[i-1][0])/(pts[i][0]-pts[i-1][0]);cx=x0+step*(i-1+f);break}
+/* Madalyalar: kurdeleli, metalik renkli. Süre madalyaları seviyeye göre bronz, gümüş, altın, platin, elmas.
+   Diğer gruplar kendi renginde: kriz turuncu, para yeşil, vücut mavi, irade mor. Kilitliyse gri ve ilerleme halkası. */
+const MCOL={t:[['#F6CFA6','#C9844C','#7E4A22','#B8733D','#6B3A17'],['#FFFFFF','#BFC9CE','#7A878D','#A7B4BA','#56636A'],
+  ['#FFF0B8','#F2BC3E','#A8720E','#E9A23B','#8A5A0A'],['#F1F5FF','#AEBFEA','#5F6FA6','#97A6DE','#46518E'],['#E6FFFA','#79E2D0','#16917E','#6FD6C0','#1B6559']],
+  Krizler:['#FFD9C9','#F2845C','#A8431F','#F2845C','#7D2F15'],Para:['#EAF8D3','#9CD35E','#4A8A1E','#9CD35E','#36651A'],
+  'Vücut':['#DDF2FF','#6DB8EE','#2A6AA3','#6DB8EE','#1F4D78'],'İrade':['#F0E2FF','#B58EF0','#6A42B3','#B58EF0','#4C2F87']};
+let mSeq=0;
+function medal(b,sz){
+  const c=b.group==='Süre'?MCOL.t[b.tier||0]:(MCOL[b.group]||MCOL.t[1]),lock=!b.ok,id='md'+(++mSeq);
+  const cs=lock?['#2B4950','#1D373E','#132A30','#25434A','#18323A']:c,code=String(b.code),L=code.length,fs=L<=2?15:L===3?12.5:L===4?10.5:9;
+  const ring=lock&&b.p>0?'<circle cx="32" cy="50" r="25.5" fill="none" stroke="var(--air)" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="'+(160.2*b.p).toFixed(1)+' 160.2" transform="rotate(-90 32 50)"/>':'';
+  return '<svg class="medal'+(lock?' lock':'')+'" viewBox="0 0 64 78" width="'+sz+'" height="'+Math.round(sz*78/64)+'" aria-hidden="true">'+
+    '<defs><radialGradient id="'+id+'" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="'+cs[0]+'"/><stop offset=".55" stop-color="'+cs[1]+'"/><stop offset="1" stop-color="'+cs[2]+'"/></radialGradient></defs>'+
+    '<path d="M14 0h13l9 26H23z" fill="'+cs[3]+'"/><path d="M50 0H37l-9 26h13z" fill="'+cs[4]+'"/>'+
+    '<circle cx="32" cy="50" r="22" fill="url(#'+id+')"/>'+
+    '<circle cx="32" cy="50" r="17.5" fill="none" stroke="'+(lock?'#2E4E56':'rgba(255,255,255,.45)')+'" stroke-width="1.2"/>'+ring+
+    '<text x="32" y="'+(50+fs*.36).toFixed(1)+'" text-anchor="middle" font-size="'+fs+'" font-weight="700" fill="'+(lock?'#5F7F87':'rgba(20,20,20,.72)')+'" font-family="Space Grotesk,system-ui,sans-serif">'+esc(code)+'</text>'+
+    (lock?'':'<path d="M44 36l1.2 2.6 2.6 1.2-2.6 1.2L44 43.6l-1.2-2.6-2.6-1.2 2.6-1.2z" fill="rgba(255,255,255,.8)"/>')+'</svg>'}
+// Madalya yolu: süre madalyaları yan yana, kazanılanlar renkli, "Buradasın" işareti ve sıradaki madalyaya kalan.
+let roadKey='';
+// Bu yılsa "25 Kas", değilse "Kas 2027"
+function mDate(ms){if(!ms)return '✓';const d=new Date(ms);
+  return d.getFullYear()===new Date().getFullYear()?d.toLocaleDateString('tr-TR',{day:'numeric',month:'short'}):d.toLocaleDateString('tr-TR',{month:'short',year:'numeric'})}
+function renderJourney(ctx,badges,force){
+  const tb=badges.filter(b=>b.group==='Süre'),got=tb.filter(b=>b.ok),cur=got[got.length-1],nx=tb.find(b=>!b.ok);
+  $('mCount').textContent=got.length+'/'+tb.length;
+  $('mLevel').innerHTML=cur?'<b style="color:'+MCOL.t[cur.tier][1]+'">'+TIERS[cur.tier]+'</b> seviye · son madalyan <b>'+esc(cur.label)+'</b>'
+    :'İlk madalyan <b>İlk saat</b>, sayaç işliyor.';
+  if(nx){const i=TIME_MEDALS.findIndex(t=>t[1]===nx.code),pr=nx.p;
+    $('mNext').innerHTML='<div class="nbTop"><span>Sıradaki: <b>'+esc(nx.label)+'</b>'+(cur&&nx.tier!==cur.tier?' · '+TIERS[nx.tier]+' seviyesi':'')+'</span><span>'+esc(nx.left)+'</span></div>'+
+      '<div class="nbBar"><i style="width:'+(pr*100).toFixed(1)+'%"></i></div>'+
+      ((g=>g?'<div class="mBody"><b>O gün vücudunda:</b> '+esc(g[3])+'</div>':'')(MS.find(m=>m[0]===TIME_MEDALS[i][0])))}
+  else $('mNext').innerHTML='<div class="psm" style="margin:0">Bütün süre madalyalarını topladın.</div>';
+  const key=got.length+'|'+Math.floor(ctx.sec/3600),road=$('mRoad');
+  if(key!==roadKey){roadKey=key;force=true;
+  road.innerHTML=tb.map(b=>{const isNx=nx&&b.code===nx.code;
+    return (isNx?'<div class="mHere"><span>Buradasın</span><b>'+gunTxt(Math.floor(ctx.days))+'</b></div>':'')+
+      '<div class="mStop'+(b.ok?' got':'')+(isNx?' nx':'')+'">'+medal(b,isNx?50:44)+'<span class="mL">'+esc(b.label)+'</span>'+
+      '<span class="mS">'+mDate(b.ok?b.at:S.quitAt+TIME_MEDALS.find(t=>t[1]===b.code)[0]*1000)+'</span></div>'}).join('');
   }
-  const len=Math.max(0.1,cx-x0);
-  let svg='<line x1="'+x0+'" y1="30" x2="'+x1+'" y2="30" stroke="var(--line)" stroke-width="4" stroke-linecap="round"/>'+
-    '<line class="jFill" x1="'+x0+'" y1="30" x2="'+cx.toFixed(1)+'" y2="30" stroke="var(--air)" stroke-width="4" stroke-linecap="round" '+
-    'stroke-dasharray="'+len.toFixed(1)+'" style="--jl:'+len.toFixed(1)+'"/>';
-  T.forEach(([d,l],i)=>{
-    const x=x0+step*(i+1),done=ctx.days>=d,isNext=!done&&(i===0||ctx.days>=T[i-1][0]);
-    svg+='<circle cx="'+x+'" cy="30" r="5" fill="'+(done?'var(--air)':isNext?'var(--ink)':'var(--line)')+'"'+(isNext?' stroke="var(--air)" stroke-width="2"':'')+'/>'+
-      '<text x="'+x+'" y="56" text-anchor="middle"'+(isNext?' style="fill:var(--bone)"':'')+'>'+l+'</text>';
-  });
-  svg+='<g class="jMark" style="transform:translateX('+cx.toFixed(1)+'px);--jx0:'+x0+'px">'+
-    '<path d="M0,18 l-5,-8 h10 z" fill="var(--air)"/>'+
-    '<text x="0" y="6" text-anchor="middle" style="fill:var(--air)">'+gunTxt(Math.floor(ctx.days))+'</text></g>';
-  $('journey').innerHTML=svg;
-  const nx=T.find(([d])=>ctx.days<d);
-  if(nx){
-    const g=MS.filter(m=>m[0]===nx[0]*D);
-    const word={'1g':'1 güne','3g':'3 güne','1h':'1 haftaya','2h':'2 haftaya','1a':'1 aya','3a':'3 aya','6a':'6 aya','1y':'1 yıla','2y':'2 yıla','5y':'5 yıla','10y':'10 yıla','15y':'15 yıla'}[nx[1]];
-    $('journeyNote').textContent=word+' '+dur(nx[0]*D-ctx.sec)+' kaldı'+(g.length?': '+g[0][3]:'.');
-  }else $('journeyNote').textContent='Listedeki her eşiği geçtin. Kalp hastalığı riskin hiç içmemiş biriyle aynı.';
+  if(force){const here=road.querySelector('.mHere')||road.lastElementChild;if(here)road.scrollLeft=Math.max(0,here.offsetLeft-road.clientWidth/2+here.offsetWidth/2)}
 }
 
 function renderNextBadges(badges){
-  const open=badges.filter(b=>b.avail&&!b.ok).sort((a,b)=>b.p-a.p).slice(0,3);
+  const open=badges.filter(b=>b.avail&&!b.ok&&b.group!=='Süre').sort((a,b)=>b.p-a.p).slice(0,3);
   const got=badges.filter(b=>b.ok).length;
   $('nextBadges').innerHTML=(open.length?open.map(b=>
-    '<div class="nbRow"><div class="nbCode">'+esc(b.code)+'</div><div class="nbMid">'+
+    '<div class="nbRow"><div class="nbMed">'+medal(b,34)+'</div><div class="nbMid">'+
     '<div class="nbTop"><span>'+esc(b.label)+'</span><span>'+esc(b.left)+'</span></div>'+
     '<div class="nbBar"><i style="width:'+(b.p*100).toFixed(1)+'%"></i></div></div></div>').join('')
     :'<div class="psm" style="margin:0">Açık rozet kalmadı.</div>')+
@@ -1607,9 +1686,9 @@ function renderNextBadges(badges){
   const box=$('badges');box.hidden=!showAllBadges;
   if(!showAllBadges)return;
   const groups=[...new Set(badges.map(b=>b.group))];
-  box.innerHTML=groups.map(g=>'<div class="bgroup">'+g+'</div><div class="badges">'+
-    badges.filter(b=>b.group===g).map(b=>'<div class="badge'+(b.ok?' got':'')+'"><div class="bn">'+esc(b.code)+'</div><div class="bl">'+esc(b.label)+'</div>'+
-      (b.ok&&b.at?'<div class="bd">'+new Date(b.at).toLocaleDateString('tr-TR',{day:'numeric',month:'short'})+'</div>':'')+'</div>').join('')+'</div>').join('');
+  box.innerHTML=groups.map(g=>'<div class="bgroup">'+(g==='Süre'?'Süre madalyaları':g)+'</div><div class="mGrid">'+
+    badges.filter(b=>b.group===g).map(b=>'<div class="mCell'+(b.ok?' got':'')+'">'+medal(b,44)+'<div class="bl">'+esc(b.label)+'</div>'+
+      (b.ok&&b.at?'<div class="bd">'+mDate(b.at)+'</div>':'')+'</div>').join('')+'</div>').join('');
 }
 
 function renderCrisisMap(ctx){
@@ -1652,7 +1731,7 @@ function renderProgress(force){
   progKey=key;
   const badges=badgeState(ctx);
   if(force)root.classList.add('pre');
-  renderSummary(ctx,badges);renderJourney(ctx);renderNextBadges(badges);renderCrisisMap(ctx);
+  renderSummary(ctx,badges);renderJourney(ctx,badges,force);renderNextBadges(badges);renderCrisisMap(ctx);
   if(force){void root.offsetWidth;requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.remove('pre')))}
 }
 
@@ -1687,6 +1766,9 @@ function migrate(){
  S.push.badge=S.push.badge!==false;S.push.friend=S.push.friend!==false;
  S.cloud=Object.assign({on:true,code:'',lastAt:0,lastHash:'',saved:false,err:''},S.cloud||{});
  S.friend=Object.assign({on:false,myName:'',name:'',quitAt:0,crisisAt:0,wonAt:0,supportAt:0,push:false,notify:true,invite:'',inviteUntil:0,lastFetch:0,err:''},S.friend||{});
+ if(!Array.isArray(S.friend.msgs)){const F=S.friend;F.msgs=[];
+   if(F.supportText&&F.supportAt)F.msgs.push({d:'in',t:F.supportText,at:F.supportAt});
+   if(F.cheerText&&F.cheerAt)F.msgs.push({d:'in',t:F.cheerText,at:F.cheerAt});F.msgs.sort((a,b)=>a.at-b.at)}
 }
 function niceDate(ms){return ms?new Date(ms).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):'yok'}
 
@@ -1856,12 +1938,14 @@ function setCrisisMode(m){
   $('veil').scrollTop=0;
 }
 document.querySelectorAll('#cmTabs button').forEach(b=>b.onclick=()=>setCrisisMode(b.dataset.m));
+$('toFr').onclick=()=>setCrisisMode('yaz');
 function startCrave(){
   $('veil').classList.add('open');$('acts').style.display='none';
   $('tagStep').style.display='none';$('slipStep').style.display='none';
   $('sub').textContent='Kriz ortalama 3–5 dakika sürer. Sen bir şey yapmasan da geçer. Sadece nefesi takip et.';
   $('frNote').textContent='';$('frNote').classList.remove('msg');
   crisisAt0=Date.now();
+  {const F=S.friend,on=F.on&&F.name;$('tabYaz').textContent=on?F.name.slice(0,10):'Yaz';$('toFr').hidden=!on;if(on)$('toFr').textContent=dat(F.name)+' ulaş'}
   friendPing('crisis').then(pingNote);wakeOn();
   // Arkadaşın kriz sırasında mesaj gönderirse burada görünsün
   clearInterval(cmPollT);cmPollT=S.friend.on?setInterval(()=>friendFetch(true).then(showFriendMsg),15000):null;
@@ -1913,71 +1997,55 @@ function moveDone(){clearInterval(mvT);mvT=null;mvEl=0;
 function moveReset(){clearInterval(mvT);mvT=null;mvEl=0;mvAt=0;$('mvGo').textContent='Başla';delete $('mvGo').dataset.done;moveDraw(0)}
 $('mvGo').onclick=()=>{if(mvT)moveStop();else{if($('mvGo').dataset.done){delete $('mvGo').dataset.done;mvEl=0}moveStart()}};
 
-/* Blok oyunu: kendi tasarımımız. 8x14 alan, tek renk ailesi, boncuk görünümlü taşlar. */
-const G={W:8,H:14,cell:28,dpr:1,b:null,p:null,bag:[],lines:0,run:false,last:0,acc:0,speed:650,over:0,raf:0};
-const GS=[[[0,1],[1,1],[2,1],[3,1]],[[0,0],[1,0],[0,1],[1,1]],[[1,0],[0,1],[1,1],[2,1]],[[1,0],[2,0],[0,1],[1,1]],[[0,0],[1,0],[1,1],[2,1]],[[0,0],[0,1],[1,1],[2,1]],[[2,0],[0,1],[1,1],[2,1]]];
-const GN=[4,2,3,3,3,3,3];
-const GC=['#6FD6C0','#9BE5D5','#4FB3A1','#C3F1E6','#3C9585','#82D9C9','#2E7C6F'];
-function gNew(){if(!G.bag.length){G.bag=[0,1,2,3,4,5,6];for(let i=6;i>0;i--){const j=Math.floor(Math.random()*(i+1));[G.bag[i],G.bag[j]]=[G.bag[j],G.bag[i]]}}
-  const k=G.bag.pop(),n=GN[k];return {k,n,c:GS[k].map(a=>a.slice()),x:Math.floor((G.W-n)/2),y:k===0?-1:0}}
-function gHit(c,x,y){return c.some(([a,b])=>{const X=a+x,Y=b+y;return X<0||X>=G.W||Y>=G.H||(Y>=0&&G.b[Y][X]>=0)})}
-function gReset(){G.b=Array.from({length:G.H},()=>Array(G.W).fill(-1));G.lines=0;G.speed=650;G.acc=0;G.over=0;G.bag=[];G.p=gNew();$('gLines').textContent='0'}
-function gLock(){
-  const p=G.p;let top=false;
-  p.c.forEach(([a,b])=>{const X=a+p.x,Y=b+p.y;if(Y<0)top=true;else G.b[Y][X]=p.k});
-  if(top){gOver();return}
-  let n=0;for(let y=G.H-1;y>=0;y--){if(G.b[y].every(v=>v>=0)){G.b.splice(y,1);G.b.unshift(Array(G.W).fill(-1));n++;y++}}
-  if(n){G.lines+=n;$('gLines').textContent=G.lines;G.speed=Math.max(220,650-Math.floor(G.lines/4)*35)}
-  G.p=gNew();if(gHit(G.p.c,G.p.x,G.p.y))gOver();
-}
-function gOver(){G.over=performance.now();
-  if(G.lines>(S.gameBest||0)){S.gameBest=G.lines;$('gBest').textContent=G.lines;DB.set(S)}}
-function gMove(dx){if(!G.p||G.over)return;if(!gHit(G.p.c,G.p.x+dx,G.p.y)){G.p.x+=dx;gDraw()}}
-function gRot(){const p=G.p;if(!p||G.over||p.k===1)return;
-  const r=p.c.map(([a,b])=>[p.n-1-b,a]);
-  for(const k of [0,-1,1,-2,2])if(!gHit(r,p.x+k,p.y)){p.c=r;p.x+=k;gDraw();return}}
-function gDown(){if(!G.p||G.over)return;if(!gHit(G.p.c,G.p.x,G.p.y+1))G.p.y++;else gLock()}
-function gDrop(){if(!G.p||G.over)return;while(!gHit(G.p.c,G.p.x,G.p.y+1))G.p.y++;gLock();G.acc=0;gDraw()}
-function gSize(){const cv=$('gCv'),vw=innerWidth,vh=innerHeight;
-  G.cell=Math.max(18,Math.min(34,Math.floor(Math.min((Math.min(vw,420)-48)/G.W,(vh-(S.friend.on?380:330))/G.H))));
-  G.dpr=Math.min(3,window.devicePixelRatio||1);
-  cv.width=G.W*G.cell*G.dpr;cv.height=G.H*G.cell*G.dpr;cv.style.width=G.W*G.cell+'px';cv.style.height=G.H*G.cell+'px'}
-function gBead(x,y,k,a){const ctx=$('gCv').getContext('2d'),c=G.cell,pd=Math.max(2,c*.08),r=c*.32;
-  const X=x*c+pd,Y=y*c+pd,w=c-2*pd;ctx.globalAlpha=a||1;ctx.fillStyle=GC[k];ctx.beginPath();
-  if(ctx.roundRect)ctx.roundRect(X,Y,w,w,r);else{ctx.moveTo(X+r,Y);ctx.arcTo(X+w,Y,X+w,Y+w,r);ctx.arcTo(X+w,Y+w,X,Y+w,r);ctx.arcTo(X,Y+w,X,Y,r);ctx.arcTo(X,Y,X+w,Y,r);ctx.closePath()}
-  ctx.fill();ctx.fillStyle='rgba(255,255,255,.28)';ctx.beginPath();ctx.arc(X+w*.32,Y+w*.3,w*.13,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1}
-function gDraw(){const cv=$('gCv'),ctx=cv.getContext('2d'),c=G.cell;
-  ctx.setTransform(G.dpr,0,0,G.dpr,0,0);ctx.clearRect(0,0,G.W*c,G.H*c);
-  ctx.fillStyle='rgba(147,171,177,.13)';
-  for(let y=0;y<G.H;y++)for(let x=0;x<G.W;x++){ctx.beginPath();ctx.arc(x*c+c/2,y*c+c/2,1.4,0,Math.PI*2);ctx.fill()}
-  for(let y=0;y<G.H;y++)for(let x=0;x<G.W;x++)if(G.b[y][x]>=0)gBead(x,y,G.b[y][x],G.over?.35:1);
-  if(G.p&&!G.over)G.p.c.forEach(([a,b])=>{if(b+G.p.y>=0)gBead(a+G.p.x,b+G.p.y,G.p.k)});
-  if(G.over){ctx.fillStyle='#E7F0EE';ctx.font='700 '+Math.round(c*.62)+'px "Space Grotesk",system-ui,sans-serif';ctx.textAlign='center';
-    ctx.fillText('Yeniden',G.W*c/2,G.H*c/2)}}
-function gFrame(t){if(!G.run)return;G.raf=requestAnimationFrame(gFrame);
-  const dt=Math.min(250,t-(G.last||t));G.last=t;if(document.hidden)return;
-  if(G.over){if(t-G.over>900)gReset();gDraw();return}
-  G.acc+=dt;let ch=false;while(G.acc>=G.speed&&!G.over){G.acc-=G.speed;gDown();ch=true}
-  if(ch)gDraw()}
-function gameStart(){gSize();if(!G.b)gReset();$('gBest').textContent=S.gameBest||0;gDraw();
-  if(!G.run){G.run=true;G.last=0;cancelAnimationFrame(G.raf);G.raf=requestAnimationFrame(gFrame)}}
-function gamePause(){G.run=false;cancelAnimationFrame(G.raf)}
-// dokunmatik: düğmeler (basılı tutunca tekrar eder) ve alan üzerinde kaydırma
-document.querySelectorAll('.gCtl button').forEach(b=>{let rt=0,ri=0;
-  const act={L:()=>gMove(-1),Rt:()=>gMove(1),R:gRot,D:gDrop}[b.dataset.g];
-  const stop=()=>{clearTimeout(rt);clearInterval(ri)};
-  b.addEventListener('pointerdown',e=>{e.preventDefault();act();stop();
-    if(b.dataset.g==='L'||b.dataset.g==='Rt')rt=setTimeout(()=>{ri=setInterval(act,70)},200)});
-  ['pointerup','pointercancel','pointerleave'].forEach(ev=>b.addEventListener(ev,stop));
-  b.onclick=e=>e.preventDefault()});
-(()=>{const cv=$('gCv');let sx=0,sy=0,st=0,mx=0,moved=false;
-  cv.addEventListener('pointerdown',e=>{e.preventDefault();sx=e.clientX;sy=e.clientY;st=performance.now();mx=0;moved=false;try{cv.setPointerCapture(e.pointerId)}catch(_){}});
-  cv.addEventListener('pointermove',e=>{if(!st)return;const dx=e.clientX-sx-mx*G.cell;
-    if(Math.abs(dx)>=G.cell*.8){const s=Math.sign(dx);gMove(s);mx+=s;moved=true}});
-  cv.addEventListener('pointerup',e=>{if(!st)return;const dy=e.clientY-sy,dt=performance.now()-st;st=0;
-    if(dy>G.cell*2&&dy>Math.abs(e.clientX-sx))gDrop();else if(!moved&&dt<300&&Math.abs(dy)<12)gRot()});
-  cv.addEventListener('pointercancel',()=>{st=0});})();
-addEventListener('resize',()=>{if(G.run){gSize();gDraw()}});
+/* Oyun: 2048. Kaydırınca bütün taşlar o yöne gider, aynı sayılar birleşir. Sonraki hamleyi düşünmek
+   görsel-uzamsal bir yük, isteği besleyen zihinsel canlandırmayla aynı kaynağı kullanır. */
+const G2={g:null,tiles:[],score:0,id:0,cell:64,gap:8,anim:false};
+const G2C={2:['#17343B','#CFE3DF'],4:['#1D4148','#DDEDEA'],8:['#1F5A55','#E7F0EE'],16:['#22706A','#F2FAF8'],32:['#2B887F','#06171A'],64:['#3FA596','#06171A'],
+  128:['#58C0AE','#06171A'],256:['#6FD6C0','#06171A'],512:['#8FE2D0','#06171A'],1024:['#B5EEE2','#06171A'],2048:['#E9A23B','#1A1206']};
+function g2Layout(){const w=Math.max(220,Math.min(innerWidth-48,360,innerHeight-(S.friend.on?380:330))),bd=$('tBoard');
+  G2.cell=(w-5*G2.gap-2)/4;bd.style.width=bd.style.height=w+'px';$('tWrap').style.width=w+'px';
+  bd.querySelectorAll('.bg').forEach(n=>n.remove());
+  for(let r=0;r<4;r++)for(let c=0;c<4;c++){const q=document.createElement('div');q.className='bg';
+    Object.assign(q.style,{left:G2.gap+c*(G2.cell+G2.gap)+'px',top:G2.gap+r*(G2.cell+G2.gap)+'px',width:G2.cell+'px',height:G2.cell+'px'});bd.prepend(q)}
+  G2.tiles.forEach(t=>{g2Pos(t);g2Paint(t)})}
+function g2Pos(t){const c=G2.cell;t.el.style.width=t.el.style.height=c+'px';t.el.style.transform='translate('+(G2.gap+t.c*(c+G2.gap))+'px,'+(G2.gap+t.r*(c+G2.gap))+'px)'}
+function g2Paint(t){const [bg,fg]=G2C[t.v]||['#E9A23B','#1A1206'];t.el.style.background=bg;t.el.style.color=fg;
+  t.el.firstChild.textContent=t.v;t.el.style.fontSize=(t.v>=1024?G2.cell*.3:t.v>=128?G2.cell*.36:G2.cell*.42)+'px'}
+function g2Add(){const free=[];for(let r=0;r<4;r++)for(let c=0;c<4;c++)if(!G2.g[r][c])free.push([r,c]);if(!free.length)return;
+  const [r,c]=free[Math.floor(Math.random()*free.length)],el=document.createElement('div');el.className='tile new';el.appendChild(document.createElement('span'));
+  const t={id:++G2.id,v:Math.random()<.9?2:4,r,c,el};G2.g[r][c]=t;G2.tiles.push(t);el.style.transition='none';g2Pos(t);g2Paint(t);$('tBoard').appendChild(el);
+  requestAnimationFrame(()=>{el.style.transition=''})}
+function g2Reset(){G2.tiles.forEach(t=>t.el.remove());G2.tiles=[];G2.g=Array.from({length:4},()=>Array(4).fill(null));G2.score=0;G2.anim=false;
+  $('tOver').classList.remove('on');g2Add();g2Add();g2Hud()}
+function g2Hud(){$('gScore').textContent=G2.score;$('gBest').textContent=S.best2048||0}
+function g2CanMove(){for(let r=0;r<4;r++)for(let c=0;c<4;c++){const t=G2.g[r][c];if(!t)return true;
+  if(c<3&&G2.g[r][c+1]&&G2.g[r][c+1].v===t.v)return true;if(r<3&&G2.g[r+1][c]&&G2.g[r+1][c].v===t.v)return true}return false}
+// yön: 0 sol, 1 sağ, 2 yukarı, 3 aşağı
+function g2Move(dir){if(G2.anim||!G2.g||$('tOver').classList.contains('on'))return;
+  const ng=Array.from({length:4},()=>Array(4).fill(null)),dead=[],grow=[];let moved=false;
+  for(let i=0;i<4;i++){
+    const line=[0,1,2,3].map(k=>dir===0?[i,k]:dir===1?[i,3-k]:dir===2?[k,i]:[3-k,i]);
+    const ts=line.map(([r,c])=>G2.g[r][c]).filter(Boolean),res=[];
+    ts.forEach(t=>{const last=res[res.length-1];if(last&&!last.m&&last.t.v===t.v)last.m=t;else res.push({t,m:null})});
+    res.forEach((e,k)=>{const [r,c]=line[k];if(e.t.r!==r||e.t.c!==c)moved=true;e.t.r=r;e.t.c=c;ng[r][c]=e.t;
+      if(e.m){moved=true;e.m.r=r;e.m.c=c;dead.push(e.m);grow.push(e.t);G2.score+=e.t.v*2}})}
+  if(!moved)return;
+  G2.anim=true;G2.g=ng;G2.tiles.forEach(g2Pos);
+  setTimeout(()=>{dead.forEach(t=>t.el.remove());G2.tiles=G2.tiles.filter(t=>!dead.includes(t));
+    grow.forEach(t=>{t.v*=2;g2Paint(t);t.el.classList.remove('new','pop');void t.el.offsetWidth;t.el.classList.add('pop')});
+    g2Add();if(G2.score>(S.best2048||0)){S.best2048=G2.score;DB.set(S)}g2Hud();G2.anim=false;
+    if(!g2CanMove()){$('tOverT').textContent='Puanın '+G2.score+'. En iyi '+(S.best2048||0)+'.';$('tOver').classList.add('on')}},125)}
+(()=>{const bd=$('tBoard');let sx=0,sy=0,on=false;
+  bd.addEventListener('pointerdown',e=>{e.preventDefault();sx=e.clientX;sy=e.clientY;on=true;try{bd.setPointerCapture(e.pointerId)}catch(_){}});
+  bd.addEventListener('pointerup',e=>{if(!on)return;on=false;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<22)return;
+    g2Move(Math.abs(dx)>Math.abs(dy)?(dx<0?0:1):(dy<0?2:3))});
+  bd.addEventListener('pointercancel',()=>{on=false})})();
+addEventListener('keydown',e=>{if(!$('veil').classList.contains('open')||cmMode!=='oyun')return;
+  const k={ArrowLeft:0,ArrowRight:1,ArrowUp:2,ArrowDown:3}[e.key];if(k!==undefined){e.preventDefault();g2Move(k)}});
+$('tAgain').onclick=$('tReset').onclick=()=>g2Reset();
+function gameStart(){g2Layout();if(!G2.g)g2Reset();else g2Hud()}
+function gamePause(){}
+addEventListener('resize',()=>{if($('veil').classList.contains('open')&&cmMode==='oyun')g2Layout()});
 
 /* Yaz: sevgiliye/arkadaşa WhatsApp'tan hazır mesaj */
 function waNum(v){let d=String(v||'').replace(/\D/g,'');if(!d)return '';
@@ -2374,7 +2442,12 @@ function buildSchedule(){
   const near=(at,gap)=>out.some(x=>Math.abs(x.at-at)<gap);
   if(P.ms){
     const g=new Map();MS.forEach(m=>{const at=q+m[0]*1000;if(at>now){if(!g.has(at))g.set(at,[m[1],[]]);g.get(at)[1].push(m[3])}});
-    g.forEach(([lbl,tx],at)=>out.push({at,title:'Nefes · '+lbl,body:tx.join(' ').slice(0,420),tag:'ms',badge:P.badge!==false?Math.floor((at-q)/D/1000):undefined}));
+    // Madalya aynı ana denk geliyorsa başlık madalyayı söyler, ayrı bildirim gitmez
+    g.forEach(([lbl,tx],at)=>{const tm=TIME_MEDALS.find(t=>q+t[0]*1000===at);
+      out.push({at,title:'Nefes · '+(tm?tm[2]+' madalyası':lbl),body:tx.join(' ').slice(0,420),tag:'ms',badge:P.badge!==false?Math.floor((at-q)/D/1000):undefined})});
+    // Vücut adımına denk gelmeyen madalyalar (1 günden uzun olanlar: 50 gün, 100 gün, 4 ay...)
+    TIME_MEDALS.forEach(t=>{const at=q+t[0]*1000;if(t[0]>=D&&at>now&&!g.has(at))
+      out.push({at,title:'Nefes · '+t[2]+' madalyası',body:TIERS[t[3]]+' madalya senin. Madalya yolunda sıradakini görebilirsin.',tag:'ms',badge:P.badge!==false?Math.floor(t[0]/D):undefined})});
   }
   if(P.daily){
     for(let k=0;k<45;k++){
@@ -2934,8 +3007,10 @@ async function friendFetch(force){
     let r;try{r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store',headers:{'X-Nefes-Key':S.sk}})}
     catch(e){r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'})}const j=await r.json();
     if(!j.ok)return;
-    if(j.friend){const was=S.friend.on;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,
+    if(j.friend){const was=S.friend.on,pS=S.friend.supportAt||0,pC=S.friend.cheerAt||0;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,
         supportText:j.friend.supportText||'',cheerAt:j.friend.cheerAt||0,cheerText:j.friend.cheerText||'',daily:+j.friend.daily||0,push:j.friend.push,invite:'',err:'',missAt:0});
+      if(j.friend.supportText&&j.friend.supportAt>pS)msgLog('in',j.friend.supportText,j.friend.supportAt);
+      if(j.friend.cheerText&&j.friend.cheerAt>pC)msgLog('in',j.friend.cheerText,j.friend.cheerAt);
       if(!was){toast(j.friend.name+' ile bağlandınız');syncDevice(true)}}
     else if(S.friend.on){
       // Sunucu kısa süre eski veri dönebilir. Bağlantıyı tek cevaba bakıp silme, bir dakika sonra tekrar sor.
@@ -2979,6 +3054,12 @@ async function friendPing(kind,text){
 // Sevgiliye/arkadaşa gidecek hazır mesajlar. Kişisel olanlar onun gün sayısını ve birikimini kullanır.
 function supportMsgs(kind){
   const F=S.friend,d=frDays(),money=F.daily>0&&F.quitAt?F.daily*Math.max(0,Date.now()-F.quitAt)/D/1000:0;
+  if(kind==='medal'){const fm=frMedal(),ml=fm?fm.t[2]:'Yeni';return [
+    'Tebrikler! '+ml+' madalyası senin. Seninle çok gurur duyuyorum.',
+    d>=1?d+' gündür içmiyorsun. Bu madalyayı fazlasıyla hak ettin.':'Daha ilk gününde madalya aldın. Harikasın.',
+    'Bu madalya ikimizin ama en çok senin.',
+    money>=50?TL(money)+' biriktirdin bile. Kutlamayı ondan yapalım.':'Bu akşam kutlama benden.',
+    'Bir sonraki madalyaya birlikte gidiyoruz.']}
   if(kind==='cheer')return [
     'Helal olsun! Bir krizi daha yendin.',
     'Seninle çok gurur duyuyorum.',
@@ -2986,6 +3067,13 @@ function supportMsgs(kind){
     d>=1?d+' gündür içmiyorsun. Harikasın.':'İlk gününde krizi yendin. Harikasın.',
     'Bu akşam kutlamayı hak ettin.',
     'Bir sigara daha içilmedi. Seni seviyorum.'];
+  if(!frInCrisis()){const sec=F.quitAt?(Date.now()-F.quitAt)/1000:0,nx=F.quitAt?TIME_MEDALS.find(t=>sec<t[0]):null;return [
+    'Bugün de içmedin. Seninle gurur duyuyorum.',
+    d>=1?d+' gündür içmiyorsun. Harika gidiyorsun.':'İlk günün kolay geçsin. Yanındayım.',
+    nx?nx[2]+' madalyana '+dur(nx[0]-sec)+' kaldı. Beraber gidiyoruz.':null,
+    money>=50?TL(money)+' biriktirdin. Ne yapacağımıza birlikte karar verelim mi?':null,
+    'Canın çekerse bana yaz, hemen dönerim.',
+    'Seni seviyorum. Sigarasız hâlini daha da çok.'].filter(Boolean)}
   return [
     'Dayan sevgilim, birkaç dakika sonra geçmiş olacak.',
     'Seninle gurur duyuyorum. Bunu da atlatacaksın.',
@@ -3000,19 +3088,29 @@ function supportMsgs(kind){
 let shKind='support';
 function openSupport(kind){
   const F=S.friend;if(!F.on)return;shKind=kind;
-  $('shT').textContent=dat(F.name)+(kind==='cheer'?' tebrik gönder':' destek gönder');
-  $('shSub').textContent=(kind==='cheer'?F.name+' krizi atlattı. ':frInCrisis()?F.name+' şu an zorlanıyor. ':'')+'Dokunduğun mesaj hemen gider.'+
+  $('shT').textContent=kind==='medal'?acc(F.name)+' kutla':dat(F.name)+(kind==='support'?' destek gönder':' tebrik gönder');
+  const fm=frMedal();
+  const stx=kind==='medal'&&fm?'<b class="good">'+esc(fm.t[2])+' madalyasını aldı</b>'
+    :kind==='cheer'&&F.wonAt?'<b class="good">Krizi atlattı</b> · '+niceDate(F.wonAt).split(' ')[1]:frStatus();
+  $('shSt').innerHTML=(fm?medal({code:fm.t[1],group:'Süre',tier:fm.t[3],ok:true},30):'')+'<div><b>'+esc(F.name)+' · '+gunTxt(frDays())+'</b><span>'+stx+'</span></div>';
+  const Q=kind!=='support'?['Helal olsun!','Gurur duyuyorum','Seni seviyorum','Harikasın']
+    :frInCrisis()?['Yanındayım','Nefes al, geçecek','Seni seviyorum','Başaracaksın']:['Seni düşünüyorum','Gurur duyuyorum','Seni seviyorum','Harika gidiyorsun'];
+  $('shQuick').innerHTML=Q.map((t,i)=>'<button data-i="'+i+'">'+esc(t)+'</button>').join('');
+  $('shQuick').querySelectorAll('button').forEach(b=>b.onclick=()=>sendSupport(Q[+b.dataset.i],b));
+  $('shSub').textContent='Dokunduğun mesaj hemen gider.'+
     (F.push?'':' '+F.name+' bildirimleri açmamış, mesajı uygulamayı açınca görür.');
   $('shList').innerHTML=supportMsgs(kind).map((t,i)=>'<button data-i="'+i+'">'+esc(t)+'</button>').join('');
   $('shList').querySelectorAll('button').forEach(b=>b.onclick=()=>sendSupport(supportMsgs(kind)[+b.dataset.i],b));
-  callBtn($('shCall'));$('shTxt').value='';$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
+  callBtn($('shCall'));waBtn($('shWa'));renderShHist();$('shTxt').value='';$('sheet').classList.add('open');$('sheet').setAttribute('aria-hidden','false');
 }
 function closeSheet(){$('sheet').classList.remove('open');$('sheet').style.paddingBottom='';$('sheet').setAttribute('aria-hidden','true');$('shTxt').blur()}
 async function sendSupport(text,btn){
   text=String(text||'').replace(/\s+/g,' ').trim().slice(0,120);if(!text){toast('Bir şey yaz');return}
   if(btn)btn.disabled=true;
-  const j=await friendPing(shKind,text);if(btn)btn.disabled=false;
-  if(j&&(j.saved||j.sent)){if(shKind==='cheer'){S.friend.cheeredAt=Date.now();await DB.set(S)}
+  const j=await friendPing(shKind==='medal'?'cheer':shKind,text);if(btn)btn.disabled=false;
+  if(j&&(j.saved||j.sent)){if(shKind==='cheer')S.friend.cheeredAt=Date.now();
+    if(shKind==='medal'){const fm=frMedal();if(fm)S.friend.medalCheered=fm.t[1]}
+    msgLog('out',text);await DB.set(S);
     closeSheet();toast(j.sent?'Gönderildi':S.friend.name+' bildirimleri kapalı, uygulamayı açınca görecek');renderFriendUI()}
   else toast(!j?'Gönderilemedi, internetini kontrol et':j.reason==='sık'?'Az önce gönderdin, biraz bekle':'Gönderilemedi');
 }
@@ -3028,6 +3126,15 @@ function goFriend(kind){go('ilerleme');
   friendFetch(true).then(()=>{if(!S.friend.on)return;
     if(kind==='destek'&&frInCrisis())openSupport('support');
     else if(kind==='tebrik'&&S.friend.wonAt&&Date.now()-S.friend.wonAt<6*3600e3)openSupport('cheer')})}
+// Arkadaşın son süre madalyası. Son 48 saatte kazandıysa ve henüz tebrik edilmediyse "taze".
+function frMedal(){const F=S.friend;if(!F.on||!F.quitAt)return null;const sec=(Date.now()-F.quitAt)/1000;
+  const got=TIME_MEDALS.filter(t=>sec>=t[0]).pop();if(!got)return null;
+  return {t:got,fresh:sec-got[0]<48*3600&&F.medalCheered!==got[1]}}
+// Mesaj geçmişi (sadece bu telefonda): gelen ve giden son 40 mesaj
+function msgLog(d,t,at){const F=S.friend;F.msgs=(F.msgs||[]).filter(x=>!(x.d===d&&x.at===at)).concat([{d,t:String(t).slice(0,140),at:at||Date.now()}]).slice(-40)}
+function renderShHist(){const m=(S.friend.msgs||[]).slice(-6).reverse();
+  $('shHist').innerHTML=m.length?'<div class="shHT">Son mesajlar</div>'+m.map(x=>'<div class="shM '+x.d+'"><span>'+(x.d==='in'?esc(S.friend.name):'Sen')+' · '+niceDate(x.at)+'</span>'+esc(x.t)+'</div>').join(''):''}
+function waBtn(el){const ph=waNum(S.friend.wa);if(ph){el.href='whatsapp://send?phone='+ph;el.hidden=false}else el.hidden=true}
 // arkadaş son 6 saatte bir krizi atlattıysa ve henüz tebrik etmediysek
 function frCanCheer(){const F=S.friend;return F.on&&F.wonAt>F.crisisAt&&Date.now()-F.wonAt<6*3600e3&&(F.cheeredAt||0)<F.wonAt}
 // ondan bana gelen son mesaj (24 saat içinde)
@@ -3042,20 +3149,44 @@ function frStatus(){
   if(F.crisisAt>=t0.getTime())return 'Bugün zorlandı'+(F.wonAt>=F.crisisAt?', atlattı':'');
   return F.crisisAt?'Son zor an: '+niceDate(F.crisisAt):'Henüz zor an bildirmedi';
 }
+const GP={'Süre':5,Krizler:4,Para:3,'Vücut':2,'İrade':1};let mPopB=null,mcAt=0;
+function medalCheck(){
+  if(!S.onboarded||$('veil').classList.contains('open')||$('sheet').classList.contains('open')||$('mPop').classList.contains('on'))return;
+  const ae=document.activeElement;if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return;
+  const bs=badgeState(progCtx());
+  if(!S.medalSeen){S.medalSeen=Date.now();DB.set(S);return} // ilk çalışmada eski rozetler kutlanmasın
+  const fr=bs.filter(b=>b.ok&&b.at&&b.at>S.medalSeen).sort((a,b)=>(GP[b.group]-GP[a.group])||(b.idx-a.idx));
+  if(!fr.length)return;
+  const b=fr[0];mPopB=b;
+  $('mPopMed').innerHTML=medal(b,120);
+  $('mPopT').textContent=b.group==='Süre'?b.label+' madalyası':b.label;
+  const tm=b.group==='Süre'?TIME_MEDALS.find(t=>t[1]===b.code):null,g=tm&&MS.find(m=>m[0]===tm[0]);
+  $('mPopS').textContent=(tm?TIERS[b.tier]+' madalya. '+(g?g[3]:'Bunu sen kazandın.'):
+    {Krizler:'Her biri içmeden atlattığın bir kriz.',Para:'İçmediğin her sigara cebinde kaldı.','Vücut':'Vücudun her gün biraz daha toparlanıyor.','İrade':'Vazgeçmedin.'}[b.group]||'Bunu sen kazandın.')+
+    (fr.length>1?' Bir de '+(fr.length-1)+' rozet daha kazandın.':'');
+  const sh=$('mPopShare');sh.hidden=!S.friend.on;if(S.friend.on)sh.textContent=dat(S.friend.name)+' haber ver';
+  $('mPop').classList.add('on');$('mPop').setAttribute('aria-hidden','false');S.medalSeen=Date.now();DB.set(S)}
+function mPopClose(){$('mPop').classList.remove('on');$('mPop').setAttribute('aria-hidden','true')}
+$('mPopX').onclick=mPopClose;
+$('mPopShare').onclick=async()=>{const b=mPopB;if(!b)return;
+  const t=b.group==='Süre'?b.label+' madalyamı aldım! Seninle birlikte daha kolay.':b.label+' rozetini kazandım!';
+  const j=await friendPing('support',t);if(j&&(j.sent||j.saved)){msgLog('out',t);DB.set(S);toast('Haber verildi')}else toast('Gönderilemedi');mPopClose()};
 function renderFriendUI(){
   const chip=$('frChip'),sec=$('frSec');
   if(!S.friend.on){if(chip)chip.hidden=true;if(sec)sec.hidden=true;return}
   const hot=frInCrisis();
   if(chip){chip.hidden=false;chip.classList.toggle('hot',hot);chip.innerHTML=hot?'<i></i>'+esc(S.friend.name)+' zorlanıyor · destek ver':'<i></i>'+esc(S.friend.name)+' · '+gunTxt(frDays())}
-  if(sec){sec.hidden=false;
+  if(sec){sec.hidden=false;const fm=frMedal();
     $('frCard').innerHTML='<div class="frTop"><div><div class="frName">'+esc(S.friend.name)+'</div><div class="frSt">'+frStatus()+'</div></div>'+
       '<div class="frDays"><b>'+frDays()+'</b><span>gün</span></div></div>'+
+      (fm?'<div class="frMed">'+medal({code:fm.t[1],group:'Süre',tier:fm.t[3],ok:true},30)+'<span>'+(fm.fresh?'<b>'+esc(S.friend.name)+'</b> '+esc(fm.t[2])+' madalyasını aldı':TIERS[fm.t[3]]+' seviye · '+esc(fm.t[2]))+'</span>'+
+        (fm.fresh?'<button id="frMedB">Kutla</button>':'')+'</div>':'')+
       frLastMsg()+
       '<button class="pBtn'+(hot?' hot':'')+'" id="frSup">Destek gönder</button>'+
       (frCanCheer()?'<button class="pBtn sec" id="frCheer">Tebrik et</button>':'')+
       (!S.friend.push?'<div class="pStat">'+esc(S.friend.name)+' bildirimleri açmamış. Destek gönderirsen ona ulaşmaz.</div>':'')+
       (!S.push.on?'<div class="pStat">Onun zor anlarından haber almak için Ayarlar\'dan bildirimleri aç.</div>':'');
-    $('frSup').onclick=friendSupport;if($('frCheer'))$('frCheer').onclick=()=>openSupport('cheer');
+    $('frSup').onclick=friendSupport;if($('frMedB'))$('frMedB').onclick=()=>openSupport('medal');if($('frCheer'))$('frCheer').onclick=()=>openSupport('cheer');
   }
 }
 function renderFriendBox(force){
@@ -3137,7 +3268,7 @@ $('wipe').onclick=async()=>{if(confirm('Tüm kayıt silinecek ve kurulum ekranı
     // kurulumu bitmiş biri bu notu görmediyse güncelleme gelmiş demektir (yeni kurulum finish() içinde işaretlenir)
     if(S.seenVer!==SURUM_NOTU.v){S.seenVer=SURUM_NOTU.v;DB.set(S);setTimeout(()=>showUndo(SURUM_NOTU.t,null,'Tamam'),1800)}
   }
-  setInterval(()=>{if(!S.onboarded)return;render();if(lungRig)lungRig.kick();if(S.friend.on||S.friend.invite){friendFetch(false);renderFriendUI()}},1000);
+  setInterval(()=>{if(!S.onboarded)return;render();if(lungRig)lungRig.kick();if(Date.now()-mcAt>5000){mcAt=Date.now();medalCheck()}if(S.friend.on||S.friend.invite){friendFetch(false);renderFriendUI()}},1000);
   // arka plana giderken son bakış anını kaydet, geri gelince aradan beri olanı canlandır
   document.addEventListener('visibilitychange',()=>{
     if(!S.onboarded)return;
