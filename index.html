@@ -751,9 +751,11 @@ details.msd p.msSrc{font-size:11px;color:var(--muted);opacity:1;margin-top:6px}
 .lobe{stroke:rgba(60,20,24,.18);stroke-width:.7}
 .lapse{margin-top:2px}
 .lpBar{position:relative;height:6px;border-radius:6px;background:var(--track);margin:6px 4px 0}
-.lpBar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--air);transition:width 1s linear}
+.lpBar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:var(--air);transition:width .25s linear}
+#lungSvg.fast .lobe{transition:fill .4s linear}
+#lungSvg.fast .tar{transition:opacity .4s linear,transform .4s linear}
 .lpBar .lpTick{position:absolute;top:-3px;width:2px;height:12px;margin-left:-1px;border-radius:2px;background:var(--muted)}
-.lpBar b{position:absolute;top:-5px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--surface);border:3px solid var(--air);box-sizing:border-box;transition:left 1s linear}
+.lpBar b{position:absolute;top:-5px;width:16px;height:16px;margin-left:-8px;border-radius:50%;background:var(--surface);border:3px solid var(--air);box-sizing:border-box;transition:left .25s linear}
 .lapse.pv .lpBar i{background:var(--ember)} .lapse.pv .lpBar b{border-color:var(--ember)}
 .lpRow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;font-size:12px;color:var(--muted);min-height:26px}
 .lpRow span{flex:1;min-width:0;line-height:1.35}
@@ -1957,9 +1959,9 @@ function applyTheme(){const t=S.theme||'sistem',d=t==='koyu'||(t==='sistem'&&dar
   if(was!==document.documentElement.dataset.theme){roadKey='';if(typeof G2!=='undefined'&&G2.tiles)G2.tiles.forEach(g2Paint);
     if($('prog')&&$('prog').classList.contains('on'))renderProgress(true)}}
 if(darkMQ.addEventListener)darkMQ.addEventListener('change',applyTheme);
-/* v20: akciğer zaman akışı. Açılışta bırakış gününden bugüne 45 saniyede temizlenir, sonra gerçek hızla sürer.
+/* v20: akciğer zaman akışı. Açılışta bırakış gününden bugüne 15 saniyede temizlenir, sonra gerçek hızla sürer.
    "İleriyi önizle" önündeki haftayı oynatır. Uygulamadan çıkıp girince gerçek duruma döner. */
-const LAPSE_MS=45000,PREV_MS=45000,PREV_D=7;
+const LAPSE_MS=15000,PREV_MS=45000,PREV_D=7;
 let lapse={mode:'real',t0:0};
 function lapseOn(){return S.lungLapse!==false&&!reduceMotion()}
 function lungDays(p){if(p<=0)return 0;for(let i=1;i<LUNG_ANCHORS.length;i++){const [d0,p0]=LUNG_ANCHORS[i-1],[d1,p1]=LUNG_ANCHORS[i];if(p<=p1)return d0+(d1-d0)*(p-p0)/(p1-p0)}return LUNG_ANCHORS[LUNG_ANCHORS.length-1][0]}
@@ -1971,10 +1973,11 @@ function lapseDays(){const r=realDays(),pr=lungProgress(r);
   if(lapse.mode==='replay'){const k=(Date.now()-lapse.t0)/LAPSE_MS;if(k>=1){lapse.mode='real';return r}return lungDays(pr*Math.max(0,k))}
   if(lapse.mode==='preview'){const k=Math.min(1,(Date.now()-lapse.t0)/PREV_MS),pf=lungProgress(r+PREV_D);return lungDays(pr+(pf-pr)*eio(k))}
   return r}
+setInterval(()=>{if(lapse.mode==='real'||introRunning||!S.onboarded||document.hidden)return;const h=document.querySelector('.hero[data-pg="bugun"]');if(!h||!h.classList.contains('on'))return;const vd=lapseDays();updateLung(vd);renderLapse(vd)},250);
 function renderLapse(vd){const box=$('lapse');if(!box)return;const r=realDays(),span=r+PREV_D,pv=lapse.mode==='preview';
   const pos=Math.min(100,vd/span*100),rp=r/span*100;
   $('lpFill').style.width=pos.toFixed(2)+'%';$('lpKnob').style.left=pos.toFixed(2)+'%';$('lpTick').style.left=rp.toFixed(2)+'%';
-  box.classList.toggle('pv',pv);document.querySelector('.lungPct').classList.toggle('pv',pv);
+  box.classList.toggle('pv',pv);$('lungSvg').classList.toggle('fast',lapse.mode!=='real');document.querySelector('.lungPct').classList.toggle('pv',pv);
   const p=Math.floor(lungProgress(vd)*100),b=$('lpBtn');
   if(lapse.mode==='replay'){$('lpTxt').innerHTML='Bırakış gününden bugüne temizleniyor · <b>%'+p+'</b>';b.textContent='Bugüne atla';b.hidden=false}
   else if(pv){const k=Math.min(1,(Date.now()-lapse.t0)/PREV_MS);$('lpTxt').innerHTML='<b>Önizleme</b> · '+(k<1?'önündeki hafta oynuyor':'1 hafta sonra böyle olacak')+' · %'+p;b.textContent='Bugüne dön';b.hidden=false}
