@@ -1957,9 +1957,9 @@ function applyTheme(){const t=S.theme||'sistem',d=t==='koyu'||(t==='sistem'&&dar
   if(was!==document.documentElement.dataset.theme){roadKey='';if(typeof G2!=='undefined'&&G2.tiles)G2.tiles.forEach(g2Paint);
     if($('prog')&&$('prog').classList.contains('on'))renderProgress(true)}}
 if(darkMQ.addEventListener)darkMQ.addEventListener('change',applyTheme);
-/* v20: akciğer zaman akışı. Açılışta bırakış gününden bugüne 3,5 dakikada temizlenir, sonra gerçek hızla sürer.
+/* v20: akciğer zaman akışı. Açılışta bırakış gününden bugüne 45 saniyede temizlenir, sonra gerçek hızla sürer.
    "İleriyi önizle" önündeki haftayı oynatır. Uygulamadan çıkıp girince gerçek duruma döner. */
-const LAPSE_MS=210000,PREV_MS=45000,PREV_D=7;
+const LAPSE_MS=45000,PREV_MS=45000,PREV_D=7;
 let lapse={mode:'real',t0:0};
 function lapseOn(){return S.lungLapse!==false&&!reduceMotion()}
 function lungDays(p){if(p<=0)return 0;for(let i=1;i<LUNG_ANCHORS.length;i++){const [d0,p0]=LUNG_ANCHORS[i-1],[d1,p1]=LUNG_ANCHORS[i];if(p<=p1)return d0+(d1-d0)*(p-p0)/(p1-p0)}return LUNG_ANCHORS[LUNG_ANCHORS.length-1][0]}
