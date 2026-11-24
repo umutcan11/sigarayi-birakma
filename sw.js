@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v18';
+const SURUM = 'nefes-v19';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Rozetler renkli madalyalara dönüştü, İlerleme sekmesinde madalya yolun var. Kriz ekranında oyun 2048 oldu, destek paneli yenilendi.';
+const NOT = 'Yeni görünüm: açık ve koyu tema, büyük akciğer ve zaman akışı, Vücut sekmesinde şu an süren değişimler, ortak kumbara.';
 
 const KABUK = [
   './',
