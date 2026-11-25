@@ -192,6 +192,9 @@ section{margin-bottom:32px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .tag{padding:9px 14px;border:1px solid var(--line);border-radius:100px;font-size:13px;color:var(--muted)}
 .tag.on{border-color:var(--air);color:var(--air);background:rgba(var(--airA),.1)}
+.tagTxt{display:block;width:100%;box-sizing:border-box;margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:transparent;color:var(--bone);font:inherit;font-size:16px;letter-spacing:normal}
+.tagTxt:focus{outline:none;border-color:var(--air)}
+.tagNote{margin-top:7px;font-size:12px;letter-spacing:normal;color:var(--sub);text-align:center}
 .dots5{display:flex;gap:9px;justify-content:center;margin-top:6px}
 .dots5 button{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);font-family:var(--mono);font-size:14px;color:var(--muted)}
 .dots5 button.on{border-color:var(--air);background:var(--air);color:var(--onair);font-weight:700}
@@ -1146,6 +1149,8 @@ html[data-theme="dark"] .sI.b{background:rgba(125,189,235,.14);color:#7DBDEB}
     <div class="tagwrap">
       <div class="tt">Bu kriz neyle geldi?</div>
       <div class="tags" id="tagList"></div>
+      <input class="tagTxt" id="tagTxt" maxlength="60" autocomplete="off" enterkeyhint="done" placeholder="Kendi cümlenle yaz (isteğe bağlı)" aria-label="Krizin sebebi">
+      <div class="tagNote" id="tagNote" hidden></div>
     </div>
     <div class="tagwrap">
       <div class="tt">Ne kadar şiddetliydi?</div>
@@ -1166,7 +1171,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v21',t:'Yeni simgeler ve profil: Ayarlar sekmesinin en üstündeki kartta fotoğrafını, adını ve yaşını ekleyebilirsin, yaşına göre kazancını gösterir.'};
+const SURUM_NOTU={v:'v23',t:'Krizin sonunda sebebini kendi cümlenle yazabilirsin. Coda artık bildirimde krizin ne kadar sürdüğünü, şiddetini ve sebebini görüyor.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
@@ -2129,6 +2134,10 @@ function fmtMs(ms){const s=Math.round(ms/1000),m=Math.floor(s/60),r=s%60;return 
 function craveSub(){const t=craveTypical();
   return t?'Senin krizlerin genelde '+fmtMs(t.m)+' içinde geçiyor ('+t.n+' kriz). Bu da geçecek, sen sadece nefesi takip et.'
           :'İstek dalga gibidir, birkaç dakikada söner. Sen sadece nefesi takip et, gerisini zaman halleder.'}
+// Kriz başlarken arkadaşa giden tahmin: kişisel ortanca süre ve son krizlerin ortalama şiddeti (en az 3 kayıt)
+function crisisStats(){const t=craveTypical(),o={};if(t)o.typDur=Math.round(t.m);
+  const iv=S.log.filter(l=>l.type==='won'&&l.intensity).slice(0,20).map(l=>l.intensity);
+  if(t&&iv.length>=3)o.typInt=Math.round(iv.reduce((a,b)=>a+b,0)/iv.length*10)/10;return o}
 function startCrave(){
   $('veil').classList.add('open');$('acts').style.display='none';
   $('tagStep').style.display='none';$('slipStep').style.display='none';
@@ -2137,7 +2146,7 @@ function startCrave(){
   $('frNote').textContent='';$('frNote').classList.remove('msg');
   crisisAt0=Date.now();
   {const F=S.friend,on=F.on&&F.name;$('tabYaz').textContent=on?F.name.slice(0,10):'Yaz';$('toFr').hidden=!on;if(on)$('toFr').textContent=dat(F.name)+' ulaş'}
-  friendPing('crisis').then(pingNote);wakeOn();
+  friendPing('crisis',undefined,crisisStats()).then(pingNote);wakeOn();
   // Arkadaşın kriz sırasında mesaj gönderirse burada görünsün
   clearInterval(cmPollT);cmPollT=S.friend.on?setInterval(()=>friendFetch(true).then(showFriendMsg),15000):null;
   endAt=Date.now()+240000;breathI=0;moveReset();
@@ -2278,7 +2287,8 @@ function drawTagStep(){
 }
 $('passed').onclick=()=>{
   breathStop();clearInterval(tick);moveStop();gamePause();
-  pickTrigger=null;pickInt=null;
+  pickTrigger=null;pickInt=null;$('tagTxt').value='';
+  {const F=S.friend,on=F.on&&F.notify!==false&&F.name;$('tagNote').hidden=!on;if(on)$('tagNote').textContent='Süre, şiddet ve sebep '+dat(F.name)+' gider'}
   cmPanes(false);$('acts').style.display='none';
   $('tagStep').style.display='block';drawTagStep();
 };
@@ -2286,7 +2296,8 @@ $('tagSave').onclick=async()=>{
   const e={at:Date.now(),type:'won',method:cmMode};if(crisisAt0)e.dur=Date.now()-crisisAt0;
   if(pickTrigger)e.trigger=pickTrigger;
   if(pickInt)e.intensity=pickInt;
-  S.log.unshift(e);friendPing('won');
+  {const r=$('tagTxt').value.replace(/\s+/g,' ').trim().slice(0,60);if(r)e.reason=r}
+  S.log.unshift(e);friendPing('won',undefined,{dur:e.dur,intensity:e.intensity,trigger:e.trigger,reason:e.reason});
   $('tagStep').style.display='none';
   stopCrave();await save();
 };
@@ -2710,7 +2721,7 @@ function renderSettings(force){
   $('log').hidden=!showLog;
   if(showLog)$('log').innerHTML=S.log.slice(0,60).map((l,i)=>{
     const t=new Date(l.at).toLocaleString('tr-TR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-    const det=l.type==='won'?[l.trigger,l.intensity?l.intensity+'/5':null].filter(Boolean).join(' · '):'';
+    const det=l.type==='won'?[l.trigger,l.reason,l.intensity?l.intensity+'/5':null,l.dur>=1e3?fmtMs(l.dur):null].filter(Boolean).join(' · '):'';
     return '<li><span class="when">'+t+'</span><span class="what '+(l.type==='won'?'won':'fell')+'">'+
       (l.type==='won'?'Kriz atlatıldı':l.type==='slip'?'Bir sigara içildi, seri sürdü':'Sayaç sıfırlandı')+(det?'<br><small>'+esc(det)+'</small>':'')+'</span>'+
       (l.type!=='reset'?'<button class="del" data-at="'+l.at+'" aria-label="Bu kaydı sil">×</button>':'')+'</li>';
@@ -3309,7 +3320,7 @@ async function friendFetch(force){
     catch(e){r=await fetch(WORKER_URL+'friend?id='+S.devId,{cache:'no-store'})}const j=await r.json();
     if(!j.ok)return;
     if(j.friend){const was=S.friend.on,pS=S.friend.supportAt||0,pC=S.friend.cheerAt||0;Object.assign(S.friend,{on:true,name:j.friend.name,quitAt:j.friend.quitAt,crisisAt:j.friend.crisisAt,wonAt:j.friend.wonAt,supportAt:j.friend.supportAt,
-        supportText:j.friend.supportText||'',cheerAt:j.friend.cheerAt||0,cheerText:j.friend.cheerText||'',daily:+j.friend.daily||0,push:j.friend.push,invite:'',err:'',missAt:0});
+        supportText:j.friend.supportText||'',cheerAt:j.friend.cheerAt||0,cheerText:j.friend.cheerText||'',wonInfo:j.friend.wonInfo||null,daily:+j.friend.daily||0,push:j.friend.push,invite:'',err:'',missAt:0});
       if(j.friend.supportText&&j.friend.supportAt>pS)msgLog('in',j.friend.supportText,j.friend.supportAt);
       if(j.friend.cheerText&&j.friend.cheerAt>pC)msgLog('in',j.friend.cheerText,j.friend.cheerAt);
       if(!was){toast(j.friend.name+' ile bağlandınız');syncDevice(true)}}
@@ -3346,10 +3357,10 @@ async function friendLeave(){
   Object.assign(S.friend,{on:false,name:'',quitAt:0,crisisAt:0,wonAt:0,supportAt:0,invite:'',err:''});
   await DB.set(S);renderFriendUI();renderFriendBox(true);
 }
-async function friendPing(kind,text){
+async function friendPing(kind,text,extra){
   if(!S.friend.on||!navigator.onLine)return null;
   if((kind==='crisis'||kind==='won')&&!S.friend.notify)return null;
-  try{return await postJSON('friend/ping',{id:S.devId,kind,text:text||undefined})}catch(e){return null}
+  try{return await postJSON('friend/ping',Object.assign({id:S.devId,kind,text:text||undefined},extra||{}))}catch(e){return null}
 }
 /* ---------- Destek ve tebrik mesajları ---------- */
 // Sevgiliye/arkadaşa gidecek hazır mesajlar. Kişisel olanlar onun gün sayısını ve birikimini kullanır.
@@ -3386,13 +3397,15 @@ function supportMsgs(kind){
     'Seni seviyorum. Sigarasız hâlini daha da çok.',
     'Akşam ödülün benden. Yeter ki şimdi dayan.'].filter(Boolean);
 }
+function wonInfoTxt(w){if(!w)return'';
+  return esc([w.dur?fmtMs(w.dur):'',w.intensity?'şiddet '+w.intensity+'/5':'',w.trigger&&w.trigger!=='Sebepsiz'?w.trigger:'',w.reason].filter(Boolean).map(x=>' · '+x).join(''))}
 let shKind='support';
 function openSupport(kind){
   const F=S.friend;if(!F.on)return;shKind=kind;
   $('shT').textContent=kind==='medal'?acc(F.name)+' kutla':dat(F.name)+(kind==='support'?' destek gönder':' tebrik gönder');
   const fm=frMedal();
   const stx=kind==='medal'&&fm?'<b class="good">'+esc(fm.t[2])+' madalyasını aldı</b>'
-    :kind==='cheer'&&F.wonAt?'<b class="good">Krizi atlattı</b> · '+niceDate(F.wonAt).split(' ')[1]:frStatus();
+    :kind==='cheer'&&F.wonAt?'<b class="good">Krizi atlattı</b> · '+niceDate(F.wonAt).split(' ')[1]+wonInfoTxt(F.wonInfo):frStatus();
   $('shSt').innerHTML=(fm?medal({code:fm.t[1],group:'Süre',tier:fm.t[3],ok:true},30):'')+'<div><b>'+esc(F.name)+' · '+gunTxt(frDays())+'</b><span>'+stx+'</span></div>';
   const Q=kind!=='support'?['Helal olsun!','Gurur duyuyorum','Seni seviyorum','Harikasın']
     :frInCrisis()?['Yanındayım','Nefes al, geçecek','Seni seviyorum','Başaracaksın']:['Seni düşünüyorum','Gurur duyuyorum','Seni seviyorum','Harika gidiyorsun'];
