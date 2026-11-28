@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v25';
+const SURUM = 'nefes-v26';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Destek mesajları karıştırıldı, sevgi mesajları artık listenin üst sıralarında.';
+const NOT = 'Nefes artık yeni bir simgeye sahip: içinden filiz çıkan yeşil akciğer.';
 
 const KABUK = [
   './',
@@ -28,6 +28,7 @@ const KABUK = [
   './icons/icon-72.png',
   './icons/icon-96.png',
   './icons/icon-144.png',
+  './icons/icon-180.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/icon-512-maskable.png',

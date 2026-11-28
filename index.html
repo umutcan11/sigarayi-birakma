@@ -10,7 +10,7 @@
 <script>(function(){try{var s=JSON.parse(localStorage.getItem("nefes")||"{}"),t=s.theme||"sistem",d=t==="koyu"||(t==="sistem"&&matchMedia("(prefers-color-scheme: dark)").matches);document.documentElement.dataset.theme=d?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}})()</script>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
 <title>Nefes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1171,7 +1171,7 @@ const D=86400,H=3600,Y=365*D;
 // Veri servisi sabit: kendi Cloudflare Worker'ın. Ayarlardan girilmez.
 const WORKER_URL='https://sigara-birakma.utkun.workers.dev/';
 // Sürüm notu: sw.js'teki NOT ile aynı. Güncellemeden sonraki ilk açılışta bir kez gösterilir.
-const SURUM_NOTU={v:'v24',t:'Destek ve tebrik ekranında 41 yeni mesaj var. Bir kısmı krizin saatine, süresine ve sebebine göre kendiliğinden değişiyor.'};
+const SURUM_NOTU={v:'v26',t:'Yeni simge hazır: içinden filiz çıkan yeşil akciğer. Ana ekranda görmek için uygulamayı ana ekrandan silip Safari ile yeniden ekle. Önce verilerini buluta yedekle.'};
 const AUTO_DEFAULTS={
   everyDays:7,
   hour:9,
