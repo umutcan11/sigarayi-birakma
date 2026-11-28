@@ -15,10 +15,10 @@
  * SÜRÜM NUMARASI: nefes.html'i her güncellediğinde bu sayıyı artır.
  * Artırmazsan telefonlar eski sürümü göstermeye devam edebilir.
  */
-const SURUM = 'nefes-v24';
+const SURUM = 'nefes-v25';
 // Sürüm notu: worker bu satırı okuyup abonelere "Nefes güncellendi" bildirimi
 // gönderiyor. Her güncellemede SURUM'u artır ve buraya kısa bir not yaz.
-const NOT = 'Birbirinize gönderebileceğiniz 41 yeni destek ve sevgi mesajı geldi.';
+const NOT = 'Destek mesajları karıştırıldı, sevgi mesajları artık listenin üst sıralarında.';
 
 const KABUK = [
   './',
